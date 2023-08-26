@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonUiModule } from 'projects/common-ui/src/public-api';
+import { CommonUiModule } from 'projects/common-ui/src';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
