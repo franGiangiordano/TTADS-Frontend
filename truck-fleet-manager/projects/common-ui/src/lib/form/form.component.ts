@@ -1,18 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
-interface FormField {
-  [fieldName: string]: [string, Validators[]];
-}
+import { FormField } from 'src/app/models/form-field.model';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-
-
 
 export class FormComponent {
 
@@ -23,8 +17,7 @@ export class FormComponent {
   @Output() formSubmit = new EventEmitter<FormGroup>();
   @Output() formEdit = new EventEmitter<FormGroup>();
 
-  entityForm!: FormGroup;
-  
+  entityForm!: FormGroup;  
 
   constructor(private formBuilder: FormBuilder) {}
 
