@@ -1,2 +1,24 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Para mensajes de éxito */
+.success-snackbar {
+    background-color: green; 
+    color: white;
+  }
+  
+  /* Para mensajes de error */
+  .mat-mdc-snack {
+    background-color: red;
+    color: white;
+  }
+
+
+  .success-snackbar{
+    --mdc-snackbar-container-color: green;
+    --mat-mdc-snack-bar-button-color: white;
+  }
+
+  .error-snackbar {
+    --mdc-snackbar-container-color: red;
+    --mat-mdc-snack-bar-button-color: white;
+  }
