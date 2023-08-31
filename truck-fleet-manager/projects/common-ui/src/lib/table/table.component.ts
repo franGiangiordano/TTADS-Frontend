@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input,Output } from '@angular/core';
+import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
 
 @Component({
   selector: 'fm-table',
@@ -25,7 +26,7 @@ export class TableComponent {
   }
 
   deleteItem(item: any) {
-    const confirmDelete = confirm('¿Estás seguro de que quieres eliminar el elemento?');
+    const confirmDelete = confirm(DELETE_CONFIRMATION_MESSAGE);
     if (confirmDelete){
       this.delete.emit(item);
     }    

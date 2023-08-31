@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormField } from 'src/app/models/form-field.model';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'fm-form',
@@ -26,15 +25,16 @@ export class FormComponent {
   }
 
   createForm(): void {
-    const formGroupConfig: FormField = {};
+    this.entityForm = new FormGroup({});
     this.fields.forEach(field => {
-      formGroupConfig[field] = ['', [Validators.required]];
-    });
-    this.entityForm = this.formBuilder.group(formGroupConfig);
-    this.formEdit.emit(this.entityForm);
+      this.entityForm?.addControl(field, new FormControl('', 
+      [Validators.required])
+      );
+    });      
+    this.formEdit.emit(this.entityForm);    
   }
 
-  onSave(){        
+  onSave(){     
     this.formSubmit.emit(this.entityForm);
    }
 }

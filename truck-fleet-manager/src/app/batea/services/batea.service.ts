@@ -5,12 +5,10 @@ import { throwError } from 'rxjs';
 import { Batea } from '../models/batea';
 import {environment} from '../../../enviroments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class BateaService {
-
 
   selectedBatea: Batea;
   bateas: Batea[] = [];
@@ -25,7 +23,7 @@ export class BateaService {
       : number, totalBateas: number}>(this.apiUrl + '/?page=' + page + '&limit=' + limit);   
   }
 
-  postBateas(batea: Batea){
+  postBateas(batea: Batea){    
     return this.http.post(this.apiUrl, batea).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => error.error.error); 
@@ -33,7 +31,7 @@ export class BateaService {
     );
   }
 
-  putBateas(selectedBatea: Batea) {
+  putBateas(selectedBatea: Batea) {    
     return this.http.put(this.apiUrl + '/' + selectedBatea._id , selectedBatea).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => error.error.error); 
@@ -48,5 +46,4 @@ export class BateaService {
       })
     );
   }
-
 }

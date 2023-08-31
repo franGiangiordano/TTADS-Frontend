@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: 'bateas', loadChildren: () => import('./batea/batea.module').then(x => x.BateaModule) },
-  {path: '**', component: AppComponent}
+  { path: '**', component: AppComponent }
 ];
 
 @NgModule({

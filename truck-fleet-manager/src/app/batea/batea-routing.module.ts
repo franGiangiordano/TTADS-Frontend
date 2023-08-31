@@ -6,7 +6,6 @@ const routes: Routes = [
   { path: '', component: BateaComponent } 
 ];
 
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

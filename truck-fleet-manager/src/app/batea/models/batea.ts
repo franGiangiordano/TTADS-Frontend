@@ -3,8 +3,6 @@ export class Batea {
       this._id = _id;
       this.patent = patent;      
     }
-  
     _id: string;
-    patent: string;
-  
+    patent: string;  
   }

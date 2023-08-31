@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { tap, catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
-import { Batea } from '../../models/batea';
+import { PageEvent } from '@angular/material/paginator';
 import { BateaService } from '../../services/batea.service';
 import { NotificationService } from '../../../utils/notification.service';
-import { PageEvent } from '@angular/material/paginator';
-
-
+import { Batea } from '../../models/batea';
 
 @Component({
   selector: 'app-batea-component',
@@ -39,13 +37,10 @@ export class BateaComponent  implements OnInit {
   }
 
   postBatea(event: FormGroup): void {
-
-    const nuevaBatea: Batea = { _id: '', patent: event.value.patente };
-  
+    const nuevaBatea: Batea = { _id: '', patent: event.value.patente };    
     this.bateaService.postBateas(nuevaBatea).pipe(
       tap(() => {
-       this.notificationService.showSnackbar(`Se añadió la patente: ${nuevaBatea.patent}`, 'success');
-        
+       this.notificationService.showSnackbar(`Se añadió la patente: ${nuevaBatea.patent}`, 'success');        
         event.reset();
       }),
       catchError((error: string) => {
@@ -100,15 +95,15 @@ export class BateaComponent  implements OnInit {
     this.bateaForm.get('patente')?.setValue(event.patent);
   }
 
-  onSubmit(event: FormGroup): void {    
-    this.bateaForm=event;
-    if (event.valid) {  
-      if(!this.editMode){
-        this.postBatea(event)
-      }else{
-        this.putBatea(event)
-      }
-    }
+  onSubmit(event: FormGroup): void {        
+     this.bateaForm=event;
+     if (event.valid) {  
+       if(!this.editMode){
+         this.postBatea(event)
+       }else{
+         this.putBatea(event)
+       }
+     }
   } 
 
   onPageChange(event: PageEvent): void {

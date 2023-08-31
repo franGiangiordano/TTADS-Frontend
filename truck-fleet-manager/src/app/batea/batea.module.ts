@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { CommonUiModule } from '../../../projects/common-ui/src';
 import { BateaRoutingModule } from './batea-routing.module';
-import { BateaComponent} from './components/batea-component/batea.component';
+import { BateaComponent } from './components/batea-component/batea.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +19,7 @@ import { BateaComponent} from './components/batea-component/batea.component';
     MatPaginatorModule,
     HttpClientModule,
     MatSnackBarModule,
-    CommonUiModule 
+    CommonUiModule
   ]
 })
-export class BateaModule { 
-
-}
+export class BateaModule { }
