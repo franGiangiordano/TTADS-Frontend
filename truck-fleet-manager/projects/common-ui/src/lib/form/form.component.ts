@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormField } from 'src/app/models/form-field.model';
 
 @Component({
-  selector: 'app-form',
+  selector: 'fm-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
@@ -35,7 +35,6 @@ export class FormComponent {
   }
 
   onSave(){        
-    this.formSubmit.emit(this.entityForm); // Emitir el formulario cuando está listo   
-    this.entityForm.reset();
+    this.formSubmit.emit(this.entityForm);
    }
 }

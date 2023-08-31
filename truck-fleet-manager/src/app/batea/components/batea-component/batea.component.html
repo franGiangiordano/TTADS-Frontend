@@ -1,13 +1,13 @@
 <h1>Gestión de Bateas</h1>
 
- <app-form [entityName]="'Batea'" [fields]="['patente']" [editMode]="editMode" (formSubmit)="onSubmit($event)" (formEdit)="setbateaForm($event)" ></app-form>
+ <fm-form [entityName]="'Batea'" [fields]="['patente']" [editMode]="editMode" (formSubmit)="onSubmit($event)" (formEdit)="setbateaForm($event)" ></fm-form>
 
- <app-table
+ <fm-table
   [data]="this.bateaService.bateas"
   [columns]="['patent']"
   (edit)="editBatea($event)"
   (delete)="deleteBatea($event)"
-></app-table>
+></fm-table>
 
 <mat-paginator
   [length]="this.totalItems"
