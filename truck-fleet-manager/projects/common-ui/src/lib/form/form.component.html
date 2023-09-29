@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-title>Añadir Batea</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="entityForm" (ngSubmit)="onSave()">
+        <ng-container *ngFor="let field of fields">
+            <mat-form-field>
+            <mat-label>{{field}}</mat-label>
+            <input matInput [formControlName]="field" [placeholder]="'Ingrese ' + field">
+            </mat-form-field>
+         </ng-container>
+        <br>
+        <button mat-raised-button color="primary" type="submit">{{ editMode ? 'Editar' : 'Añadir' }}</button>
+      </form>
+    </mat-card-content>
+  </mat-card>

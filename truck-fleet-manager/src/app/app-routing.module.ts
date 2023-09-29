@@ -4,6 +4,8 @@ import { LoginHomeComponent } from 'projects/app-login/src';
 
 const routes: Routes = [
   { path: 'login', component: LoginHomeComponent },
+  { path: 'bateas', loadChildren: () => import('./batea/batea.module').then(x => x.BateaModule) },
+  { path: '**', component: AppComponent }
 ];
 
 @NgModule({
