@@ -4,6 +4,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "app-login": [
+        "dist/app-login"
+      ],
       "common-ui": [
         "dist/common-ui"
       ]
