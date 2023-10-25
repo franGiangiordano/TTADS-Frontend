@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input,Output } from '@angular/core';
+import { Component, EventEmitter, Input,OnChanges,Output, SimpleChanges } from '@angular/core';
 import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
 
 @Component({
@@ -7,16 +7,24 @@ import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
   styleUrls: ['./table.component.scss']
 })
 
-export class TableComponent {
+export class TableComponent implements OnChanges {
  
-  @Input() data: any[] = [];
+  @Input() data: any[] = [];  
   @Input() columns: string[] = [];
 
+  filteredData: any[] = [];
+  search: string = '';
   displayedColumns: string[] = [];
 
   ngOnInit(): void {
     this.displayedColumns = [...this.columns, 'actions'];
   }  
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && changes['data'].currentValue) {      
+      this.filteredData = changes['data'].currentValue;
+    }
+  }
 
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
@@ -31,4 +39,11 @@ export class TableComponent {
       this.delete.emit(item);
     }    
   }
+
+  filterData() {
+    this.filteredData = this.data.filter((row) => {
+      return row.patent.toLowerCase().includes(this.search.toLowerCase());
+    });
+  }
+  
 }

@@ -1,8 +1,16 @@
 <div class="container">
-  <div *ngIf="!data.length">
+  
+  <div class="search-container">
+    <div class="search"> 
+      <mat-icon class="icon">search</mat-icon>
+      <input type="text" placeholder="Buscar..." (keyup)="filterData()" [(ngModel)]="search" id="search">  
+    </div>     
+  </div>
+
+  <div *ngIf="!filteredData.length">
     <p style="text-align: center;">No hay registros para mostrar</p>
   </div>  
-  <table *ngIf="data.length" mat-table [dataSource]="data" class="mat-elevation-z8">
+  <table *ngIf="filteredData.length" mat-table [dataSource]="filteredData" class="mat-elevation-z8">
     <ng-container *ngFor="let column of columns" [matColumnDef]="column">
       <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
       <td mat-cell *matCellDef="let row"> {{ row[column] }} </td>
