@@ -39,3 +39,10 @@ display: flex;
     border: none;
     box-shadow: 0px 1px gray;
 }
+
+@media (max-width:500px) {
+    .icon{
+        color: transparent;
+    }
+    
+}
