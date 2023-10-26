@@ -20,7 +20,7 @@ export class BateaService {
 
   getBateas(page: number = 1, limit: number = 10) {
     return this.http.get<{bateas : Batea[], currentPage: number, totalPages
-      : number, totalBateas: number}>(this.apiUrl + '/?page=' + page + '&limit=' + limit);   
+      : number, totalBateas: number}>(this.apiUrl + '/batea/?page=' + page + '&limit=' + limit);   
   }
 
   postBateas(batea: Batea){    
@@ -32,7 +32,7 @@ export class BateaService {
   }
 
   putBateas(selectedBatea: Batea) {    
-    return this.http.put(this.apiUrl + '/' + selectedBatea._id , selectedBatea).pipe(
+    return this.http.put(this.apiUrl + '/batea/' + selectedBatea._id , selectedBatea).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => error.error.error); 
       })
@@ -40,7 +40,7 @@ export class BateaService {
   }
 
   deleteBateas(batea: Batea){
-    return this.http.delete(this.apiUrl + '/' + batea._id).pipe(
+    return this.http.delete(this.apiUrl + '/batea/' + batea._id).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => error.error.error); 
       })
