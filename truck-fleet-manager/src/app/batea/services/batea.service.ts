@@ -26,7 +26,7 @@ export class BateaService {
   postBateas(batea: Batea){    
     return this.http.post(this.apiUrl, batea).pipe(
       catchError((error: HttpErrorResponse) => {
-        return throwError(() => error.error.error); 
+        return throwError(() => error.error.message); 
       })
     );
   }
@@ -34,7 +34,7 @@ export class BateaService {
   putBateas(selectedBatea: Batea) {    
     return this.http.put(this.apiUrl + '/batea/' + selectedBatea._id , selectedBatea).pipe(
       catchError((error: HttpErrorResponse) => {
-        return throwError(() => error.error.error); 
+        return throwError(() => error.error.message); 
       })
     );
   }
@@ -42,7 +42,7 @@ export class BateaService {
   deleteBateas(batea: Batea){
     return this.http.delete(this.apiUrl + '/batea/' + batea._id).pipe(
       catchError((error: HttpErrorResponse) => {
-        return throwError(() => error.error.error); 
+        return throwError(() => error.error.message); 
       })
     );
   }
