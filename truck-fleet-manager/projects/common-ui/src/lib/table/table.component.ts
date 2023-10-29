@@ -42,8 +42,15 @@ export class TableComponent implements OnChanges {
 
   filterData() {
     this.filteredData = this.data.filter((row) => {
-      return row.patent.toLowerCase().includes(this.search.toLowerCase());
-    });
-  }
+      const propertiesToSearch: string[] = ['name', 'surname', 'patent'];
   
+      return propertiesToSearch.some((property) => {
+        if (row[property]) {
+          return row[property].toLowerCase().includes(this.search.toLowerCase());
+        }
+        return false;
+      });
+    });
+  }  
+
 }
