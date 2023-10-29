@@ -7,6 +7,9 @@
       "app-login": [
         "dist/app-login"
       ],
+      "common": [
+        "dist/common"
+      ],
       "common-ui": [
         "dist/common-ui"
       ]
