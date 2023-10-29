@@ -15,6 +15,7 @@ import { Batea } from '../../models/batea';
 export class BateaComponent  implements OnInit {
   
   editMode = false;
+  formTitle = 'Añadir Batea';
   selectedBatea = new Batea();
 
   pageSize: number = 10;
@@ -91,6 +92,7 @@ export class BateaComponent  implements OnInit {
 
   editBatea(event: Batea): void {
     this.editMode = true;
+    this.formTitle = 'Editar Batea';
     this.selectedBatea = event;
     this.bateaForm.get('patente')?.setValue(event.patent);
   }

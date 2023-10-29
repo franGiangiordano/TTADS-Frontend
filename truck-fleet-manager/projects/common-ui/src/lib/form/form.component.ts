@@ -12,6 +12,8 @@ export class FormComponent {
   @Input() editMode: boolean = false;
   @Input() entityName: string = '';
   @Input() fields: string[] = [];
+  @Input() title: string = '';
+
   
   @Output() formSubmit = new EventEmitter<FormGroup>();
   @Output() formEdit = new EventEmitter<FormGroup>();
