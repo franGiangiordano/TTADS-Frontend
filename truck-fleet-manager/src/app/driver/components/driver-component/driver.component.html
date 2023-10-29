@@ -1,0 +1,18 @@
+<h1>Gestión de choferes</h1>
+
+ <fm-form [entityName]="'Driver'" [fields]="['legajo','name', 'surname']" [editMode]="editMode" (formSubmit)="onSubmit($event)" (formEdit)="setdriverForm($event)" ></fm-form>
+
+ <fm-table
+  [data]="this.driverService.drivers"
+  [columns]="['legajo','name', 'surname']"
+  (edit)="editDriver($event)"
+  (delete)="deleteDriver($event)"
+></fm-table>
+
+<mat-paginator
+  [length]="this.totalItems"
+  [pageSize]="10" 
+  [pageSizeOptions]="[5, 10, 25, 100]" 
+  aria-label="Select page"
+  (page)="onPageChange($event)">
+</mat-paginator>
