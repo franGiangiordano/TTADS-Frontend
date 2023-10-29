@@ -3,8 +3,8 @@ import { tap, catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { BateaService } from '../../services/batea.service';
-import { NotificationService } from '../../../utils/notification.service';
 import { Batea } from '../../models/batea';
+import { NotificationService } from 'projects/common/src';
 
 @Component({
   selector: 'app-batea-component',
