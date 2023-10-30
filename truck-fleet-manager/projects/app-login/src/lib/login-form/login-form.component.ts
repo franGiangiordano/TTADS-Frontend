@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppLoginService } from '../services/app-login.service';
-import { catchError } from 'rxjs/operators';
-import { NotificationService } from '../../../../../src/app/utils/notification.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 import * as CryptoJS from 'crypto-js';
+import { FormsValidationMessages } from 'projects/common/src/models';
+
+import { AppLoginService } from '../services/app-login.service';
+import { UserRoles } from '../models/user.roles.enum';
 
 @Component({
   selector: 'fm-login-form',
@@ -12,51 +15,67 @@ import * as CryptoJS from 'crypto-js';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
-  constructor(private router: Router,private loginService: AppLoginService,private notificationService: NotificationService) { }
+  constructor(private router: Router, private loginService: AppLoginService, private formBuilder: FormBuilder) { }
+
+  validUserRoles = [UserRoles.Admin, UserRoles.Manager, UserRoles.Operative];
 
   helper = new JwtHelperService();
 
-  email!: string;
-  password!: string;
+  form!: FormGroup;
+  passwordVisible = false;
+
   loading = false;
 
   ngOnInit() {
+    this.initializeForm();
+  }
+
+  private initializeForm() {
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    })
   }
 
   handleLogin(): void {
     this.loading = true;
-    const encryptedPassword = CryptoJS.SHA256(this.password).toString();
-    this.loginService.authenticateUser(this.email,encryptedPassword).pipe(     
-      catchError((error: string) => {
-        this.notificationService.showSnackbar(error, 'error');
-        this.loading = false
-        return [];
+
+    const encryptedPassword = CryptoJS.SHA256(this.form.controls['password'].value).toString();
+
+    this.loginService.authenticateUser(this.form.controls['email'].value, encryptedPassword)
+      .subscribe((res: any) => {
+        this.loginService.loginUser(res.token);
+        const decodedToken = this.helper.decodeToken(res.token);
+
+        this.loginService.getUser(decodedToken.id).subscribe((user: any) => {
+          this.loginService.setUser(user);
+        });
+
+        this.loading = false;
+        this.validateRol();
       })
-    ).subscribe((res:any) => {
-      this.loginService.loginUser(res.token)
-      const decodedToken = this.helper.decodeToken(res.token);
-      
-      this.loginService.getUser(decodedToken.id).subscribe((user:any) => {
-        this.loginService.setUser(user);       
-      });
-      this.loading = false;
-      this.validateRol()
-    });
+      .add(() => this.loading = false);
   }
 
-  validateRol():void {
-    let roles: string[] = this.loginService.getUserRole()
+  private validateRol(): void {
+    let roles: UserRoles[] = this.loginService.getUserRole();
 
-    if(roles.includes('admin')){
+    if (roles.some(role => this.validUserRoles.includes(role))) {
       this.router.navigate([]);
-    }else if(roles.includes('manager')){
-      this.router.navigate([]);
-    }else if(roles.includes('operative')){
-      this.router.navigate([]);
-    }else{
+    } else {
       this.loginService.logout();
     }
-    
   }
 
+  getEmailErrorMessage() {
+    if (this.form.controls['email'].hasError('required')) {
+      return FormsValidationMessages.Required;
+    }
+
+    return this.form.controls['email'].hasError('email') ? FormsValidationMessages.InvlaidEmail : '';
+  }
+
+  getPasswordErrorMessage() {
+    return FormsValidationMessages.Required;
+  }
 }
