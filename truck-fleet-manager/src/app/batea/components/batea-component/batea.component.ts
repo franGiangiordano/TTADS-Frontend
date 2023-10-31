@@ -23,7 +23,6 @@ export class BateaComponent implements OnInit {
   totalItems: number = 0;
   bateasList!: Batea[];
 
-  loading = false;
   bateaForm!: FormGroup;
 
   constructor(public bateaService: BateaService, private notificationService: NotificationService) { }
@@ -33,38 +32,36 @@ export class BateaComponent implements OnInit {
   }
 
   doSearch(): void {
-    this.loading = true;
     this.bateaService.getBateas(this.pageIndex, this.pageSize).subscribe({
       next: (res) => {
         this.bateasList = res.bateas;
         this.totalItems = res.totalBateas;
       },
       error: (err) => {
-        console.log(err);
-        this.notificationService.showSnackbar(`Ocurrio un problema, vuelva a intentarlo en un momento.`, 'error')
+        //Modal Error
       }
-    }).add(() => this.loading = false);
+    });
   }
 
-  postBatea(event: FormGroup): void {
-    const nuevaBatea: Batea = { _id: '', patent: event.value.patente };
+  postBatea(form: FormGroup): void {
+    const nuevaBatea: Batea = { _id: '', patent: form.value.patente };
     this.bateaService.postBateas(nuevaBatea)
       .subscribe(() => {
         this.notificationService.showSnackbar(`Se añadió la patente: ${nuevaBatea.patent}`, 'success');
-        event.reset();
+        form.reset();
         this.doSearch();
       });
   }
 
-  putBatea(event: FormGroup): void {
+  putBatea(form: FormGroup): void {
     const nuevaBatea: Batea = {
       _id: this.selectedBatea!._id,
-      patent: event.value.patente
+      patent: form.value.patente
     };
 
     this.bateaService.putBateas(nuevaBatea)
       .subscribe(() => {
-        event.reset();
+        form.reset();
         this.editMode = false;
         this.doSearch();
         this.notificationService.showSnackbar(`Se actualizo la patente a : ${nuevaBatea.patent}`, 'success');
