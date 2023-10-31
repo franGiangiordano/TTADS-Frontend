@@ -1,49 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import { Batea } from '../models/batea';
-import {environment} from '../../../enviroments/environment';
+import { HttpClient } from '@angular/common/http';
+
+import { environment } from '../../../enviroments/environment';
+import { Batea, GetBateasResponse } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BateaService {
-
-  selectedBatea: Batea;
-  bateas: Batea[] = [];
   apiUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { 
-    this.selectedBatea = new Batea();
-  }
+  constructor(private http: HttpClient) { }
 
   getBateas(page: number = 1, limit: number = 10) {
-    return this.http.get<{bateas : Batea[], currentPage: number, totalPages
-      : number, totalBateas: number}>(this.apiUrl + '/batea/?page=' + page + '&limit=' + limit);   
+    return this.http.get<GetBateasResponse>(this.apiUrl + '/batea', { params: { page, limit } });
   }
 
-  postBateas(batea: Batea){    
-    return this.http.post(this.apiUrl, batea).pipe(
-      catchError((error: HttpErrorResponse) => {
-        return throwError(() => error.error.message); 
-      })
-    );
+  postBateas(batea: Batea) {
+    return this.http.post<Batea>(this.apiUrl + '/batea/', batea)
   }
 
-  putBateas(selectedBatea: Batea) {    
-    return this.http.put(this.apiUrl + '/batea/' + selectedBatea._id , selectedBatea).pipe(
-      catchError((error: HttpErrorResponse) => {
-        return throwError(() => error.error.message); 
-      })
-    );
+  putBateas(selectedBatea: Batea) {
+    return this.http.put<Batea>(this.apiUrl + '/batea/' + selectedBatea._id, selectedBatea);
   }
 
-  deleteBateas(batea: Batea){
-    return this.http.delete(this.apiUrl + '/batea/' + batea._id).pipe(
-      catchError((error: HttpErrorResponse) => {
-        return throwError(() => error.error.message); 
-      })
-    );
+  deleteBateas(batea: Batea) {
+    return this.http.delete(this.apiUrl + '/batea/' + batea._id);
   }
 }

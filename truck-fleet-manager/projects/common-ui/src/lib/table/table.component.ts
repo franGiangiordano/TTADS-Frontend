@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input,OnChanges,Output, SimpleChanges } from '@angular/core';
 import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
+import { ColumnDescription } from '../../constants';
 
 @Component({
   selector: 'fm-table',
@@ -46,4 +47,7 @@ export class TableComponent implements OnChanges {
     });
   }
   
+  getColumnHeader(propertyName: string) {
+    return ColumnDescription[propertyName as keyof typeof ColumnDescription];
+  }
 }

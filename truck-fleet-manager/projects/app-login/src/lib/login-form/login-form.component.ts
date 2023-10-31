@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import * as CryptoJS from 'crypto-js';
-import { FormsValidationMessages } from 'projects/common/src/models';
+import { FormsValidationMessages } from 'projects/common/src/constants';
 
 import { AppLoginService } from '../services/app-login.service';
 import { UserRoles } from '../models/user.roles.enum';

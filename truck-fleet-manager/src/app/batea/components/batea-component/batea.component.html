@@ -3,7 +3,7 @@
  <fm-form [entityName]="'Batea'" [fields]="['patente']" [editMode]="editMode" [title]="formTitle" (formSubmit)="onSubmit($event)" (formEdit)="setbateaForm($event)" ></fm-form>
 
  <fm-table
-  [data]="this.bateaService.bateas"
+  [data]="bateasList"
   [columns]="['patent']"
   (edit)="editBatea($event)"
   (delete)="deleteBatea($event)"
