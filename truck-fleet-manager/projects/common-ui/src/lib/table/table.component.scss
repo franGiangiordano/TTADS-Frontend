@@ -20,7 +20,11 @@ display: flex;
             display: flex;
             justify-content: center;
         }
-}  
+}
+
+.hidden {
+    visibility: hidden;
+}
 
 .search{
     position: relative;
