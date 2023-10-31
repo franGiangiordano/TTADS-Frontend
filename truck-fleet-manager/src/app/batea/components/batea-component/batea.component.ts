@@ -3,10 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 
 import { NotificationService } from 'projects/common/src';
+import { Subject } from 'rxjs';
 
 import { BateaService } from '../../services/batea.service';
 import { Batea } from '../../models/batea.model';
-import { Subject, delay } from 'rxjs';
 import { EntityListResponse } from 'projects/common/src/models/entity.list.response';
 
 @Component({
@@ -34,7 +34,7 @@ export class BateaComponent implements OnInit {
   }
 
   doSearch(): void {
-    this.bateaService.getBateas(this.pageIndex, this.pageSize).pipe(delay(1000))
+    this.bateaService.getBateas(this.pageIndex, this.pageSize)
       .subscribe(response => this.bateasList$.next(response));
   }
 
