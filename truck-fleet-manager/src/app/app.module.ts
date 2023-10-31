@@ -14,6 +14,7 @@ import { CommonUiModule } from 'projects/common-ui/src';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -31,11 +32,18 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     MatInputModule,
     MatButtonModule
   ], 
-  providers: [{
+  providers: [
+  {
     provide: HTTP_INTERCEPTORS,
-    useClass: ErrorInterceptor,
+    useClass: ErrorInterceptor,    
     multi: true
-},],
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,    
+    multi: true
+  },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
