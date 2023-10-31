@@ -23,11 +23,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         catchError(
           exception => {
             switch (exception.status) {
-              case HttpStatusCode.BadRequest:
+              default:
                 this.notificationService.showSnackbar(exception.error.message, 'error');
-                break;
-              case HttpStatusCode.NotFound:
-                this.router.navigate(['']);
                 break;
             }
             return of(exception);

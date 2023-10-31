@@ -4,7 +4,7 @@
       <form [formGroup]="entityForm" (ngSubmit)="onSave()">
         <ng-container *ngFor="let field of fields">
             <mat-form-field>
-            <mat-label>{{field}}</mat-label>
+            <mat-label>{{field | titlecase}}</mat-label>
             <input matInput [formControlName]="field" [placeholder]="'Ingrese ' + field">
             </mat-form-field>
          </ng-container>

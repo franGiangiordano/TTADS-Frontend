@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { tap, catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { BateaService } from '../../services/batea.service';
-import { Batea } from '../../models/batea';
+
 import { NotificationService } from 'projects/common/src';
+
+import { BateaService } from '../../services/batea.service';
+import { Batea } from '../../models/batea.model';
 
 @Component({
   selector: 'app-batea-component',
@@ -12,78 +13,67 @@ import { NotificationService } from 'projects/common/src';
   styleUrls: ['./batea.component.scss'],
   providers: [BateaService, NotificationService],
 })
-export class BateaComponent  implements OnInit {
-  
+export class BateaComponent implements OnInit {
   editMode = false;
   formTitle = 'Añadir Batea';
-  selectedBatea = new Batea();
+  selectedBatea?: Batea;
 
   pageSize: number = 10;
   pageIndex: number = 1;
   totalItems: number = 0;
+  bateasList!: Batea[];
 
   bateaForm!: FormGroup;
 
   constructor(public bateaService: BateaService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
-      this.getBateas();
+    this.doSearch();
   }
 
-  getBateas(index?:number, limit?:number): void {
-    this.bateaService.getBateas(index,limit).subscribe((res) => { 
-    this.bateaService.bateas = res.bateas;    
-    this.totalItems = res.totalBateas;
+  doSearch(): void {
+    this.bateaService.getBateas(this.pageIndex, this.pageSize).subscribe({
+      next: (res) => {
+        this.bateasList = res.bateas;
+        this.totalItems = res.totalBateas;
+      },
+      error: (err) => {
+        //Modal Error
+      }
     });
   }
 
-  postBatea(event: FormGroup): void {
-    const nuevaBatea: Batea = { _id: '', patent: event.value.patente };    
-    this.bateaService.postBateas(nuevaBatea).pipe(
-      tap(() => {
-       this.notificationService.showSnackbar(`Se añadió la patente: ${nuevaBatea.patent}`, 'success');        
-        event.reset();
-      }),
-      catchError((error: string) => {
-        this.notificationService.showSnackbar(error, 'error');
-        return [];
-      })
-    ).subscribe(() => {
-      this.getBateas();
-    });
+  postBatea(form: FormGroup): void {
+    const nuevaBatea: Batea = { _id: '', patent: form.value.patente };
+    this.bateaService.postBateas(nuevaBatea)
+      .subscribe(() => {
+        this.notificationService.showSnackbar(`Se añadió la patente: ${nuevaBatea.patent}`, 'success');
+        form.reset();
+        this.doSearch();
+      });
   }
-  
-  putBatea(event: FormGroup):void{    
+
+  putBatea(form: FormGroup): void {
     const nuevaBatea: Batea = {
-      _id: this.selectedBatea._id,
-      patent: event.value.patente
+      _id: this.selectedBatea!._id,
+      patent: form.value.patente
     };
 
-    this.bateaService.putBateas(nuevaBatea).pipe(
-      tap(() => {
-        event.reset();
-      }),
-      catchError((error: string) => {
-        this.notificationService.showSnackbar(error, 'error');
-        return [];
-      })
-    ).subscribe(() => {
-      this.editMode = false;
-      this.getBateas(this.pageIndex,this.pageSize);
-      this.notificationService.showSnackbar(`Se actualizo la patente a : ${nuevaBatea.patent}`, 'success');      
-    });
+    this.bateaService.putBateas(nuevaBatea)
+      .subscribe(() => {
+        form.reset();
+        this.editMode = false;
+        this.doSearch();
+        this.notificationService.showSnackbar(`Se actualizo la patente a : ${nuevaBatea.patent}`, 'success');
+      });
   }
 
   deleteBatea(event: Batea): void {
-    this.bateaService.deleteBateas(event).pipe(
-      tap(() => {
+    this.bateaService.deleteBateas(event)
+      .subscribe(() => {
         this.notificationService.showSnackbar('Elemento eliminado exitosamente', 'success');
-        this.getBateas();
-      }),catchError((error: string) => {
-        this.notificationService.showSnackbar(error, 'error');
-        return [];
-      })
-    ).subscribe();
+        this.doSearch();
+      });
   }
 
   setbateaForm(event: FormGroup): void {
@@ -97,25 +87,24 @@ export class BateaComponent  implements OnInit {
     this.bateaForm.get('patente')?.setValue(event.patent);
   }
 
-  onSubmit(event: FormGroup): void {        
-     this.bateaForm=event;
-     if (event.valid) {  
-       if(!this.editMode){
-         this.postBatea(event)
-       }else{
-         this.putBatea(event)
-       }
-     }
-  } 
+  onSubmit(form: FormGroup): void {
+    this.bateaForm = form;
+    if (form.valid) {
+      if (!this.editMode) {
+        this.postBatea(form);
+      } else {
+        this.putBatea(form);
+      }
+    }
+  }
 
   onPageChange(event: PageEvent): void {
     if (this.pageSize !== event.pageSize) {
       this.pageSize = event.pageSize;
-      this.pageIndex = 1; 
+      this.pageIndex = 1;
     } else {
       this.pageIndex = event.pageIndex + 1;
     }
-    this.getBateas(this.pageIndex,this.pageSize)
+    this.doSearch();
   }
-  
 }
