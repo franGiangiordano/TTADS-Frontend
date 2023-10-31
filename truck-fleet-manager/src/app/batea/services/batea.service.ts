@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { EntityListResponse } from 'projects/common/src/models';
+
 import { environment } from '../../../enviroments/environment';
-import { Batea, GetBateasResponse } from '../models';
+import { Batea } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class BateaService {
   constructor(private http: HttpClient) { }
 
   getBateas(page: number = 1, limit: number = 10) {
-    return this.http.get<GetBateasResponse>(this.apiUrl + '/batea', { params: { page, limit } });
+    return this.http.get<EntityListResponse<Batea>>(this.apiUrl + '/batea', { params: { page, limit } });
   }
 
   postBateas(batea: Batea) {

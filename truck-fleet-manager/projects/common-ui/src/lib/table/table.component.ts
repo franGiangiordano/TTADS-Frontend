@@ -1,34 +1,50 @@
-import { Component, EventEmitter, Input,OnChanges,Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+
+import { Observable } from 'rxjs';
+import { EntityListResponse } from 'projects/common/src/models';
+
 import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
 import { ColumnDescription } from '../../constants';
 
 @Component({
   selector: 'fm-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
-
-export class TableComponent implements OnChanges {
- 
-  @Input() data: any[] = [];  
-  @Input() columns: string[] = [];
-
-  filteredData: any[] = [];
-  search: string = '';
+export class TableComponent implements OnInit {
+  searchText: string = '';
   displayedColumns: string[] = [];
 
-  ngOnInit(): void {
-    this.displayedColumns = [...this.columns, 'actions'];
-  }  
+  loading = false;
+  count!: number;
+  results!: any[];
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['data'] && changes['data'].currentValue) {      
-      this.filteredData = changes['data'].currentValue;
-    }
-  }
+  @Input({ required: true }) data!: Observable<EntityListResponse<any>>;
+  @Input({ required: true }) columns: string[] = [];
 
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+  @Output() search = new EventEmitter<string>();
+  @Output() pageChange = new EventEmitter<PageEvent>();
+
+  ngOnInit(): void {
+    this.displayedColumns = [...this.columns, 'actions'];
+    this.loading = true;
+    this.data.subscribe(response => {
+      this.count = response.count;
+      this.results = response.results;
+      this.loading = false
+    })
+  }
 
   editItem(item: any) {
     this.edit.emit(item);
@@ -36,18 +52,21 @@ export class TableComponent implements OnChanges {
 
   deleteItem(item: any) {
     const confirmDelete = confirm(DELETE_CONFIRMATION_MESSAGE);
-    if (confirmDelete){
+    if (confirmDelete) {
       this.delete.emit(item);
-    }    
+    }
   }
 
   filterData() {
-    this.filteredData = this.data.filter((row) => {
-      return row.patent.toLowerCase().includes(this.search.toLowerCase());
-    });
+    this.search.emit(this.searchText);
   }
-  
+
   getColumnHeader(propertyName: string) {
     return ColumnDescription[propertyName as keyof typeof ColumnDescription];
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageChange.emit(event);
+    this.loading = true;
   }
 }
