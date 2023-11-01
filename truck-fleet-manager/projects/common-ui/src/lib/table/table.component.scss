@@ -14,7 +14,17 @@ display: flex;
   
 .container{
     margin: 3em;
-}  
+    &__spinner {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+}
+
+.hidden {
+    visibility: hidden;
+}
 
 .search{
     position: relative;

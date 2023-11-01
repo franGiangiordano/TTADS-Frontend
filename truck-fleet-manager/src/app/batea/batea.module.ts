@@ -16,7 +16,6 @@ import { BateaComponent } from './components/batea-component/batea.component';
   imports: [
     CommonModule,
     BateaRoutingModule,
-    MatPaginatorModule,
     HttpClientModule,
     MatSnackBarModule,
     CommonUiModule

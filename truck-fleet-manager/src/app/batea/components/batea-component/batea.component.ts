@@ -3,9 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 
 import { NotificationService } from 'projects/common/src';
+import { Subject } from 'rxjs';
 
 import { BateaService } from '../../services/batea.service';
 import { Batea } from '../../models/batea.model';
+import { EntityListResponse } from 'projects/common/src/models/entity.list.response';
 
 @Component({
   selector: 'app-batea-component',
@@ -20,8 +22,8 @@ export class BateaComponent implements OnInit {
 
   pageSize: number = 10;
   pageIndex: number = 1;
-  totalItems: number = 0;
-  bateasList!: Batea[];
+
+  bateasList$ = new Subject<EntityListResponse<Batea>>();
 
   bateaForm!: FormGroup;
 
@@ -32,15 +34,8 @@ export class BateaComponent implements OnInit {
   }
 
   doSearch(): void {
-    this.bateaService.getBateas(this.pageIndex, this.pageSize).subscribe({
-      next: (res) => {
-        this.bateasList = res.bateas;
-        this.totalItems = res.totalBateas;
-      },
-      error: (err) => {
-        //Modal Error
-      }
-    });
+    this.bateaService.getBateas(this.pageIndex, this.pageSize)
+      .subscribe(response => this.bateasList$.next(response));
   }
 
   postBatea(form: FormGroup): void {
@@ -76,8 +71,8 @@ export class BateaComponent implements OnInit {
       });
   }
 
-  setbateaForm(event: FormGroup): void {
-    this.bateaForm = event;
+  setbateaForm(form: FormGroup): void {
+    this.bateaForm = form;
   }
 
   editBatea(event: Batea): void {
