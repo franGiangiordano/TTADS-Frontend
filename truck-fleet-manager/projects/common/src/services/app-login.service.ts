@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { environment } from 'src/enviroments/environment';
 
-import { User } from '../models/user';
+import { User } from '../models';
+import { environment } from '../../../../src/enviroments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AppLoginService {
 
   authenticateUser(email: string, password: string) {
     const credentials = { email, password };
-    
+
     return this.http.post(`${this.apiUrl}/auth/signin`, credentials);
   }
 
