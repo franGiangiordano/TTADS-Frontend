@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BateaServiceService } from './batea.service';
+import { AppLoginService } from './app-login.service';
 
-describe('BateaServiceService', () => {
-  let service: BateaServiceService;
+describe('AppLoginService', () => {
+  let service: AppLoginService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BateaServiceService);
+    service = TestBed.inject(AppLoginService);
   });
 
   it('should be created', () => {

@@ -1,0 +1,1 @@
+export * from './batea-list-component/batea.list.component';

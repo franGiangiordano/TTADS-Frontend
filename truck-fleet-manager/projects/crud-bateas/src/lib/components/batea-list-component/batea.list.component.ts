@@ -2,20 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 
-import { NotificationService } from 'projects/common/src';
+import { EntityListResponse, NotificationService } from 'projects/common/src';
 import { Subject } from 'rxjs';
 
 import { BateaService } from '../../services/batea.service';
 import { Batea } from '../../models/batea.model';
-import { EntityListResponse } from 'projects/common/src/models/entity.list.response';
 
 @Component({
-  selector: 'app-batea-component',
-  templateUrl: './batea.component.html',
-  styleUrls: ['./batea.component.scss'],
+  selector: 'batea-list-component',
+  templateUrl: './batea.list.component.html',
+  styleUrls: ['./batea.list.component.scss'],
   providers: [BateaService, NotificationService],
 })
-export class BateaComponent implements OnInit {
+export class BateaListComponent implements OnInit {
   editMode = false;
   formTitle = 'Añadir Batea';
   selectedBatea?: Batea;

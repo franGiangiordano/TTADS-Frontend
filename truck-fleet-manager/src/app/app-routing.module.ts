@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginHomeComponent } from 'projects/app-login/src';
-
 const routes: Routes = [
   { path: 'login', loadChildren: () => import('app-login').then(x => x.AppLoginModule) },
-  { path: 'bateas', loadChildren: () => import('./batea/batea.module').then(x => x.BateaModule) },
+  { path: 'bateas', loadChildren: () => import('crud-bateas').then(x => x.CRUDBateaModule) },
 ];
 
 @NgModule({
