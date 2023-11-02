@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginHomeComponent } from 'projects/app-login/src';
 
 const routes: Routes = [
-  { path: 'login', component: LoginHomeComponent },
+  { path: 'login', loadChildren: () => import('app-login').then(x => x.AppLoginModule) },
   { path: 'bateas', loadChildren: () => import('./batea/batea.module').then(x => x.BateaModule) },
 ];
 
