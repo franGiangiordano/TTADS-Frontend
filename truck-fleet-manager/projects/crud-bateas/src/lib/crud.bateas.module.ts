@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 
 import { CommonUiModule } from 'projects/common-ui/src';
 
@@ -15,9 +18,12 @@ import { BateaListComponent } from './components/batea-list-component/batea.list
   imports: [
     CommonModule,
     CrudBateasRoutingModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    CommonUiModule
+    CommonUiModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
   ]
 })
 export class CrudBateasModule { }
