@@ -4,6 +4,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "crud-bateas": [
+        "dist/crud-bateas"
+      ],
       "app-login": [
         "dist/app-login"
       ],

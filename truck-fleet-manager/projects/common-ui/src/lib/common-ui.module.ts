@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import {TableComponent} from './table/table.component';
+import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
 
 

@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { EntityListResponse } from 'projects/common/src/models';
 
-import { environment } from '../../../enviroments/environment';
 import { Batea } from '../models';
+import { environment } from '../../../../../src/enviroments/environment';
 
 @Injectable({
   providedIn: 'root'
