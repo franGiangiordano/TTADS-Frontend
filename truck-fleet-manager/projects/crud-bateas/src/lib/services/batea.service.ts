@@ -18,6 +18,10 @@ export class BateaService {
     return this.http.get<EntityListResponse<Batea>>(this.apiUrl + '/batea', { params: { page, limit } });
   }
 
+  getBatea(id:string) {
+    return this.http.get<Batea>(this.apiUrl + '/batea/'+ id);
+  }
+
   postBateas(batea: Batea) {
     return this.http.post<Batea>(this.apiUrl + '/batea/', batea)
   }

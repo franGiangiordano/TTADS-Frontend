@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { EntityListResponse, NotificationService } from 'projects/common/src';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { BateaService } from '../../services/batea.service';
 import { Batea } from '../../models/batea.model';
@@ -26,7 +27,7 @@ export class BateaListComponent implements OnInit {
 
   bateaForm!: FormGroup;
 
-  constructor(public bateaService: BateaService, private notificationService: NotificationService) { }
+  constructor(public bateaService: BateaService, private notificationService: NotificationService,  public router : Router) { }
 
   ngOnInit(): void {
     this.doSearch();
@@ -37,31 +38,6 @@ export class BateaListComponent implements OnInit {
       .subscribe(response => this.bateasList$.next(response));
   }
 
-  postBatea(form: FormGroup): void {
-    const nuevaBatea: Batea = { _id: '', patent: form.value.patente };
-    this.bateaService.postBateas(nuevaBatea)
-      .subscribe(() => {
-        this.notificationService.showSnackbar(`Se añadió la patente: ${nuevaBatea.patent}`, 'success');
-        form.reset();
-        this.doSearch();
-      });
-  }
-
-  putBatea(form: FormGroup): void {
-    const nuevaBatea: Batea = {
-      _id: this.selectedBatea!._id,
-      patent: form.value.patente
-    };
-
-    this.bateaService.putBateas(nuevaBatea)
-      .subscribe(() => {
-        form.reset();
-        this.editMode = false;
-        this.doSearch();
-        this.notificationService.showSnackbar(`Se actualizo la patente a : ${nuevaBatea.patent}`, 'success');
-      });
-  }
-
   deleteBatea(event: Batea): void {
     this.bateaService.deleteBateas(event)
       .subscribe(() => {
@@ -70,26 +46,8 @@ export class BateaListComponent implements OnInit {
       });
   }
 
-  setbateaForm(form: FormGroup): void {
-    this.bateaForm = form;
-  }
-
   editBatea(event: Batea): void {
-    this.editMode = true;
-    this.formTitle = 'Editar Batea';
-    this.selectedBatea = event;
-    this.bateaForm.get('patente')?.setValue(event.patent);
-  }
-
-  onSubmit(form: FormGroup): void {
-    this.bateaForm = form;
-    if (form.valid) {
-      if (!this.editMode) {
-        this.postBatea(form);
-      } else {
-        this.putBatea(form);
-      }
-    }
+    this.router.navigate(['/bateas/edit/'+ event._id]);    
   }
 
   onPageChange(event: PageEvent): void {

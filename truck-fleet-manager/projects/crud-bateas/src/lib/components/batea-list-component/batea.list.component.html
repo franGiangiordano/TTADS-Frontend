@@ -1,14 +1,3 @@
-<h1>Gestión de Bateas</h1>
-
-<fm-form
-  [entityName]="'Batea'"
-  [fields]="['patente']"
-  [editMode]="editMode"
-  [title]="formTitle"
-  (formSubmit)="onSubmit($event)"
-  (formEdit)="setbateaForm($event)"
-></fm-form>
-
 <fm-table
   [data]="bateasList$"
   [columns]="['patent']"
@@ -16,3 +5,4 @@
   (delete)="deleteBatea($event)"
   (pageChange)="onPageChange($event)"
 ></fm-table>
+
