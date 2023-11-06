@@ -33,8 +33,8 @@ export class BateaListComponent implements OnInit {
     this.doSearch();
   }
 
-  doSearch(): void {
-    this.bateaService.getBateas(this.pageIndex, this.pageSize)
+  doSearch(search?:string): void {
+    this.bateaService.getBateas(this.pageIndex, this.pageSize,search)
       .subscribe(response => this.bateasList$.next(response));
   }
 
