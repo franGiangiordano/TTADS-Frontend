@@ -44,7 +44,6 @@ export class BateaFormComponent {
       .subscribe(() => {
         this.notificationService.showSnackbar(`Se añadió la patente: ${nuevaBatea.patent}`, 'success');
         this.router.navigate(['/bateas']);
-        //this.doSearch();
       });
   }
 
@@ -57,7 +56,6 @@ export class BateaFormComponent {
     this.bateaService.putBateas(nuevaBatea)
       .subscribe(() => {
         this.router.navigate(['/bateas']);
-        //this.doSearch();
         this.notificationService.showSnackbar(`Se actualizo la patente a : ${nuevaBatea.patent}`, 'success');
       });
   }
