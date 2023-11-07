@@ -10,10 +10,15 @@ import { CommonUiModule } from 'projects/common-ui/src';
 
 import { CrudBateasRoutingModule } from './crud.bateas.routing.module';
 import { BateaListComponent } from './components/batea-list-component/batea.list.component';
+import { BateaFormComponent } from './components/batea-form-component/batea.form.component';
+import { BateaComponent } from './components/batea-component/batea.component';
+
 
 @NgModule({
   declarations: [
-    BateaListComponent
+    BateaListComponent,
+    BateaFormComponent,
+    BateaComponent
   ],
   imports: [
     CommonModule,

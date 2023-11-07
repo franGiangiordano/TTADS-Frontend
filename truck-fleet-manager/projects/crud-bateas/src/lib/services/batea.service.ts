@@ -14,8 +14,12 @@ export class BateaService {
 
   constructor(private http: HttpClient) { }
 
-  getBateas(page: number = 1, limit: number = 10) {
-    return this.http.get<EntityListResponse<Batea>>(this.apiUrl + '/batea', { params: { page, limit } });
+  getBateas(page: number = 1, limit: number = 10, search:string = '') {
+    return this.http.get<EntityListResponse<Batea>>(this.apiUrl + '/batea/', { params: { search, page, limit } });
+  }
+  
+  getBatea(id:string) {
+    return this.http.get<Batea>(this.apiUrl + '/batea/'+ id);
   }
 
   postBateas(batea: Batea) {
