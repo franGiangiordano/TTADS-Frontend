@@ -37,22 +37,22 @@ export class LoginFormComponent {
 
   handleLogin(): void {
     this.loading = true;
-
     const encryptedPassword = CryptoJS.SHA256(this.form.controls['password'].value).toString();
 
     this.loginService.authenticateUser(this.form.controls['email'].value, encryptedPassword)
       .subscribe((res: any) => {
-        this.loginService.loginUser(res.token);
         const decodedToken = this.helper.decodeToken(res.token);
 
         this.loginService.getUser(decodedToken.id).subscribe((user: any) => {
-          this.loginService.setUser(user);
+          this.loginService.setUser(user,res.token);
         });
 
+        this.loading = false;        
+      })
+      .add(() => {
         this.loading = false;
         this.validateRol();
-      })
-      .add(() => this.loading = false);
+      });
   }
 
   private validateRol(): void {
