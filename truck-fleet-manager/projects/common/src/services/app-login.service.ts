@@ -21,27 +21,23 @@ export class AppLoginService {
     return this.http.post(`${this.apiUrl}/auth/signin`, credentials);
   }
 
-  loginUser(token: string): void {
-    localStorage.setItem('token', token);
-  }
-
   getUser(id: string) {
     return this.http.get(`${this.apiUrl}/user/` + id);
   }
 
   isLoggedIn() {
-    const tokenStr = localStorage.getItem('token');
+    const tokenStr = localStorage.getItem('user');
 
     const hasToken = !(tokenStr == undefined || tokenStr == '' || tokenStr == null);
     return hasToken;
   }
 
-  setUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
+  setUser(user: User, token: string) {
+    const data = { token, user };
+    localStorage.setItem('user', JSON.stringify(data));
   }
 
   logout() {
-    localStorage.removeItem('token');
     localStorage.removeItem('user');
     return true;
   }
@@ -49,7 +45,7 @@ export class AppLoginService {
   getUserRole() {
     let userStr = localStorage.getItem('user');
     if (userStr != null) {
-      return JSON.parse(userStr).roles.map((role: any) => role.name);
+      return JSON.parse(userStr).user.roles.map((role: any) => role.name);
     } else {
       this.logout();
       return null;

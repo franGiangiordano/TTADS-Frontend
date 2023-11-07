@@ -5,7 +5,7 @@ import { adminGuard } from "projects/common/src";
 
 
 const routes: Routes = [
-    { path: '', component: LoginHomeComponent, canActivate: [adminGuard] }
+    { path: '', component: LoginHomeComponent}
 ];
 
 @NgModule({
