@@ -15,9 +15,6 @@
       ],
       "common-ui": [
         "dist/common-ui"
-      ],
-      "crud-equipment": [
-        "dist/crud-equipment"
       ]
     },
     "outDir": "./dist/out-tsc",

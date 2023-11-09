@@ -30,8 +30,6 @@ export class TableComponent implements OnInit {
 
   @Input({ required: true }) data!: Observable<EntityListResponse<any>>;
   @Input({ required: true }) columns: string[] = [];
-  @Input() rutaVariable: string = ''
-  @Input() formatFunction?: (array: any[]) => any[];
 
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
@@ -43,12 +41,11 @@ export class TableComponent implements OnInit {
     this.loading = true;
     this.data.subscribe(response => {
       this.count = response.count;
-      this.results = (this.formatFunction)? this.formatFunction(response.results): response.results;
-      console.log(this.results);
+      this.results = response.results;
       this.loading = false
     })
   }
- 
+
   editItem(item: any) {
     this.edit.emit(item);
   }
