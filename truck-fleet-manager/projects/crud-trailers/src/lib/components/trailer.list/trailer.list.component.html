@@ -1,0 +1,10 @@
+<fm-table
+  [data]="trailersList$"
+  [columns]="['patent', 'type']"
+  [rutaVariable]="rutaVariable"
+  (edit)="editTrailer($event)"
+  (delete)="deleteTrailer($event)"
+  (search)="doSearch($event)"
+  (pageChange)="onPageChange($event)"
+></fm-table>
+
