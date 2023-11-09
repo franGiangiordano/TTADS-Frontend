@@ -1,4 +1,7 @@
 export enum ColumnDescription {
     patent = 'Patente',
-    name = 'Nombre'
+    name = 'Nombre',
+    description = 'Descripcion',
+    until_date = 'Fecha Hasta',
+    batea = 'Patente Batea',
 } 

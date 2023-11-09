@@ -1,0 +1,9 @@
+<fm-form
+  [entityName]="'Equipment'"
+  [fields]="['descripcion','fecha hasta','patente batea']"
+  [editMode]="editMode"
+  [title]="formTitle"
+  (formSubmit)="onSubmit($event)"
+  (formEdit)="setequipmentForm($event)"
+></fm-form>
+
