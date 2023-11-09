@@ -15,6 +15,9 @@
       ],
       "common-ui": [
         "dist/common-ui"
+      ],
+      "crud-drivers": [
+        "dist/crud-drivers"
       ]
     },
     "outDir": "./dist/out-tsc",

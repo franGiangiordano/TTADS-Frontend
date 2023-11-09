@@ -1,0 +1,9 @@
+<fm-table
+  [data]="driversList$"
+  [columns]="['legajo', 'name', 'surname']"
+  (edit)="editDriver($event)"
+  (delete)="deleteDriver($event)"
+  (search)="doSearch($event)"
+  (pageChange)="onPageChange($event)"
+></fm-table>
+
