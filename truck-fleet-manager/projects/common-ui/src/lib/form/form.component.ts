@@ -29,9 +29,9 @@ export class FormComponent {
   createForm(): void {
     this.entityForm = new FormGroup({});
     this.fields.forEach(field => {
-      this.entityForm?.addControl(field, new FormControl('', 
-      [Validators.required])
-      );
+        this.entityForm?.addControl(field, new FormControl('', 
+        [Validators.required])
+        );      
     });      
     this.formEdit.emit(this.entityForm);    
   }
