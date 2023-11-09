@@ -233,6 +233,71 @@
           }
         }
       }
+    },"crud-drivers": {
+      "projectType": "library",
+      "root": "projects/crud-drivers",
+      "sourceRoot": "projects/crud-drivers/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/crud-drivers/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/crud-drivers/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/crud-drivers/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/crud-drivers/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "crud-trailers": {
+      "projectType": "library",
+      "root": "projects/crud-trailers",
+      "sourceRoot": "projects/crud-trailers/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/crud-trailers/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/crud-trailers/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/crud-trailers/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/crud-trailers/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     },
     "crud-equipment": {
       "projectType": "library",
