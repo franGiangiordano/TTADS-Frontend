@@ -1,9 +1,9 @@
 <fm-table
-  [data]="bateasList$"
-  [columns]="['patent']"
+  [data]="trailersList$"
+  [columns]="['patent', 'type']"
   [rutaVariable]="rutaVariable"
-  (edit)="editBatea($event)"
-  (delete)="deleteBatea($event)"
+  (edit)="editTrailer($event)"
+  (delete)="deleteTrailer($event)"
   (search)="doSearch($event)"
   (pageChange)="onPageChange($event)"
 ></fm-table>

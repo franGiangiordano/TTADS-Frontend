@@ -1,0 +1,1 @@
+export * from './trailer.list/trailer.list.component';
