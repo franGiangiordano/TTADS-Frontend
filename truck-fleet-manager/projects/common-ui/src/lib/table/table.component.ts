@@ -30,6 +30,7 @@ export class TableComponent implements OnInit {
 
   @Input({ required: true }) data!: Observable<EntityListResponse<any>>;
   @Input({ required: true }) columns: string[] = [];
+  @Input() rutaVariable: string = '';
 
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();

@@ -18,6 +18,7 @@ import { Driver } from '../../models/driver.model';
 export class DriverListComponent implements OnInit {
   editMode = false;
   formTitle = 'Añadir Chofer';
+  rutaVariable: string = 'drivers';
 
   pageSize: number = 10;
   pageIndex: number = 1;

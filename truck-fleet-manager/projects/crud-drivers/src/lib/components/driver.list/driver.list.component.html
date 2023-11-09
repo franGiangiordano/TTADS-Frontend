@@ -1,6 +1,7 @@
 <fm-table
   [data]="driversList$"
   [columns]="['legajo', 'name', 'surname']"
+  [rutaVariable]="rutaVariable"
   (edit)="editDriver($event)"
   (delete)="deleteDriver($event)"
   (search)="doSearch($event)"
