@@ -2,6 +2,7 @@
   [entityName]="'Equipment'"
   [fields]="['descripcion','fecha hasta']"
   [combos]="['patente batea']"
+  [combosFields]="[BateaList, DriverList,TrailerList]"
   [editMode]="editMode"
   [title]="formTitle"
   (formSubmit)="onSubmit($event)"

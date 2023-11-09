@@ -13,18 +13,19 @@ export class FormComponent {
   @Input() entityName: string = '';
   @Input() fields: string[] = [];
   @Input() combos: string[] = [];
+  @Input() combosFields: string[][] = [];
   @Input() title: string = '';
 
-  
   @Output() formSubmit = new EventEmitter<FormGroup>();
   @Output() formEdit = new EventEmitter<FormGroup>();
 
   entityForm!: FormGroup;  
+  categories?: string[];
 
   constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {
-    this.createForm();
+  ngOnInit(): void {    
+    this.createForm();    
   }
 
   createForm(): void {
@@ -33,12 +34,15 @@ export class FormComponent {
         this.entityForm?.addControl(field, new FormControl('', 
         [Validators.required])
         );      
-    });      
+    });    
+
     this.combos.forEach(combos => {
       this.entityForm?.addControl(combos, new FormControl('', 
       [Validators.required])
-      );  
+      );        
     });
+    
+    
     this.formEdit.emit(this.entityForm);    
   }
 
