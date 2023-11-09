@@ -12,6 +12,7 @@ export class FormComponent {
   @Input() editMode: boolean = false;
   @Input() entityName: string = '';
   @Input() fields: string[] = [];
+  @Input() combos: string[] = [];
   @Input() title: string = '';
 
   
@@ -33,6 +34,11 @@ export class FormComponent {
         [Validators.required])
         );      
     });      
+    this.combos.forEach(combos => {
+      this.entityForm?.addControl(combos, new FormControl('', 
+      [Validators.required])
+      );  
+    });
     this.formEdit.emit(this.entityForm);    
   }
 

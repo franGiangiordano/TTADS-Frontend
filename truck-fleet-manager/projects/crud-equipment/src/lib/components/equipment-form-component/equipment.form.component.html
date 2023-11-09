@@ -1,6 +1,7 @@
 <fm-form
   [entityName]="'Equipment'"
-  [fields]="['descripcion','fecha hasta','patente batea']"
+  [fields]="['descripcion','fecha hasta']"
+  [combos]="['patente batea']"
   [editMode]="editMode"
   [title]="formTitle"
   (formSubmit)="onSubmit($event)"

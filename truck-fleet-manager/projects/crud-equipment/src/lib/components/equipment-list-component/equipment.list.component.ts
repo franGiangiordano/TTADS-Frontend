@@ -41,11 +41,12 @@ export class EquipmentListComponent implements OnInit{
         _id: obj._id,
         description: obj.description,
         until_date: moment(obj.until_date).format('DD/MM/YYYY'),
-        //legajo: obj.driver.legajo,
-        //name: obj.driver.name,
-        //surname: obj.driver.surname,
+        legajo: obj.driver.legajo,
+        name: obj.driver.name,
+        surname: obj.driver.surname,
         batea: obj.batea.patent,
-       // type: obj.trailer.type
+        trailer: obj.trailer.patent,
+        type: obj.trailer.type
       };
     });
   }  

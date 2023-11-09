@@ -3,5 +3,9 @@ export enum ColumnDescription {
     name = 'Nombre',
     surname = 'Apellido',
     legajo = 'Legajo',
-    type = 'Tipo'
+    type = 'Tipo',
+    description = 'Descripcion',
+    until_date = 'Fecha Hasta',
+    batea = 'Patente Batea',
+    trailer = 'Patente Trailer'
 } 

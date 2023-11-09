@@ -21,6 +21,9 @@
       ],
       "crud-trailers": [
         "dist/crud-trailers"
+      ],
+      "crud-equipment": [
+        "dist/crud-equipment"
       ]
     },
     "outDir": "./dist/out-tsc",
