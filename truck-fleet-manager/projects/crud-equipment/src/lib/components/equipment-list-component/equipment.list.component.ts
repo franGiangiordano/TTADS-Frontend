@@ -24,7 +24,7 @@ export class EquipmentListComponent implements OnInit{
 
   equipmentList$ = new Subject<EntityListResponse<Equipment>>();
 
-  constructor(public equipmentService: EquipmentService, private notificationService: NotificationService,  public router : Router) { }
+  constructor(private equipmentService: EquipmentService, private notificationService: NotificationService,  private router : Router) { }
 
   ngOnInit(): void {    
     this.doSearch();

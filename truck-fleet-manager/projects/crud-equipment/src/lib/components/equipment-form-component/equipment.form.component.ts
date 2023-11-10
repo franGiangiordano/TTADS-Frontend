@@ -35,7 +35,7 @@ export class EquipmentFormComponent {
   trailerSelected!: Trailer;
   driverSelected!: Driver
 
-  constructor(public equipmentService: EquipmentService, private notificationService: NotificationService, public router: Router, private route: ActivatedRoute, public bateaService: BateaService, public driverService: DriverService, public trailerService: TrailerService) {
+  constructor(private equipmentService: EquipmentService, private notificationService: NotificationService, private router: Router, private route: ActivatedRoute, private bateaService: BateaService, private driverService: DriverService, private trailerService: TrailerService) {
   }
 
   ngOnInit() {
