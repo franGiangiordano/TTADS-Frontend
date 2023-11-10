@@ -22,7 +22,7 @@ export class EquipmentService {
     return this.http.get<Equipment>(this.apiUrl + '/equipment/'+ id);
   }
 
-  postEquipments(equipment:any) {
+  postEquipments(equipment:Equipment) {
     return this.http.post<Equipment>(this.apiUrl + '/equipment/', equipment)
   }
 

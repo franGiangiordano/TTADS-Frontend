@@ -10,16 +10,19 @@ import { BateaService } from 'projects/crud-bateas/src/lib/services/batea.servic
 import { DriverService } from 'projects/crud-drivers/src/lib/services/driver.service';
 import { TrailerService } from 'projects/crud-trailers/src/lib/services/trailer.service';
 import { Equipment } from '../../models';
+import { Batea } from 'projects/crud-bateas/src/lib/models';
+import { Driver } from 'projects/crud-drivers/src/lib/models';
+import { Trailer } from 'projects/crud-trailers/src/lib/models';
 
 @Component({
   selector: 'lib-equipment.form',
   templateUrl: './equipment.form.component.html',
   styleUrls: ['./equipment.form.component.css'],
-  providers: [BateaService, DriverService,TrailerService],
+  providers: [BateaService, DriverService, TrailerService],
 
 })
 export class EquipmentFormComponent {
-  id='';
+  id = '';
   editMode = false;
   formTitle = 'Añadir Equipo';
 
@@ -28,8 +31,12 @@ export class EquipmentFormComponent {
   DriverList: string[] = [];
   TrailerList: string[] = [];
 
-  constructor(public equipmentService: EquipmentService, private notificationService: NotificationService, public router : Router, private route: ActivatedRoute, public bateaService: BateaService, public driverService: DriverService, public trailerService: TrailerService) {    
-   }
+  bateaSelectected!: Batea;
+  trailerSelected!: Trailer;
+  driverSelected!: Driver
+
+  constructor(public equipmentService: EquipmentService, private notificationService: NotificationService, public router: Router, private route: ActivatedRoute, public bateaService: BateaService, public driverService: DriverService, public trailerService: TrailerService) {
+  }
 
   ngOnInit() {
 
@@ -37,58 +44,101 @@ export class EquipmentFormComponent {
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      if(this.id){
-        this.editMode=true;
-        this.formTitle= 'Editar Batea';
+      if (this.id) {
+        this.editMode = true;
+        this.formTitle = 'Editar Batea';
         this.autocompleteForm();
-      }      
+      }
     });
   }
 
-  loadCombos(){
+  loadCombos() {
     this.bateaService.getBateas()
-    .subscribe(response => this.BateaList = response.results.map(result =>
-      result.patent
-    )); 
-    
+      .subscribe(response => this.BateaList = response.results.map(result =>
+        result.patent
+      ));
+
     this.driverService.getDrivers()
-    .subscribe(response => this.DriverList = response.results.map(result =>
-      result.legajo
-    )); 
+      .subscribe(response => this.DriverList = response.results.map(result =>
+        result.legajo
+      ));
 
     this.trailerService.getTrailers()
-    .subscribe(response => this.TrailerList = response.results.map(result =>
-      result.patent
-    )); 
+      .subscribe(response => this.TrailerList = response.results.map(result =>
+        result.patent
+      ));
   }
 
-  autocompleteForm(){
+  autocompleteForm() {
     this.equipmentService.getEquipment(this.id).subscribe(equipment => {
-    this.equipmentForm.get('descripcion')?.setValue(equipment.description); 
+      this.equipmentForm.get('descripcion')?.setValue(equipment.description);
 
-    let date = moment(equipment.until_date).format('YYYY-MM-DD');    
-    this.equipmentForm.get('fecha hasta')?.setValue(date);  
-    this.equipmentForm.controls['batea'].setValue(equipment.batea.patent)  
-    this.equipmentForm.controls['driver'].setValue(equipment.driver.legajo)  
-    this.equipmentForm.controls['trailer'].setValue(equipment.trailer.patent)  
-    });        
-  } 
+      let date = moment(equipment.until_date).format('YYYY-MM-DD');
+      this.equipmentForm.get('fecha hasta')?.setValue(date);
+      this.equipmentForm.controls['batea'].setValue(equipment.batea.patent)
+      this.equipmentForm.controls['driver'].setValue(equipment.driver.legajo)
+      this.equipmentForm.controls['trailer'].setValue(equipment.trailer.patent)
+    });
+  }
 
-  postBatea(form: FormGroup): void {
-     const nuevoEquipo = {
-        _id: '',
-        description: form.value.descripcion,
-        until_date: moment(new Date(form.value['fecha hasta'])).format('DD/MM/YYYY'), 
-        batea: form.value['batea'],
-        driver: form.value['driver'],
-        trailer: form.value['trailer']
-      }
-        console.log(nuevoEquipo)
-     this.equipmentService.postEquipments(nuevoEquipo)
-      .subscribe(() => {
-        this.notificationService.showSnackbar('Se añadió el equipo!', 'success');
-        this.router.navigate(['/equipments']);
-      });
+  postEquipment(form: FormGroup): void {
+    this.bateaService.getBateas(1, 10, form.value['batea']).subscribe(response => {
+      this.bateaSelectected = response.results[0];
+
+      this.driverService.getDrivers(1, 10, form.value['driver']).subscribe(response => {
+        this.driverSelected = response.results[0];
+
+        this.trailerService.getTrailers(1, 10, form.value['trailer']).subscribe(response => {
+          this.trailerSelected = response.results[0];
+
+          const nuevoEquipo: Equipment = {
+            _id: '',
+            description: form.value.descripcion,
+            until_date: new Date(form.value['fecha hasta']),
+            batea: this.bateaSelectected,
+            driver: this.driverSelected,
+            trailer: this.trailerSelected
+          }
+
+          this.equipmentService.postEquipments(nuevoEquipo)
+            .subscribe(() => {
+              this.notificationService.showSnackbar('Se añadió el equipo!', 'success');
+              this.router.navigate(['/equipments']);
+            });
+        })
+      })
+    })
+  }
+
+  putEquipment(form: FormGroup): void {
+    this.bateaService.getBateas(1, 10, form.value['batea']).subscribe(response => {
+      this.bateaSelectected = response.results[0];
+
+      this.driverService.getDrivers(1, 10, form.value['driver']).subscribe(response => {
+        this.driverSelected = response.results[0];
+
+        this.trailerService.getTrailers(1, 10, form.value['trailer']).subscribe(response => {
+          this.trailerSelected = response.results[0];
+
+          const nuevoEquipo: Equipment = {
+            _id: this.id,
+            description: form.value.descripcion,
+            until_date: new Date(form.value['fecha hasta']),
+            batea: this.bateaSelectected,
+            driver: this.driverSelected,
+            trailer: this.trailerSelected
+          }
+
+          this.equipmentService.putEquipments(nuevoEquipo)
+            .subscribe(() => {
+              this.router.navigate(['/equipments']);
+              this.notificationService.showSnackbar('Se actualizo el equipo', 'success');
+            });
+        })
+      })
+    })
+
+
   }
 
   setequipmentForm(form: FormGroup): void {
@@ -99,9 +149,9 @@ export class EquipmentFormComponent {
     this.equipmentForm = form;
     if (form.valid) {
       if (!this.id) {
-        this.postBatea(form);
+        this.postEquipment(form);
       } else {
-       // this.putBatea(form);
+        this.putEquipment(form);
       }
     }
   }
