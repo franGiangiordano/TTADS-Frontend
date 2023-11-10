@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BateaService } from 'projects/crud-bateas/src/lib/services/batea.service';
 import { DriverService } from 'projects/crud-drivers/src/lib/services/driver.service';
 import { TrailerService } from 'projects/crud-trailers/src/lib/services/trailer.service';
+import { Equipment } from '../../models';
 
 @Component({
   selector: 'lib-equipment.form',
@@ -67,9 +68,28 @@ export class EquipmentFormComponent {
 
     let date = moment(equipment.until_date).format('YYYY-MM-DD');    
     this.equipmentForm.get('fecha hasta')?.setValue(date);  
-    });    
-
+    this.equipmentForm.controls['batea'].setValue(equipment.batea.patent)  
+    this.equipmentForm.controls['driver'].setValue(equipment.driver.legajo)  
+    this.equipmentForm.controls['trailer'].setValue(equipment.trailer.patent)  
+    });        
   } 
+
+  postBatea(form: FormGroup): void {
+     const nuevoEquipo = {
+        _id: '',
+        description: form.value.descripcion,
+        until_date: moment(new Date(form.value['fecha hasta'])).format('DD/MM/YYYY'), 
+        batea: form.value['batea'],
+        driver: form.value['driver'],
+        trailer: form.value['trailer']
+      }
+        console.log(nuevoEquipo)
+     this.equipmentService.postEquipments(nuevoEquipo)
+      .subscribe(() => {
+        this.notificationService.showSnackbar('Se añadió el equipo!', 'success');
+        this.router.navigate(['/equipments']);
+      });
+  }
 
   setequipmentForm(form: FormGroup): void {
     this.equipmentForm = form;
@@ -79,7 +99,7 @@ export class EquipmentFormComponent {
     this.equipmentForm = form;
     if (form.valid) {
       if (!this.id) {
-       // this.postBatea(form);
+        this.postBatea(form);
       } else {
        // this.putBatea(form);
       }

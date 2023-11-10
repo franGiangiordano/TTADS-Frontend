@@ -16,10 +16,10 @@
           </mat-form-field>
         </ng-container>
       </ng-container>
-      <ng-container *ngFor="let combo of combosFields">
-        <mat-label>Seleccione una opcion</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let item of combo" [value]="item">
+      <ng-container *ngFor="let combo of combosFields; let i = index">
+        <mat-label>Seleccione {{combos[i] | titlecase}}</mat-label>
+        <mat-select [formControlName]="combos[i]">
+          <mat-option *ngFor="let item of combo" [value]="item" >
             {{item}}
           </mat-option>
         </mat-select>
