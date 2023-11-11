@@ -1,15 +1,31 @@
 <mat-card>
-    <mat-card-title>{{title}}</mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="entityForm" (ngSubmit)="onSave()">
-        <ng-container *ngFor="let field of fields">
-            <mat-form-field>
+  <mat-card-title>{{title}}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="entityForm" (ngSubmit)="onSave()">
+      <ng-container *ngFor="let field of fields">
+        <ng-container *ngIf="!field.includes('fecha')">
+          <mat-form-field>
             <mat-label>{{field | titlecase}}</mat-label>
             <input matInput [formControlName]="field" [placeholder]="'Ingrese ' + field">
-            </mat-form-field>
-         </ng-container>
-        <br>
-        <button mat-raised-button color="primary" type="submit">{{ editMode ? 'Editar' : 'Añadir' }}</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+          </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="field.includes('fecha')">
+          <mat-form-field>
+            <mat-label>{{field | titlecase}}</mat-label>
+            <input type="date" matInput [formControlName]="field" [placeholder]="'Ingrese ' + field">
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngFor="let combo of combosFields; let i = index">
+        <mat-label>Seleccione {{combos[i] | titlecase}}</mat-label>
+        <mat-select [formControlName]="combos[i]">
+          <mat-option *ngFor="let item of combo" [value]="item" >
+            {{item}}
+          </mat-option>
+        </mat-select>
+      </ng-container>
+      <br>
+      <button mat-raised-button color="primary" type="submit">{{ editMode ? 'Editar' : 'Añadir' }}</button>
+    </form>
+  </mat-card-content>
+</mat-card>

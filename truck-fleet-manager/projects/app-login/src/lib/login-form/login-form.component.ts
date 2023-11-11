@@ -59,7 +59,7 @@ export class LoginFormComponent {
     let roles: UserRoles[] = this.loginService.getUserRole();
 
     if (roles.some(role => this.validUserRoles.includes(role))) {
-      this.router.navigate([]);
+      this.router.navigate(['dashboard']);
     } else {
       this.loginService.logout();
     }
