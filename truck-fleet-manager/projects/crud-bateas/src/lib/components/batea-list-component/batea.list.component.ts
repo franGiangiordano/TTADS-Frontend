@@ -18,6 +18,7 @@ import { Batea } from '../../models/batea.model';
 export class BateaListComponent implements OnInit {
   editMode = false;
   formTitle = 'Añadir Batea';
+  rutaVariable: string = 'bateas';
 
   pageSize: number = 10;
   pageIndex: number = 1;
