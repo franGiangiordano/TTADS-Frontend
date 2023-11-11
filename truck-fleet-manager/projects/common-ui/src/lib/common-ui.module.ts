@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import {MatSelectModule} from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -14,17 +13,17 @@ import { RouterModule } from '@angular/router';
 import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
 
+
 @NgModule({
   declarations: [
     FormComponent,
-    TableComponent, 
+    TableComponent,    
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule,
     MatCardModule,
     MatTableModule,
     MatIconModule,

@@ -6,23 +6,15 @@ import { NotificationService } from 'projects/common/src';
 @Injectable({
   providedIn: 'root'
 })
-
 export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private notificationService: NotificationService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> { 
-    
-    let token = '';  
-    const userString = localStorage.getItem('user');
-    if (userString) {
-      const user = JSON.parse(userString); 
-      token = user.token;
-    }
 
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'x-access-token': token || '',
+        'x-access-token': localStorage.getItem('token') || '',
       })
 
       const reqClone = req.clone({
