@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as moment from 'moment';
+import { forkJoin } from 'rxjs';
 
 import { FormGroup } from '@angular/forms';
 import { EquipmentService } from '../../services/equipment.service';
@@ -89,63 +90,57 @@ export class EquipmentFormComponent {
   }
 
   postEquipment(form: FormGroup): void {
-    this.bateaService.getBateas(1, 10, form.value['batea']).subscribe(response => {
-      this.bateaSelectected = response.results[0];
+    forkJoin({
+      batea: this.bateaService.getBateas(1, 10, form.value['batea']),
+      driver: this.driverService.getDrivers(1, 10, form.value['driver']),
+      trailer: this.trailerService.getTrailers(1, 10, form.value['trailer'])
+    }).subscribe(({batea, driver, trailer}) => {
+      this.bateaSelectected = batea.results[0];
+      this.driverSelected = driver.results[0];
+      this.trailerSelected = trailer.results[0];
 
-      this.driverService.getDrivers(1, 10, form.value['driver']).subscribe(response => {
-        this.driverSelected = response.results[0];
+      const nuevoEquipo: Equipment = {
+        _id: '',
+        description: form.value.descripcion,
+        until_date: new Date(form.value['fecha hasta']),
+        batea: this.bateaSelectected,
+        driver: this.driverSelected,
+        trailer: this.trailerSelected
+      }
 
-        this.trailerService.getTrailers(1, 10, form.value['trailer']).subscribe(response => {
-          this.trailerSelected = response.results[0];
-
-          const nuevoEquipo: Equipment = {
-            _id: '',
-            description: form.value.descripcion,
-            until_date: new Date(form.value['fecha hasta']),
-            batea: this.bateaSelectected,
-            driver: this.driverSelected,
-            trailer: this.trailerSelected
-          }
-
-          this.equipmentService.postEquipments(nuevoEquipo)
-            .subscribe(() => {
-              this.notificationService.showSnackbar('Se añadió el equipo!', 'success');
-              this.router.navigate(['/equipments']);
-            });
-        })
-      })
-    })
+      this.equipmentService.postEquipments(nuevoEquipo)
+        .subscribe(() => {
+          this.notificationService.showSnackbar('Se añadió el equipo!', 'success');
+          this.router.navigate(['/equipments']);
+        });
+    });
   }
 
   putEquipment(form: FormGroup): void {
-    this.bateaService.getBateas(1, 10, form.value['batea']).subscribe(response => {
-      this.bateaSelectected = response.results[0];
+    forkJoin({
+      batea: this.bateaService.getBateas(1, 10, form.value['batea']),
+      driver: this.driverService.getDrivers(1, 10, form.value['driver']),
+      trailer: this.trailerService.getTrailers(1, 10, form.value['trailer'])
+    }).subscribe(({batea, driver, trailer}) => {
+      this.bateaSelectected = batea.results[0];
+      this.driverSelected = driver.results[0];
+      this.trailerSelected = trailer.results[0];
 
-      this.driverService.getDrivers(1, 10, form.value['driver']).subscribe(response => {
-        this.driverSelected = response.results[0];
+      const nuevoEquipo: Equipment = {
+        _id: this.id,
+        description: form.value.descripcion,
+        until_date: new Date(form.value['fecha hasta']),
+        batea: this.bateaSelectected,
+        driver: this.driverSelected,
+        trailer: this.trailerSelected
+      }
 
-        this.trailerService.getTrailers(1, 10, form.value['trailer']).subscribe(response => {
-          this.trailerSelected = response.results[0];
-
-          const nuevoEquipo: Equipment = {
-            _id: this.id,
-            description: form.value.descripcion,
-            until_date: new Date(form.value['fecha hasta']),
-            batea: this.bateaSelectected,
-            driver: this.driverSelected,
-            trailer: this.trailerSelected
-          }
-
-          this.equipmentService.putEquipments(nuevoEquipo)
-            .subscribe(() => {
-              this.router.navigate(['/equipments']);
-              this.notificationService.showSnackbar('Se actualizo el equipo', 'success');
-            });
-        })
-      })
-    })
-
-
+      this.equipmentService.putEquipments(nuevoEquipo)
+        .subscribe(() => {
+          this.router.navigate(['/equipments']);
+          this.notificationService.showSnackbar('Se actualizo el equipo', 'success');
+        });
+    });
   }
 
   setequipmentForm(form: FormGroup): void {
