@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 
 import { FormGroup } from '@angular/forms';
@@ -80,9 +79,7 @@ export class EquipmentFormComponent {
   autocompleteForm() {
     this.equipmentService.getEquipment(this.id).subscribe(equipment => {
       this.equipmentForm.get('descripcion')?.setValue(equipment.description);
-
-      let date = moment(equipment.until_date).format('YYYY-MM-DD');
-      this.equipmentForm.get('fecha hasta')?.setValue(date);
+      
       this.equipmentForm.controls['batea'].setValue(equipment.batea.patent)
       this.equipmentForm.controls['driver'].setValue(equipment.driver.legajo)
       this.equipmentForm.controls['trailer'].setValue(equipment.trailer.patent)
@@ -102,7 +99,6 @@ export class EquipmentFormComponent {
       const nuevoEquipo: Equipment = {
         _id: '',
         description: form.value.descripcion,
-        until_date: new Date(form.value['fecha hasta']),
         batea: this.bateaSelectected,
         driver: this.driverSelected,
         trailer: this.trailerSelected
@@ -129,7 +125,6 @@ export class EquipmentFormComponent {
       const nuevoEquipo: Equipment = {
         _id: this.id,
         description: form.value.descripcion,
-        until_date: new Date(form.value['fecha hasta']),
         batea: this.bateaSelectected,
         driver: this.driverSelected,
         trailer: this.trailerSelected

@@ -1,6 +1,6 @@
 <fm-table
   [data]="equipmentList$"
-  [columns]="['description', 'until_date', 'batea', 'legajo', 'name','surname', 'trailer', 'type']"
+  [columns]="['description', 'batea', 'legajo', 'name','surname', 'trailer', 'type']"
   [rutaVariable]="rutaVariable"
   [formatFunction]="formatResponse"
   (edit)="editEquipment($event)"

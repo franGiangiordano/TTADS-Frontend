@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import * as moment from 'moment';
 
 import { EntityListResponse, NotificationService } from 'projects/common/src';
 import { Subject } from 'rxjs';
@@ -40,7 +39,6 @@ export class EquipmentListComponent implements OnInit{
       return {
         _id: obj._id,
         description: obj.description,
-        until_date: moment(obj.until_date).format('DD/MM/YYYY'),
         legajo: obj.driver.legajo,
         name: obj.driver.name,
         surname: obj.driver.surname,
