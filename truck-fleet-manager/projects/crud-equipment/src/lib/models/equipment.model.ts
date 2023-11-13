@@ -12,7 +12,8 @@ export class Equipment {
     }
     _id: string;
     description: string; 
-    until_date?: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
     batea: Batea;
     driver: Driver;
     trailer: Trailer;
