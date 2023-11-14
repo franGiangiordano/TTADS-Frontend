@@ -14,26 +14,26 @@
           </a>
           <a mat-list-item [routerLink]="['/drivers']">
             <mat-icon>directions_car</mat-icon>
-            Drivers
+            Choferes
           </a>
           <a mat-list-item [routerLink]="['/trailers']">
             <mat-icon>local_shipping</mat-icon>
-            Trailers
+            Acoplados
           </a>
           <mat-nav-list>
             <a mat-list-item [routerLink]="['/equipments']" (click)="toggleEquipments()">
               <mat-icon *ngIf="!expandEquipments">keyboard_arrow_right</mat-icon>
               <mat-icon *ngIf="expandEquipments">keyboard_arrow_up</mat-icon>
-              Equipments
+              Equipos
             </a>       
             <mat-list *ngIf="expandEquipments">              
               <a mat-list-item [routerLink]="['/equipments/travels']">
                 <mat-icon>card_travel</mat-icon>
-                Travels
+                Viajes
               </a>
               <a mat-list-item [routerLink]="['/equipments/repairs']">
                 <mat-icon>build</mat-icon>
-                Repairs
+                Reparaciones
               </a>
             </mat-list>
           </mat-nav-list>
