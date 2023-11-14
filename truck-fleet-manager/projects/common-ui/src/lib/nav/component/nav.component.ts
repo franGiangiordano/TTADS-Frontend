@@ -13,6 +13,7 @@ export class NavComponent {
   constructor(private nav: NavService, private router: Router, private loginService:AppLoginService) {}
 
   expandEquipments: boolean = false;
+  roles = this.loginService.getUserRole(); 
 
   toggleEquipments(): void {
     this.expandEquipments = !this.expandEquipments;

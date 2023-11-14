@@ -37,7 +37,7 @@
               </a>
             </mat-list>
           </mat-nav-list>
-          <a mat-list-item [routerLink]="['/users']">
+          <a mat-list-item [routerLink]="['/users']" *ngIf="roles.includes('admin')">
             <mat-icon>people</mat-icon>
             Usuarios
           </a>
