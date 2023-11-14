@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { adminGuard } from 'projects/common/src';
+import { managerGuard } from 'projects/common/src';
 
 import { TrailerComponent } from './components/trailer/trailer.component';
 import { TrailerListComponent } from './components/trailer.list/trailer.list.component';
@@ -11,7 +11,6 @@ const routes: Routes = [
   {
     path: '',
     component: TrailerComponent,
-    canActivate: [adminGuard],
     children: [
       {
         path: '',
@@ -20,10 +19,12 @@ const routes: Routes = [
       {
         path: 'add',
         component: TrailerFormComponent,
+        canActivate: [managerGuard],
       },
       {
         path: 'edit/:id',
         component: TrailerFormComponent,
+        canActivate: [managerGuard],
       },
     ],
   },

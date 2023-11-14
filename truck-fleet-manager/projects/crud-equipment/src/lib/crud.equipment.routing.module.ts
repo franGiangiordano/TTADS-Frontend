@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { adminGuard } from 'projects/common/src';
+import { managerGuard } from 'projects/common/src';
 
 import { EquipmentComponent } from './components/equipment-component/equipment.component';
 import { EquipmentFormComponent } from './components/equipment-form-component/equipment.form.component';
@@ -11,7 +11,6 @@ const routes: Routes = [
   {
     path: '',
     component: EquipmentComponent,
-    canActivate: [adminGuard],
     children: [
       {
         path: '',
@@ -20,10 +19,12 @@ const routes: Routes = [
       {
         path: 'add',
         component: EquipmentFormComponent,
+        canActivate: [managerGuard],
       },
       {
         path: 'edit/:id',
         component: EquipmentFormComponent,
+        canActivate: [managerGuard],
       },
     ],
   },

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { adminGuard } from 'projects/common/src';
+import { managerGuard } from 'projects/common/src';
 
 import { BateaComponent } from './components/batea-component/batea.component';
 import { BateaListComponent } from './components/batea-list-component/batea.list.component';
@@ -11,7 +11,6 @@ const routes: Routes = [
   {
     path: '',
     component: BateaComponent,
-    canActivate: [adminGuard],
     children: [
       {
         path: '',
@@ -20,10 +19,12 @@ const routes: Routes = [
       {
         path: 'add',
         component: BateaFormComponent,
+        canActivate: [managerGuard],
       },
       {
         path: 'edit/:id',
         component: BateaFormComponent,
+        canActivate: [managerGuard],
       },
     ],
   },

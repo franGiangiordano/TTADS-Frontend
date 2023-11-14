@@ -14,6 +14,7 @@ import { EntityListResponse } from 'projects/common/src/models';
 
 import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
 import { ColumnDescription } from '../../constants';
+import { AppLoginService } from '../../../../common/src/services/app-login.service';
 
 @Component({
   selector: 'fm-table',
@@ -21,6 +22,7 @@ import { ColumnDescription } from '../../constants';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
+  
   searchText: string = '';
   displayedColumns: string[] = [];
 
@@ -39,8 +41,12 @@ export class TableComponent implements OnInit {
   @Output() search = new EventEmitter<string>();
   @Output() pageChange = new EventEmitter<PageEvent>();
 
+  constructor(private loginService:AppLoginService) {}
+  roles: string[] = []; 
+
   ngOnInit(): void {
-    this.displayedColumns = [...this.columns, 'actions'];
+    this.roles = this.loginService.getUserRole(); 
+    this.displayedColumns = this.roles.includes('manager')?[...this.columns, 'actions']: [...this.columns];
     this.loading = true;
     this.data.subscribe(response => {
       this.count = response.count;
