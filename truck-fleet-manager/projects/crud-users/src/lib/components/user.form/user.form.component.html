@@ -1,0 +1,12 @@
+<fm-form
+  [entityName]="'Equipment'"
+  [fields]="editMode ? ['nombre', 'email'] : ['nombre', 'email', 'password']"
+  [combos]="['rol']"
+  [combosFields]="[['admin', 'manager', 'operative']]"
+  [editMode]="editMode"
+  [title]="formTitle"
+  (formSubmit)="onSubmit($event)"
+  (formEdit)="setUserForm($event)"
+></fm-form>
+
+

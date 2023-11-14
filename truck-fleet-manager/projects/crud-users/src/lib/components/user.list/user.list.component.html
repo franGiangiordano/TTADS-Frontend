@@ -1,0 +1,10 @@
+<fm-table
+  [data]="usersList$"
+  [columns]="['name', 'email', 'rol']"
+  [rutaVariable]="rutaVariable"
+  [formatFunction]="formatResponse"
+  (edit)="editUser($event)"
+  (delete)="deleteUser($event)"
+  (search)="doSearch($event)"
+  (pageChange)="onPageChange($event)"
+></fm-table>
