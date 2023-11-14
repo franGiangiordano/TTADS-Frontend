@@ -46,7 +46,6 @@ export class LoginFormComponent {
         this.loginService.getUser(decodedToken.id).subscribe((user: any) => {
           this.loginService.setUser(user,res.token);
         });
-
         this.loading = false;        
       })
       .add(() => {
@@ -57,7 +56,7 @@ export class LoginFormComponent {
 
   private validateRol(): void {
     let roles: UserRoles[] = this.loginService.getUserRole();
-
+    
     if (roles.some(role => this.validUserRoles.includes(role))) {
       this.router.navigate(['dashboard']);
     } else {

@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor.service';
+import { CommonUiModule } from 'projects/common-ui/src';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CommonUiModule
   ],
   providers: [
     {

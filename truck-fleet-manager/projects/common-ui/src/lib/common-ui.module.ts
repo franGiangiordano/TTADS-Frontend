@@ -10,14 +10,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
+import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
+import { NavComponent } from './nav/component/nav.component';
 
 @NgModule({
   declarations: [
     FormComponent,
-    TableComponent, 
+    TableComponent,
+    NavComponent, 
   ],
   imports: [
     CommonModule,
@@ -28,6 +33,9 @@ import { FormComponent } from './form/form.component';
     MatCardModule,
     MatTableModule,
     MatIconModule,
+    MatListModule,
+    MatSidenavModule,
+    MatToolbarModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     FormsModule,
@@ -36,6 +44,7 @@ import { FormComponent } from './form/form.component';
   exports: [
     FormComponent,
     TableComponent,
+    NavComponent
   ]
 })
 export class CommonUiModule { }

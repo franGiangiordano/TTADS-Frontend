@@ -1,0 +1,65 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/dashboard']">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </a>
+          <a mat-list-item [routerLink]="['/bateas']">
+            <mat-icon>local_shipping</mat-icon>
+            Bateas
+          </a>
+          <a mat-list-item [routerLink]="['/drivers']">
+            <mat-icon>directions_car</mat-icon>
+            Drivers
+          </a>
+          <a mat-list-item [routerLink]="['/trailers']">
+            <mat-icon>local_shipping</mat-icon>
+            Trailers
+          </a>
+          <mat-nav-list>
+            <a mat-list-item [routerLink]="['/equipments']" (click)="toggleEquipments()">
+              <mat-icon *ngIf="!expandEquipments">keyboard_arrow_right</mat-icon>
+              <mat-icon *ngIf="expandEquipments">keyboard_arrow_up</mat-icon>
+              Equipments
+            </a>       
+            <mat-list *ngIf="expandEquipments">              
+              <a mat-list-item [routerLink]="['/equipments/travels']">
+                <mat-icon>card_travel</mat-icon>
+                Travels
+              </a>
+              <a mat-list-item [routerLink]="['/equipments/repairs']">
+                <mat-icon>build</mat-icon>
+                Repairs
+              </a>
+            </mat-list>
+          </mat-nav-list>
+          <a mat-list-item [routerLink]="['/users']">
+            <mat-icon>people</mat-icon>
+            Usuarios
+          </a>
+          <a mat-list-item [routerLink]="['/my-account']">
+            <mat-icon>account_circle</mat-icon>
+            Mi cuenta
+          </a>
+          <a mat-list-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            Salir
+          </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button mat-icon-button (click)="sidenav.toggle()" class="menu-button">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="spacer"></span>
+        <mat-icon class="truck-icon">local_shipping</mat-icon>
+        <span class="title">Truck Fleet Manager</span>      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  
