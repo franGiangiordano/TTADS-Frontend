@@ -14,10 +14,17 @@ button {
     padding-top: 16px;
   }
 
+  .container__icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+  }
+
   .truck-icon {
     margin-right: 8px;
   }
-  
   .title {
     font-size: 20px;
     font-weight: bold;

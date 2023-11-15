@@ -9,11 +9,11 @@ import { AppLoginService } from '../../../../../common/src/services/app-login.se
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
- 
-  constructor(private nav: NavService, private router: Router, private loginService:AppLoginService) {}
+
+  constructor(private nav: NavService, private router: Router, private loginService: AppLoginService) { }
 
   expandEquipments: boolean = false;
-  roles = this.loginService.getUserRole(); 
+  roles = this.loginService.getUserRole();
 
   toggleEquipments(): void {
     this.expandEquipments = !this.expandEquipments;
@@ -22,5 +22,9 @@ export class NavComponent {
   logout(): void {
     this.loginService.logout();
     this.router.navigate(['login']);
+  }
+
+  onClick(): void {
+    this.router.navigate(['']);
   }
 }
