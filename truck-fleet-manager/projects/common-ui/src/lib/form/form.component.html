@@ -71,9 +71,16 @@
         </mat-select>
       </ng-container>
       <br />
-      <button mat-raised-button color="primary" type="submit">
-        {{ editMode ? 'Editar' : 'Añadir' }}
-      </button>
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit">
+          {{ editMode ? 'Editar' : 'Añadir' }}
+        </button>
+      </div>
     </form>
+    <div class="cancel-button-container">
+      <button mat-raised-button color="warn" class="cancel-button" (click)="goBack()">
+        Cancelar
+      </button>
+    </div>
   </mat-card-content>
 </mat-card>

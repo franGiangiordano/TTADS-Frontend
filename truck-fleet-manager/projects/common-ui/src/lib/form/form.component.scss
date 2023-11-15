@@ -24,3 +24,9 @@ mat-card {
 mat-select{
   margin-bottom: 2em;
 }
+.button-container,
+.cancel-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px; 
+}

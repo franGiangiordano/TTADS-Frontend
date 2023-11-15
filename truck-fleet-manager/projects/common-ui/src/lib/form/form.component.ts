@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
+import { Location} from '@angular/common'
 
 @Component({
   selector: 'fm-form',
@@ -24,7 +25,7 @@ export class FormComponent {
   categories?: string[];
   passwordVisible = false;
 
-  constructor(private formBuilder: FormBuilder, private dateAdapter: DateAdapter<Date>) {}
+  constructor(private formBuilder: FormBuilder, private dateAdapter: DateAdapter<Date>,private location:Location) {}
 
   ngOnInit(): void {    
     this.createForm();   
@@ -52,4 +53,8 @@ export class FormComponent {
   onSave(){     
     this.formSubmit.emit(this.entityForm);
    }
+
+   goBack(): void {
+    this.location.back()
+  }
 }
