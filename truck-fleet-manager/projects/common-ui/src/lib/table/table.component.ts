@@ -15,6 +15,7 @@ import { EntityListResponse } from 'projects/common/src/models';
 import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
 import { ColumnDescription } from '../../constants';
 import { AppLoginService } from '../../../../common/src/services/app-login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fm-table',
@@ -41,7 +42,7 @@ export class TableComponent implements OnInit {
   @Output() search = new EventEmitter<string>();
   @Output() pageChange = new EventEmitter<PageEvent>();
 
-  constructor(private loginService:AppLoginService) {}
+  constructor(private loginService:AppLoginService, private router: Router) {}
   roles: string[] = []; 
 
   ngOnInit(): void {
@@ -77,5 +78,9 @@ export class TableComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.pageChange.emit(event);
     this.loading = true;
+  }
+
+  redirect(){
+    this.router.navigate([this.rutaVariable + '/add']);
   }
 }
