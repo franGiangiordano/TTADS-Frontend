@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'fm-form',
@@ -23,10 +24,11 @@ export class FormComponent {
   categories?: string[];
   passwordVisible = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private dateAdapter: DateAdapter<Date>) {}
 
   ngOnInit(): void {    
-    this.createForm();    
+    this.createForm();   
+    this.dateAdapter.setLocale('es-AR'); 
   }
 
   createForm(): void {

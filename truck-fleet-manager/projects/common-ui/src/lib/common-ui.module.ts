@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
@@ -41,7 +43,9 @@ import { NavComponent } from './nav/component/nav.component';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     FormComponent,

@@ -22,12 +22,10 @@
         <ng-container *ngIf="field.includes('fecha')">
           <mat-form-field>
             <mat-label>{{ field | titlecase }}</mat-label>
-            <input
-              type="date"
-              matInput
-              [formControlName]="field"
-              [placeholder]="'Ingrese ' + field"
-            />
+            <input matInput [matDatepicker]="picker" [formControlName]="field">
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </ng-container>
         <ng-container *ngIf="field.includes('email')">

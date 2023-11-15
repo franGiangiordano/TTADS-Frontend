@@ -58,8 +58,8 @@ export class TravelFormComponent {
 
   autocompleteForm() {
     this.travelService.getTravel(this.id).subscribe(travel => {
-      let arrival_date = moment.utc(travel.arrival_date).format('YYYY-MM-DD');
-      let departure_date = moment.utc(travel.departure_date).format('YYYY-MM-DD');
+      let arrival_date = moment.utc(travel.arrival_date).add(1, 'days').format('YYYY-MM-DD');
+      let departure_date = moment.utc(travel.departure_date).add(1, 'days').format('YYYY-MM-DD');
 
       this.equipmentForm.get('fecha inicio')?.setValue(departure_date);
       this.equipmentForm.get('fecha fin')?.setValue(arrival_date);
