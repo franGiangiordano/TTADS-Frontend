@@ -19,7 +19,7 @@ export class BateaFormComponent {
 
   bateaForm!: FormGroup;
 
-  constructor(public bateaService: BateaService, private notificationService: NotificationService, public router : Router, private route: ActivatedRoute) { }
+  constructor(private bateaService: BateaService, private notificationService: NotificationService, private router : Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

@@ -24,6 +24,9 @@
       ],
       "crud-equipment": [
         "dist/crud-equipment"
+      ],
+      "crud-user": [
+        "dist/crud-user"
       ]
     },
     "outDir": "./dist/out-tsc",
