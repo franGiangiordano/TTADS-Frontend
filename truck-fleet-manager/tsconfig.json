@@ -25,6 +25,9 @@
       "crud-equipment": [
         "dist/crud-equipment"
       ],
+      "crud-travels": [
+        "dist/crud-travels"
+      ],
       "crud-user": [
         "dist/crud-user"
       ]

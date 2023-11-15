@@ -26,6 +26,10 @@ const routes: Routes = [
         component: EquipmentFormComponent,
         canActivate: [managerGuard],
       },
+      {
+        path: 'travels',
+        loadChildren: () => import('../../../crud-travels/src').then(x => x.CrudTravelsModule),
+      },
     ],
   },
 ];

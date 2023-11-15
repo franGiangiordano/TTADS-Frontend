@@ -1,0 +1,12 @@
+<h1>Gestión de Viajes</h1>
+<fm-form
+  [entityName]="'Travel'"
+  [fields]="['fecha inicio','fecha fin', 'costo','km', 'localidad inicio','localidad fin']"
+  [combos]="['equipo']"
+  [combosFields]="[EquipmentList]"
+  [editMode]="editMode"
+  [title]="formTitle"
+  (formSubmit)="onSubmit($event)"
+  (formEdit)="setequipmentForm($event)"
+></fm-form>
+

@@ -1,0 +1,13 @@
+<h1>Gestión de Viajes</h1>
+
+<fm-table
+  [data]="travelsList$"
+  [columns]="['legajo', 'nombre','apellido','descripción', 'batea', 'trailer', 'localIni', 'localFin', 'fechaIni', 'fechaFin']"
+  [formatFunction]="formatResponse"
+  [rutaVariable]="rutaVariable"
+  (edit)="editTravel($event)"
+  (delete)="deleteTravel($event)"
+  (search)="doSearch($event)"
+  (pageChange)="onPageChange($event)"
+></fm-table>
+
