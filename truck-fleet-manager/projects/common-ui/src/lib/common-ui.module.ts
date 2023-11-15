@@ -4,15 +4,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
-import {MatListModule} from '@angular/material/list';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
@@ -22,7 +23,7 @@ import { NavComponent } from './nav/component/nav.component';
   declarations: [
     FormComponent,
     TableComponent,
-    NavComponent, 
+    NavComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +31,7 @@ import { NavComponent } from './nav/component/nav.component';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    MatDividerModule,
     MatCardModule,
     MatTableModule,
     MatIconModule,

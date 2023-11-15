@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import * as CryptoJS from 'crypto-js';
 import { AppLoginService, FormsValidationMessages, UserRoles } from 'projects/common/src';
+import { NavService } from 'projects/common-ui/src/lib/nav/service/nav.service';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { AppLoginService, FormsValidationMessages, UserRoles } from 'projects/co
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
-  constructor(private router: Router, private loginService: AppLoginService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private loginService: AppLoginService,
+    private formBuilder: FormBuilder) { }
 
   validUserRoles = [UserRoles.Admin, UserRoles.Manager, UserRoles.Operative];
 
@@ -44,19 +46,16 @@ export class LoginFormComponent {
         const decodedToken = this.helper.decodeToken(res.token);
 
         this.loginService.getUser(decodedToken.id).subscribe((user: any) => {
-          this.loginService.setUser(user,res.token);
+          this.loginService.setUser(user, res.token);
+          this.loading = false;
+          this.validateRol();
         });
-        this.loading = false;        
-      })
-      .add(() => {
-        this.loading = false;
-        this.validateRol();
       });
   }
 
   private validateRol(): void {
     let roles: UserRoles[] = this.loginService.getUserRole();
-    
+
     if (roles.some(role => this.validUserRoles.includes(role))) {
       this.router.navigate(['dashboard']);
     } else {

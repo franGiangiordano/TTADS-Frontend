@@ -1,66 +1,72 @@
 <div class="container">
   <div class="container__spinner">
     <mat-spinner *ngIf="loading" diameter="80"></mat-spinner>
-  </div>  
+  </div>
   <div *ngIf="!loading">
     <div class="search-container">
-      <button mat-raised-button color="primary" [routerLink]="['/', rutaVariable, 'add']" *ngIf="roles.includes('manager')">
+      <button
+        mat-raised-button
+        color="primary"
+        [routerLink]="['/', rutaVariable, 'add']"
+        *ngIf="roles.includes('manager')"
+      >
         Añadir
       </button>
-      <div class="search">
-        <mat-icon class="icon">search</mat-icon>
-        <input
-          type="text"
-          placeholder="Buscar..."
-          (keyup)="filterData()"
-          [(ngModel)]="searchText"
-          id="search"
-        />
+      <div class="mat-form-wrapper">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Buscar..."
+            (keyup)="filterData()"
+            [(ngModel)]="searchText"
+            id="search"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
       </div>
     </div>
     <div *ngIf="count === 0">
       <p style="text-align: center">No hay registros para mostrar</p>
     </div>
-    <table
-      *ngIf="count != 0"
-      mat-table
-      [dataSource]="results"
-      class="mat-elevation-z8"
-    >
-      <ng-container *ngFor="let column of columns" [matColumnDef]="column">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ getColumnHeader(column) | titlecase }}
-        </th>
-        <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
-      </ng-container>
+    <div class="mat-elevation-z8">
+      <table *ngIf="count != 0" mat-table [dataSource]="results">
+        <ng-container *ngFor="let column of columns" [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ getColumnHeader(column) | titlecase }}
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="actions" *ngIf="roles.includes('manager')">
-        <th mat-header-cell *matHeaderCellDef>
-          <div style="text-align: right; margin-right: 20px">Acciones</div>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <div class="actions-container">
-            <button mat-icon-button color="primary" (click)="editItem(row)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="deleteItem(row)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="actions" *ngIf="roles.includes('manager')">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="text-align: right; margin-right: 20px">Acciones</div>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <div class="actions-container">
+              <button mat-icon-button color="primary" (click)="editItem(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteItem(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-divider></mat-divider>
+      <mat-paginator
+        [ngClass]="{ hidden: loading }"
+        [length]="count"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page"
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator>
+    </div>
   </div>
-  <mat-paginator
-    [ngClass]="{ hidden: loading }"
-    [length]="count"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-    aria-label="Select page"
-    (page)="onPageChange($event)"
-  >
-  </mat-paginator>
 </div>
