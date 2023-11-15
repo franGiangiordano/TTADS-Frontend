@@ -43,13 +43,7 @@ export class AppLoginService {
   }
 
   getUserRole() {
-    let userStr = localStorage.getItem('user');
-
-    if (userStr != null) {
-      return JSON.parse(userStr).user.roles.map((role: any) => role.name);
-    } else {
-      this.logout();
-      return null;
-    }
+    let userStr = localStorage.getItem('user') ?? '';
+    return JSON.parse(userStr).user.roles.map((role: any) => role.name);
   }
 }

@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
+import { NavService } from 'projects/common-ui/src/lib/nav/service/nav.service';
+
 import { LoginHomeComponent } from './login-home/login-home.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AppLoginRoutingModule } from './app-login.routing.module';
@@ -26,6 +28,9 @@ import { AppLoginRoutingModule } from './app-login.routing.module';
     MatButtonModule,
     MatIconModule,
     CommonModule
+  ],
+  providers: [
+    NavService
   ],
   exports: [
     LoginHomeComponent,
