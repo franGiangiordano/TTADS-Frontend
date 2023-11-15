@@ -12,15 +12,18 @@
       >
         Añadir
       </button>
-      <div class="search">
-        <mat-icon class="icon">search</mat-icon>
-        <input
-          type="text"
-          placeholder="Buscar..."
-          (keyup)="filterData()"
-          [(ngModel)]="searchText"
-          id="search"
-        />
+      <div class="mat-form-wrapper">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Buscar..."
+            (keyup)="filterData()"
+            [(ngModel)]="searchText"
+            id="search"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
       </div>
     </div>
     <div *ngIf="count === 0">
@@ -54,6 +57,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+      <mat-divider></mat-divider>
       <mat-paginator
         [ngClass]="{ hidden: loading }"
         [length]="count"
