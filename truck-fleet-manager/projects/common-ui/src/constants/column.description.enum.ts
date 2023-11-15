@@ -6,5 +6,7 @@ export enum ColumnDescription {
     type = 'Tipo',
     description = 'Descripcion',
     batea = 'Patente Batea',
-    trailer = 'Patente Trailer'
+    trailer = 'Patente Trailer',
+    email = 'Email',
+    rol = 'Rol',
 } 

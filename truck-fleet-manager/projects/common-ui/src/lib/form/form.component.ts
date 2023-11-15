@@ -21,6 +21,7 @@ export class FormComponent {
 
   entityForm!: FormGroup;  
   categories?: string[];
+  passwordVisible = false;
 
   constructor(private formBuilder: FormBuilder) {}
 

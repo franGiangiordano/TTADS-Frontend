@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'drivers', loadChildren: () => import('../../projects/crud-drivers/src').then(x => x.CrudDriversModule), canActivate: [authGuard] },
   { path: 'trailers', loadChildren: () => import('../../projects/crud-trailers/src').then(x => x.CrudTrailersModule), canActivate: [authGuard] },
   { path: 'equipments', loadChildren: () => import('../../projects/crud-equipment/src').then(x => x.CrudEquipmentModule), canActivate: [authGuard] },
+  { path: 'users', loadChildren: () => import('../../projects/crud-users/src').then(x => x.CrudUserModule), canActivate: [authGuard] },
   { path: '**', redirectTo: 'dashboard' }
 ];
 
