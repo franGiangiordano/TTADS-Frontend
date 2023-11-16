@@ -30,3 +30,15 @@ mat-select{
   justify-content: space-between;
   margin-top: 10px; 
 }
+
+.mat-mdc-select-trigger {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #ced4da;
+  background-color: var(--mdc-filled-text-field-container-color);
+  padding: 13px;
+}
