@@ -22,6 +22,9 @@
       "crud-trailers": [
         "dist/crud-trailers"
       ],
+      "crud-repairs": [
+        "dist/crud-repairs"
+      ],
       "crud-equipment": [
         "dist/crud-equipment"
       ],

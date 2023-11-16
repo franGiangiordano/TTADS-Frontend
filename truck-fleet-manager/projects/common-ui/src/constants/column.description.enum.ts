@@ -13,4 +13,7 @@ export enum ColumnDescription {
     localFin = 'Localidad Fin',
     fechaIni = 'Fecha Inicio',
     fechaFin = 'Fecha Fin',
+    reparacion = 'Descripcion Reparación', 
+    costo = 'Costo',
+    fechaReparacion = 'Fecha Reparación'
 } 

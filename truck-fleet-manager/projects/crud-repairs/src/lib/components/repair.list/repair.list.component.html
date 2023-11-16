@@ -1,0 +1,13 @@
+<h1>Gestión de Reparaciones</h1>
+
+<fm-table
+  [data]="repairsList$"
+  [columns]="['legajo', 'name','surname','descripción', 'batea', 'trailer', 'reparacion', 'costo', 'fechaReparacion']"
+  [formatFunction]="formatResponse"
+  [rutaVariable]="rutaVariable"
+  (edit)="editRepair($event)"
+  (delete)="deleteRepair($event)"
+  (search)="doSearch($event)"
+  (pageChange)="onPageChange($event)"
+></fm-table>
+
