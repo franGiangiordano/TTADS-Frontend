@@ -17,6 +17,8 @@ import { ColumnDescription } from '../../constants';
 import { AppLoginService } from '../../../../common/src/services/app-login.service';
 import { Router } from '@angular/router';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'fm-table',
   templateUrl: './table.component.html',
@@ -61,10 +63,20 @@ export class TableComponent implements OnInit {
   }
 
   deleteItem(item: any) {
-    const confirmDelete = confirm(DELETE_CONFIRMATION_MESSAGE);
-    if (confirmDelete) {
-      this.delete.emit(item);
-    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: DELETE_CONFIRMATION_MESSAGE,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.delete.emit(item);
+      }
+    });
   }
 
   filterData() {
