@@ -4,7 +4,7 @@ export class Repair  {
     constructor(
         _id = "", 
         description = "",
-        cost = 0, 
+        cost = "", 
         equipment: Equipment,
         ) {
       this._id = _id;
@@ -14,7 +14,7 @@ export class Repair  {
     }
     _id: string;
     description: string; 
-    cost: number;
+    cost: string;
     equipment: Equipment;
     createdAt?: Date;
   }
