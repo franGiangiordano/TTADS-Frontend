@@ -58,7 +58,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
       <mat-divider></mat-divider>
-      <mat-paginator
+      <mat-paginator *ngIf="count !== 0"
         [ngClass]="{ hidden: loading }"
         [length]="count"
         [pageSize]="10"
