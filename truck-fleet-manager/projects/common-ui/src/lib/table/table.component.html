@@ -33,7 +33,7 @@
       <table *ngIf="count != 0" mat-table [dataSource]="results">
         <ng-container *ngFor="let column of columns" [matColumnDef]="column">
           <th mat-header-cell *matHeaderCellDef>
-            {{ getColumnHeader(column) | titlecase }}
+            <div [innerHTML]="getColumnHeader(column) | titlecase"></div>
           </th>
           <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
         </ng-container>
