@@ -52,10 +52,10 @@ export class RepairlistComponent implements OnInit {
     return array.map(obj => {
       return {
         _id: obj._id,
+        descEquipo: obj.equipment.description,   
         legajo: obj.equipment.driver.legajo,
         name: obj.equipment.driver.name,
-        surname: obj.equipment.driver.surname,
-        description: obj.equipment.description,        
+        surname: obj.equipment.driver.surname,   
         batea: obj.equipment.batea.patent,
         trailer: obj.equipment.trailer.patent,
         reparacion: obj.description,
