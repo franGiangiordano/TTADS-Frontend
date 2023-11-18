@@ -20,7 +20,7 @@ export class DriverService {
 
   getTotalDriversCount(search: string = '') {
     return this.http.get<number>(
-      this.apiUrl + '/driver/count',
+      this.apiUrl + '/driver/',
       { params: { search } }
     );
   }
