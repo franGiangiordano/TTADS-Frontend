@@ -30,7 +30,7 @@ export class UserFormComponent {
       this.id = params['id'];
       if(this.id){
         this.editMode=true;
-        this.formTitle= 'Editar Batea';
+        this.formTitle= 'Editar Usuario';
         this.autocompleteForm();
       }      
     });
