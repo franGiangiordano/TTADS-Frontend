@@ -71,7 +71,7 @@ export class RepairFormComponent implements OnInit {
     const nuevaRepair: Repair = {
       _id: '',
       description: form.value.descripcion,
-      cost: form.value.costo,
+      cost: parseInt(form.value.costo, 10),
       equipment: this.equipmentSelectected 
     }; 
     this.repairService.postRepairs(nuevaRepair)
@@ -89,7 +89,7 @@ export class RepairFormComponent implements OnInit {
     const nuevaRepair: Repair = {
       _id: this.id,
       description: form.value.descripcion,
-      cost: form.value.costo,
+      cost: parseInt(form.value.costo, 10),
       equipment: this.equipmentSelectected
     };
 
