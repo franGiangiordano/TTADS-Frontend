@@ -17,13 +17,6 @@ export class DriverService {
   getDrivers(page: number = 1, limit: number = 10, search:string = '') {
     return this.http.get<EntityListResponse<Driver>>(this.apiUrl + '/driver/', { params: { search, page, limit } });
   }
-
-  getTotalDriversCount(search: string = '') {
-    return this.http.get<number>(
-      this.apiUrl + '/driver/',
-      { params: { search } }
-    );
-  }
   
   getDriver(id:string) {
     return this.http.get<Driver>(this.apiUrl + '/driver/'+ id);

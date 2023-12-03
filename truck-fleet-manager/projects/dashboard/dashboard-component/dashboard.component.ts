@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DriverService } from '../../../projects/crud-drivers/src/lib/services/driver.service';
+import { Driver } from '../../../projects/crud-drivers/src/lib/models/driver.model';
+import { EntityListResponse } from 'projects/common/src';
 
 @Component({
   selector: 'lib-dashboard',
@@ -12,15 +14,14 @@ export class DashboardComponent implements OnInit {
   constructor(private driverService: DriverService) { }
 
   ngOnInit(): void {
-    this.getDriversCount();
+    this.countDrivers();
   }
 
-  getDriversCount() {
-    this.driverService.getTotalDriversCount().subscribe(
-      (response: any) => {
-        this.totalDriversCount = response.count; 
-      }
-    );
+  countDrivers(): void {
+    this.driverService.getDrivers() 
+      .subscribe((response: EntityListResponse<Driver>) => {
+        this.totalDriversCount = response.results.length;
+      });
   }
 }
 
