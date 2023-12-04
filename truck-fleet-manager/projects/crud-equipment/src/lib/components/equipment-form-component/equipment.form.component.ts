@@ -53,7 +53,7 @@ export class EquipmentFormComponent {
       this.id = params['id'];
       if (this.id) {
         this.editMode = true;
-        this.formTitle = 'Editar Batea';
+        this.formTitle = 'Editar Equipo';
         this.autocompleteForm();
       }
     });

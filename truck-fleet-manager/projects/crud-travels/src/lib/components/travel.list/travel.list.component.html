@@ -2,7 +2,7 @@
 
 <fm-table
   [data]="travelsList$"
-  [columns]="['legajo', 'nombre','apellido','descripción', 'batea', 'trailer', 'localIni', 'localFin', 'fechaIni', 'fechaFin']"
+  [columns]="['descEquipo','legajo', 'name','surname','descripción', 'batea', 'trailer', 'localIni', 'localFin', 'fechaIni', 'fechaFin']"
   [formatFunction]="formatResponse"
   [rutaVariable]="rutaVariable"
   (edit)="editTravel($event)"

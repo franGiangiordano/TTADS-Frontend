@@ -20,12 +20,14 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
 import { NavComponent } from './nav/component/nav.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     FormComponent,
     TableComponent,
     NavComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +52,8 @@ import { NavComponent } from './nav/component/nav.component';
   exports: [
     FormComponent,
     TableComponent,
-    NavComponent
+    NavComponent,
+    FooterComponent
   ]
 })
 export class CommonUiModule { }

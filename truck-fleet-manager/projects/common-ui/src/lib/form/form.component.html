@@ -64,7 +64,7 @@
       </ng-container>
       <ng-container *ngFor="let combo of combosFields; let i = index">
         <mat-label>Seleccione {{ combos[i] | titlecase }}</mat-label>
-        <mat-select [formControlName]="combos[i]">
+        <mat-select [formControlName]="combos[i]"  class="mat-mdc-select-trigger">
           <mat-option *ngFor="let item of combo" [value]="item">
             {{ item }}
           </mat-option>

@@ -30,6 +30,10 @@ const routes: Routes = [
         path: 'travels',
         loadChildren: () => import('../../../crud-travels/src').then(x => x.CrudTravelsModule),
       },
+      {
+        path: 'repairs',
+        loadChildren: () => import('../../../crud-repairs/src').then(x => x.CrudRepairsModule),
+      },
     ],
   },
 ];

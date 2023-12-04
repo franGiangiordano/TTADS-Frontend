@@ -24,6 +24,7 @@ export class DriverListComponent implements OnInit {
   pageIndex: number = 1;
 
   driversList$ = new Subject<EntityListResponse<Driver>>();
+  totalDriversCount = 0;
 
   driverForm!: FormGroup;
 
@@ -35,7 +36,15 @@ export class DriverListComponent implements OnInit {
 
   doSearch(search?:string): void {
     this.driverService.getDrivers(this.pageIndex, this.pageSize,search)
-      .subscribe(response => this.driversList$.next(response));
+      .subscribe(response => {this.driversList$.next(response);
+      this.countDrivers(response);
+    });
+  }
+
+  countDrivers(response: EntityListResponse<Driver>): void {
+    if (response && response.results && Array.isArray(response.results)) {
+      this.totalDriversCount = response.results.length;
+    }
   }
 
   deleteDriver(event: Driver): void {
