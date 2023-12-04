@@ -1,38 +1,11 @@
 <div class="cards">
-    <div class="card">
+    <div class="card" *ngFor="let card of cardInfo">
         <div class="card-content">
-            <div class="number">falta hacer!!!</div>
-            <div class="card-name">Equipos</div>
-        </div>
+            <div class="number">{{card.count}}</div>
+            <div class="card-name">{{card.title}}</div>
+        </div>  
         <div class="icon-box">
-            <i class="fa-solid fa-users-gear"></i>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-content">
-            <div class="number">falta hacer!!!</div>
-            <div class="card-name">Reparaciones</div>
-        </div>
-        <div class="icon-box">
-            <i class="fa-solid fa-gears"></i>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-content">
-            <div class="number">falta hacer!!!</div>
-            <div class="card-name">Viajes</div>
-        </div>
-        <div class="icon-box">
-            <i class="fa-solid fa-route"></i>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-content">
-            <div class="number">{{ totalDriversCount }}</div>
-            <div class="card-name">Choferes</div>
-        </div>
-        <div class="icon-box">
-            <i class="fa-solid fa-id-card"></i>
-        </div>
+            <i class="fa-solid {{card.icon}}"></i>
+        </div>  
     </div>
 </div>

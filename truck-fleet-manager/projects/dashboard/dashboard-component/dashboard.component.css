@@ -70,7 +70,7 @@ header{
     width: 100%;
     padding: 35px 20px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
 }
 .cards .card {
@@ -94,12 +94,8 @@ header{
 }
 
 @media (max-width:880px) {
-    .cards {
-        width: 100%;
-        padding: 35px 20px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 20px;
+    .cards {        
+        grid-template-columns: repeat(2, 1fr);        
     }
 }
 
