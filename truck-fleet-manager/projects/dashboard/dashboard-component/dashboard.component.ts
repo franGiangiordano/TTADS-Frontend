@@ -2,8 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { forkJoin } from 'rxjs';
 
 import { DriverService } from '../../../projects/crud-drivers/src/lib/services/driver.service';
-import { Driver } from '../../../projects/crud-drivers/src/lib/models/driver.model';
-import { EntityListResponse } from 'projects/common/src';
 import { BateaService } from 'projects/crud-bateas/src/lib/services/batea.service';
 import { TrailerService } from 'projects/crud-trailers/src/lib/services/trailer.service';
 import { TravelService } from 'projects/crud-travels/src/lib/services/travel.service';
@@ -64,7 +62,6 @@ export class DashboardComponent implements OnInit {
       this.repairService.getRepairs(),
       this.equipmentService.getEquipments()
     ]).subscribe((responses: any) => {     
-      console.log(responses);
       for (let i = 0; i < responses.length; i++) {
         this.cardInfo[i].count = responses[i].count;
       }      

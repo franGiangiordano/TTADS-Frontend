@@ -1,5 +1,9 @@
-<fm-nav *ngIf="nav.visible"></fm-nav>
+<div class="container">
+    <div class="content">
+        <fm-nav *ngIf="nav.visible"></fm-nav>
+        <router-outlet *ngIf="!nav.visible"></router-outlet>
+    </div>
+    <fm-footer></fm-footer>
+</div>
 
-<router-outlet *ngIf="!nav.visible"></router-outlet>
 
-<fm-footer></fm-footer>

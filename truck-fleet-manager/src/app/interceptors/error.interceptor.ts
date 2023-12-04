@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         catchError(
           exception => {
             switch (exception.status) {
-              default:
+              default:                
                 this.notificationService.showSnackbar(exception.error.message, 'error');
                 break;
             }

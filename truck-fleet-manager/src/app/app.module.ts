@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor.service';
 import { CommonUiModule } from 'projects/common-ui/src';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,8 @@ import { CommonUiModule } from 'projects/common-ui/src';
       useClass: TokenInterceptor,
       multi: true
     },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
