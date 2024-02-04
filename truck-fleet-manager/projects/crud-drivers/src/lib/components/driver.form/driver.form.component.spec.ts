@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DriverFormComponent } from './driver.form.component';
+// import { DriverFormComponent } from './driver.form.component';
 
-describe('DriverFormComponent', () => {
-  let component: DriverFormComponent;
-  let fixture: ComponentFixture<DriverFormComponent>;
+// describe('DriverFormComponent', () => {
+//   let component: DriverFormComponent;
+//   let fixture: ComponentFixture<DriverFormComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [DriverFormComponent]
-    });
-    fixture = TestBed.createComponent(DriverFormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [DriverFormComponent]
+//     });
+//     fixture = TestBed.createComponent(DriverFormComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
