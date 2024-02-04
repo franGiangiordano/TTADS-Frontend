@@ -67,6 +67,12 @@
         "tsconfig": "<rootDir>/tsconfig.spec.json",
         "stringifyContentPathRegex": "\\.html$"
       }
-    }
+    },
+    "collectCoverage": true,
+    "coverageReporters": [
+      "text-summary",
+      "lcov"
+    ],
+    "coverageDirectory": "coverage/mi-sitio-web"
   }
 }
