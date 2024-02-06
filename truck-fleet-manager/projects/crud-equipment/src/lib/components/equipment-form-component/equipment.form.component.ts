@@ -71,7 +71,8 @@ export class EquipmentFormComponent {
         (this.DriverList = response.results.map((result) => {
           return {
             value: result.legajo,
-            viewValue: result.name + ' ' + result.surname,
+            viewValue:
+              result.legajo + ' - ' + result.name + ' ' + result.surname,
           };
         }))
     );
