@@ -16,7 +16,7 @@ import { Travel } from '../../models';
   styleUrls: ['./travel.list.component.css'],
   providers: [TravelService, NotificationService],
 })
-export class TravelListComponent implements OnInit{
+export class TravelListComponent implements OnInit {
   editMode = false;
   formTitle = 'Añadir Viaje';
   rutaVariable: string = 'equipments/travels';
@@ -28,45 +28,55 @@ export class TravelListComponent implements OnInit{
 
   travelsForm!: FormGroup;
 
-  constructor(private travelService: TravelService, private notificationService: NotificationService,  private router : Router) { }
+  constructor(
+    private travelService: TravelService,
+    private notificationService: NotificationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.doSearch();
   }
 
-  doSearch(search?:string): void {
-    this.travelService.getTravels(this.pageIndex, this.pageSize,search)
-      .subscribe(response => this.travelsList$.next(response));
+  doSearch(search?: string): void {
+    this.travelService
+      .getTravels(this.pageIndex, this.pageSize, search)
+      .subscribe((response) => this.travelsList$.next(response));
   }
 
   deleteTravel(event: Travel): void {
-    this.travelService.deleteTravels(event)
-      .subscribe(() => {
-        this.notificationService.showSnackbar('Elemento eliminado exitosamente', 'success');
-        this.doSearch();
-      });
+    this.travelService.deleteTravels(event).subscribe(() => {
+      this.notificationService.showSnackbar(
+        'Elemento eliminado exitosamente',
+        'success'
+      );
+      this.doSearch();
+    });
   }
 
-  formatResponse(array: any[]): any[]{
-    return array.map(obj => {
+  formatResponse(array: any[]): any[] {
+    return array.map((obj) => {
       return {
         _id: obj._id,
         descEquipo: obj.equipment.description,
         legajo: obj.equipment.driver.legajo,
         name: obj.equipment.driver.name,
-        surname: obj.equipment.driver.surname,       
+        surname: obj.equipment.driver.surname,
         batea: obj.equipment.batea.patent,
         trailer: obj.equipment.trailer.patent,
         localIni: obj.starting_location,
         localFin: obj.final_location,
         fechaIni: moment.utc(obj.departure_date).format('DD/MM/YYYY'),
         fechaFin: moment.utc(obj.arrival_date).format('DD/MM/YYYY'),
+        destination_description: obj.destination_description
+          ? obj.destination_description
+          : '',
       };
     });
-  }  
+  }
 
   editTravel(event: Travel): void {
-    this.router.navigate(['/equipments/travels/edit/'+ event._id]);    
+    this.router.navigate(['/equipments/travels/edit/' + event._id]);
   }
 
   onPageChange(event: PageEvent): void {
@@ -78,5 +88,4 @@ export class TravelListComponent implements OnInit{
     }
     this.doSearch();
   }
-
 }

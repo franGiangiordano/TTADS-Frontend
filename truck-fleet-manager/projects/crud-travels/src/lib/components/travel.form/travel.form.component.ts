@@ -81,6 +81,9 @@ export class TravelFormComponent {
         .get('localidad inicio')
         ?.setValue(travel.starting_location);
       this.equipmentForm.get('localidad fin')?.setValue(travel.final_location);
+      this.equipmentForm
+        .get('destino')
+        ?.setValue(travel.destination_description);
     });
   }
 
@@ -88,7 +91,6 @@ export class TravelFormComponent {
     this.equipmentService
       .getEquipments(1, 10, form.value['equipo'])
       .subscribe((response) => {
-        console.log(response);
         this.equipmentSelectected = response.results[0];
 
         const nuevoViaje: Travel = {
@@ -100,6 +102,7 @@ export class TravelFormComponent {
           starting_location: form.value['localidad inicio'],
           final_location: form.value['localidad fin'],
           equipment: this.equipmentSelectected,
+          destination_description: form.value['destino'],
         };
         this.travelService.postTravels(nuevoViaje).subscribe(() => {
           this.notificationService.showSnackbar(
@@ -126,6 +129,7 @@ export class TravelFormComponent {
           starting_location: form.value['localidad inicio'],
           final_location: form.value['localidad fin'],
           equipment: this.equipmentSelectected,
+          destination_description: form.value['destino'],
         };
 
         this.travelService.putTravels(nuevoViaje).subscribe(() => {

@@ -25,7 +25,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  
   searchText: string = '';
   displayedColumns: string[] = [];
 
@@ -38,24 +37,27 @@ export class TableComponent implements OnInit {
   @Input() rutaVariable: string = '';
   @Input() formatFunction?: (array: any[]) => any[];
 
-
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
   @Output() search = new EventEmitter<string>();
   @Output() pageChange = new EventEmitter<PageEvent>();
 
-  constructor(private loginService:AppLoginService, private router: Router) {}
-  roles: string[] = []; 
+  constructor(private loginService: AppLoginService, private router: Router) {}
+  roles: string[] = [];
 
   ngOnInit(): void {
-    this.roles = this.loginService.getUserRole(); 
-    this.displayedColumns = this.roles.includes('manager')?[...this.columns, 'actions']: [...this.columns];
+    this.roles = this.loginService.getUserRole();
+    this.displayedColumns = this.roles.includes('manager')
+      ? [...this.columns, 'actions']
+      : [...this.columns];
     this.loading = true;
-    this.data.subscribe(response => {
+    this.data.subscribe((response) => {
       this.count = response.count;
-      this.results = (this.formatFunction)? this.formatFunction(response.results): response.results;
-      this.loading = false
-    })
+      this.results = this.formatFunction
+        ? this.formatFunction(response.results)
+        : response.results;
+      this.loading = false;
+    });
   }
 
   editItem(item: any) {
@@ -71,7 +73,7 @@ export class TableComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         this.delete.emit(item);
@@ -92,7 +94,7 @@ export class TableComponent implements OnInit {
     this.loading = true;
   }
 
-  redirect(){
+  redirect() {
     this.router.navigate([this.rutaVariable + '/add']);
   }
 }

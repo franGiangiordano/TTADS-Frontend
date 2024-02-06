@@ -2,7 +2,20 @@
 
 <fm-table
   [data]="travelsList$"
-  [columns]="['descEquipo','legajo', 'name','surname','descripción', 'batea', 'trailer', 'localIni', 'localFin', 'fechaIni', 'fechaFin']"
+  [columns]="[
+    'descEquipo',
+    'legajo',
+    'name',
+    'surname',
+    'descripción',
+    'batea',
+    'trailer',
+    'localIni',
+    'localFin',
+    'fechaIni',
+    'fechaFin',
+    'destination_description'
+  ]"
   [formatFunction]="formatResponse"
   [rutaVariable]="rutaVariable"
   (edit)="editTravel($event)"
@@ -10,4 +23,3 @@
   (search)="doSearch($event)"
   (pageChange)="onPageChange($event)"
 ></fm-table>
-
