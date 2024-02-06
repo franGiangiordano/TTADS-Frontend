@@ -22,9 +22,16 @@
         <ng-container *ngIf="field.includes('fecha')">
           <mat-form-field>
             <mat-label>{{ field | titlecase }}</mat-label>
-            <input matInput [matDatepicker]="picker" [formControlName]="field">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [formControlName]="field"
+            />
             <mat-hint>DD/MM/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </ng-container>
@@ -64,9 +71,12 @@
       </ng-container>
       <ng-container *ngFor="let combo of combosFields; let i = index">
         <mat-label>Seleccione {{ combos[i] | titlecase }}</mat-label>
-        <mat-select [formControlName]="combos[i]"  class="mat-mdc-select-trigger">
-          <mat-option *ngFor="let item of combo" [value]="item">
-            {{ item }}
+        <mat-select
+          [formControlName]="combos[i]"
+          class="mat-mdc-select-trigger"
+        >
+          <mat-option *ngFor="let item of combo" [value]="item.value">
+            {{ item.viewValue }}
           </mat-option>
         </mat-select>
       </ng-container>
@@ -78,7 +88,12 @@
       </div>
     </form>
     <div class="cancel-button-container">
-      <button mat-raised-button color="warn" class="cancel-button" (click)="goBack()">
+      <button
+        mat-raised-button
+        color="warn"
+        class="cancel-button"
+        (click)="goBack()"
+      >
         Cancelar
       </button>
     </div>

@@ -8,13 +8,13 @@ import * as CryptoJS from 'crypto-js';
 
 import { UserService } from '../../services/crud.user.service';
 import { User } from 'projects/common/src';
+import { comboField } from 'projects/common-ui/src/constants/types';
 
 @Component({
   selector: 'lib-user.form',
   templateUrl: './user.form.component.html',
   styleUrls: ['./user.form.component.scss'],
-  providers: [UserService,NotificationService],
-
+  providers: [UserService, NotificationService],
 })
 export class UserFormComponent {
   id = '';
@@ -22,41 +22,57 @@ export class UserFormComponent {
   formTitle = 'Añadir Usuario';
 
   userForm!: FormGroup;
+  rolesCombo: comboField[] = [
+    { value: 'admin', viewValue: 'Administrador' },
+    { value: 'manager', viewValue: 'Gerente' },
+    { value: 'operative', viewValue: 'Operativo' },
+  ];
 
-  constructor(private userService: UserService, private notificationService: NotificationService, public router : Router, private route: ActivatedRoute) { }
+  constructor(
+    private userService: UserService,
+    private notificationService: NotificationService,
+    public router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.id = params['id'];
-      if(this.id){
-        this.editMode=true;
-        this.formTitle= 'Editar Usuario';
+      if (this.id) {
+        this.editMode = true;
+        this.formTitle = 'Editar Usuario';
         this.autocompleteForm();
-      }      
+      }
     });
   }
 
-  autocompleteForm(){
-    this.userService.getUser(this.id).subscribe(user => {
+  autocompleteForm() {
+    this.userService.getUser(this.id).subscribe((user) => {
       this.userForm.get('nombre')?.setValue(user.name);
-      this.userForm.get('email')?.setValue(user.email);      
-      this.userForm.controls['rol'].setValue(user.roles[0].name)});
-  } 
+      this.userForm.get('email')?.setValue(user.email);
+      this.userForm.controls['rol'].setValue(user.roles[0].name);
+    });
+  }
 
   postUser(form: FormGroup): void {
-    const nuevoUsuario: User = { 
-      _id: '', 
-      name: form.value.nombre, 
-      email: form.value.email, 
+    const nuevoUsuario: User = {
+      _id: '',
+      name: form.value.nombre,
+      email: form.value.email,
       password: CryptoJS.SHA256(form.value.password).toString(),
-      roles: form.value['rol'] === 'admin' ? ['admin','manager'] : [form.value['rol']],
+      roles:
+        form.value['rol'] === 'admin'
+          ? ['admin', 'manager']
+          : [form.value['rol']],
     };
 
-    this.userService.postUsers(nuevoUsuario)
-      .subscribe(() => {
-        this.notificationService.showSnackbar(`Se añadió el usuario: ${nuevoUsuario.name}`, 'success');
-        this.router.navigate(['/users']);
-      });
+    this.userService.postUsers(nuevoUsuario).subscribe(() => {
+      this.notificationService.showSnackbar(
+        `Se añadió el usuario: ${nuevoUsuario.name}`,
+        'success'
+      );
+      this.router.navigate(['/users']);
+    });
   }
 
   putUser(form: FormGroup): void {
@@ -65,14 +81,19 @@ export class UserFormComponent {
       name: form.value.nombre,
       email: form.value.email,
       password: CryptoJS.SHA256(form.value.password).toString(),
-      roles: form.value['rol'] === 'admin' ? ['admin','manager'] : [form.value['rol']],
+      roles:
+        form.value['rol'] === 'admin'
+          ? ['admin', 'manager']
+          : [form.value['rol']],
     };
 
-    this.userService.putUsers(nuevoUsuario)
-      .subscribe(() => {
-        this.router.navigate(['/users']);
-        this.notificationService.showSnackbar('Se actualizo el usuario', 'success');
-      });
+    this.userService.putUsers(nuevoUsuario).subscribe(() => {
+      this.router.navigate(['/users']);
+      this.notificationService.showSnackbar(
+        'Se actualizo el usuario',
+        'success'
+      );
+    });
   }
 
   setUserForm(form: FormGroup): void {

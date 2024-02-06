@@ -6,58 +6,66 @@ import { NotificationService } from 'projects/common/src/services/notification.s
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'lib-batea-form',
   templateUrl: './batea.form.component.html',
-  styleUrls: ['./batea.form.component.css']
+  styleUrls: ['./batea.form.component.css'],
 })
 export class BateaFormComponent {
-  id='';
+  id = '';
   editMode = false;
   formTitle = 'Añadir Batea';
 
   bateaForm!: FormGroup;
 
-  constructor(private bateaService: BateaService, private notificationService: NotificationService, private router : Router, private route: ActivatedRoute) { }
+  constructor(
+    private bateaService: BateaService,
+    private notificationService: NotificationService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.id = params['id'];
-      if(this.id){
-        this.editMode=true;
-        this.formTitle= 'Editar Batea';
+      if (this.id) {
+        this.editMode = true;
+        this.formTitle = 'Editar Batea';
         this.autocompleteForm();
-      }      
+      }
     });
   }
 
-  autocompleteForm(){
-    this.bateaService.getBatea(this.id).subscribe(batea => {
+  autocompleteForm() {
+    this.bateaService.getBatea(this.id).subscribe((batea) => {
       this.bateaForm.get('patente')?.setValue(batea.patent);
     });
-  } 
+  }
 
   postBatea(form: FormGroup): void {
     const nuevaBatea: Batea = { _id: '', patent: form.value.patente };
-    this.bateaService.postBateas(nuevaBatea)
-      .subscribe(() => {
-        this.notificationService.showSnackbar(`Se añadió la patente: ${nuevaBatea.patent}`, 'success');
-        this.router.navigate(['/bateas']);
-      });
+    this.bateaService.postBateas(nuevaBatea).subscribe(() => {
+      this.notificationService.showSnackbar(
+        `Se añadió la patente: ${nuevaBatea.patent}`,
+        'success'
+      );
+      this.router.navigate(['/bateas']);
+    });
   }
 
   putBatea(form: FormGroup): void {
     const nuevaBatea: Batea = {
       _id: this.id,
-      patent: form.value.patente
+      patent: form.value.patente,
     };
 
-    this.bateaService.putBateas(nuevaBatea)
-      .subscribe(() => {
-        this.router.navigate(['/bateas']);
-        this.notificationService.showSnackbar(`Se actualizo la patente a : ${nuevaBatea.patent}`, 'success');
-      });
+    this.bateaService.putBateas(nuevaBatea).subscribe(() => {
+      this.router.navigate(['/bateas']);
+      this.notificationService.showSnackbar(
+        `Se actualizo la patente a : ${nuevaBatea.patent}`,
+        'success'
+      );
+    });
   }
 
   setbateaForm(form: FormGroup): void {
