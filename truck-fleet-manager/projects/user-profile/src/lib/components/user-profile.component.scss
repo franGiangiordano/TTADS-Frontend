@@ -1,0 +1,40 @@
+.user-profile-card {
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 5em;
+  align-items: center;
+  display: flex;
+  gap: 2em;
+  .card-title {
+    margin-top: 1em;
+    font-size: 40px;
+  }
+  span {
+    font-weight: 100;
+  }
+}
+
+.user-info {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.user-item {
+  display: flex;
+  gap: 0.5em;
+  justify-content: space-between;
+}
+
+.mat-icon {
+  cursor: pointer;
+}
+.buttons {
+  display: flex;
+  gap: 0.2em;
+}
+
+@media (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+  }
+}
