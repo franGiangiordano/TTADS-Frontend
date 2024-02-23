@@ -55,3 +55,56 @@ table {
     color: transparent;
   }
 }
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 600px) {
+  .mobile-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .card-content {
+    padding: 16px;
+  }
+
+  .card-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .card-attribute {
+    font-weight: bold;
+  }
+
+  .card-data {
+    flex-grow: 1;
+    text-align: right;
+  }
+
+  .actions-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .desktop-content {
+    display: none;
+  }
+}
+
+@media (min-width: 601px) {
+  .mobile-content {
+    display: none;
+  }
+}
