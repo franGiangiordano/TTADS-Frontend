@@ -57,7 +57,16 @@ export class TableComponent implements OnInit {
         ? this.formatFunction(response.results)
         : response.results;
       this.loading = false;
+
+      if (this.columns.length > 6 && !this.showAllColumns) {
+        this.showAllColumns = false;
+        this.displayedColumns = [...this.columns.slice(0, 6), 'actions'];
+      } else {
+        this.showAllColumns = true;
+        this.displayedColumns = [...this.columns, 'actions'];
+      }
     });
+    this.toggleColumnVisibility();
   }
 
   editItem(item: any) {
@@ -96,5 +105,14 @@ export class TableComponent implements OnInit {
 
   redirect() {
     this.router.navigate([this.rutaVariable + '/add']);
+  }
+
+  showAllColumns = false;
+
+  toggleColumnVisibility() {
+    this.showAllColumns = !this.showAllColumns;
+    this.displayedColumns = this.showAllColumns
+      ? [...this.columns, 'actions']
+      : [...this.columns.slice(0, 6), 'actions'];
   }
 }

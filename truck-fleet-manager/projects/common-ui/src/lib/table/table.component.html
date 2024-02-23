@@ -30,6 +30,18 @@
       <p style="text-align: center">No hay registros para mostrar</p>
     </div>
     <div class="mat-elevation-z8">
+      <div *ngIf="columns.length > 6" class="show-more-button">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="toggleColumnVisibility()"
+          matTooltip="{{
+            showAllColumns ? 'Ocultar columnas' : 'Mostrar más columnas'
+          }}"
+        >
+          <mat-icon>{{ showAllColumns ? 'remove' : 'add' }}</mat-icon>
+        </button>
+      </div>
       <table *ngIf="count != 0" mat-table [dataSource]="results">
         <ng-container *ngFor="let column of columns" [matColumnDef]="column">
           <th mat-header-cell *matHeaderCellDef>
