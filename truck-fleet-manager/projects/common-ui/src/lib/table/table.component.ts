@@ -59,11 +59,11 @@ export class TableComponent implements OnInit {
       this.loading = false;
 
       if (this.columns.length > 6 && !this.showAllColumns) {
-        this.showAllColumns = false;
-        this.displayedColumns = [...this.columns.slice(0, 6), 'actions'];
-      } else {
         this.showAllColumns = true;
         this.displayedColumns = [...this.columns, 'actions'];
+      } else {
+        this.showAllColumns = false;
+        this.displayedColumns = [...this.columns.slice(0, 6), 'actions'];
       }
     });
     this.toggleColumnVisibility();
