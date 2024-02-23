@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { NotificationService, User } from 'projects/common/src';
 import { AppLoginService } from 'projects/common/src';
 import { UserService } from 'projects/crud-users/src/lib/services/crud.user.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'lib-user-profile',
@@ -64,5 +66,29 @@ export class UserProfileComponent {
       );
       this.appLoginService.updateUserInfo(this.user);
     });
+  }
+
+  onSubmit(form: FormGroup) {
+    if (form.controls['password2'].value != form.controls['password3'].value) {
+      this.notificationService.showSnackbar(
+        'Las contraseñas no coinciden',
+        'error'
+      );
+    }
+
+    this.user.password = CryptoJS.SHA256(
+      form.controls['password1'].value
+    ).toString();
+    this.user.newPassword = CryptoJS.SHA256(
+      form.controls['password2'].value
+    ).toString();
+
+    this.userService.changePassword(this.user).subscribe(() => {
+      this.notificationService.showSnackbar(
+        `Se actualizo el password de usuario`,
+        'success'
+      );
+    });
+    form.reset();
   }
 }

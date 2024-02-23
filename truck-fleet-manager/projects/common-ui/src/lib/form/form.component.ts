@@ -15,6 +15,7 @@ import { comboField } from '../../constants/types';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
+  @Input() inputLabels: string[] = [];
   @Input() editMode: boolean = false;
   @Input() entityName: string = '';
   @Input() fields: string[] = [];
@@ -27,7 +28,10 @@ export class FormComponent {
 
   entityForm!: FormGroup;
   categories?: string[];
-  passwordVisible = false;
+  passwordVisible: Array<boolean> = Array.prototype.fill(
+    false,
+    this.fields.filter((field) => field.includes('password')).length
+  );
 
   constructor(
     private formBuilder: FormBuilder,
