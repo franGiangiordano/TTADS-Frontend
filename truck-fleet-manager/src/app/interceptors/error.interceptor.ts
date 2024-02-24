@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpStatusCode,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -14,22 +14,27 @@ import { NotificationService } from 'projects/common/src';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  constructor(
+    private notificationService: NotificationService,
+    private router: Router
+  ) {}
 
-  constructor(private notificationService: NotificationService, private router: Router) { }
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request)
-      .pipe(
-        catchError(
-          exception => {
-            switch (exception.status) {
-              default:                
-                this.notificationService.showSnackbar(exception.error.message, 'error');
-                break;
-            }
-            return of(exception);
-          }
-        )
-      );
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    return next.handle(request).pipe(
+      catchError((exception) => {
+        switch (exception.status) {
+          default:
+            this.notificationService.showSnackbar(
+              exception.error.message,
+              'error'
+            );
+            break;
+        }
+        return of(exception);
+      })
+    );
   }
 }

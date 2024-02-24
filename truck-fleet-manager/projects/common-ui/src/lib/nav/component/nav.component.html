@@ -56,6 +56,10 @@
         <mat-icon class="truck-icon">local_shipping</mat-icon>
         <span class="title">Truck Fleet Manager</span>
       </div>
+      <div class="user-info-n">
+        <mat-icon>account_circle</mat-icon>
+        <span class="user-name-n">{{ getUserFullName() }}</span>
+      </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

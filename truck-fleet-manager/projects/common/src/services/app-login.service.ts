@@ -3,16 +3,15 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from '../models';
 import { environment } from '../../../../src/enviroments/environment';
-import {JwtHelperService} from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppLoginService {
-
   apiUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   authenticateUser(email: string, password: string) {
     const credentials = { email, password };
@@ -25,22 +24,34 @@ export class AppLoginService {
   }
 
   isLoggedIn() {
-    const tokenStr = localStorage.getItem('user');  
-    if (tokenStr !== null) {     
-        const { token } = JSON.parse(tokenStr); 
-        const jwtRegex = /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*$/;
-       try {
-        jwtRegex.test(token)
+    const tokenStr = localStorage.getItem('user');
+    if (tokenStr !== null) {
+      const { token } = JSON.parse(tokenStr);
+      const jwtRegex = /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*$/;
+      try {
+        jwtRegex.test(token);
         return !this.jwtHelper.isTokenExpired(token);
-       }catch(err){
-          return false;        
-       }        
+      } catch (err) {
+        return false;
+      }
     }
     return false;
   }
-    
+
   setUser(user: User, token: string) {
     const data = { token, user };
+    localStorage.setItem('user', JSON.stringify(data));
+  }
+
+  getUserInfo() {
+    let userStr = localStorage.getItem('user') ?? '';
+    return JSON.parse(userStr).user;
+  }
+
+  updateUserInfo(user: User) {
+    let userStr = localStorage.getItem('user') ?? '';
+    let data = JSON.parse(userStr);
+    data.user = user;
     localStorage.setItem('user', JSON.stringify(data));
   }
 

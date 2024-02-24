@@ -1,63 +1,78 @@
 button {
-    margin-right: 8px;
-  }
+  margin-right: 8px;
+}
 
-.sidenav-container {  
-    height: 100%;
-  }
-  
-  .sidenav {
-    width: 200px;
-  }
-  
-  mat-nav-list {
-    padding-top: 16px;
-  }
+.sidenav-container {
+  height: 100%;
+}
 
-  .container__icon {
+.sidenav {
+  width: 200px;
+}
+
+mat-nav-list {
+  padding-top: 16px;
+}
+
+.container__icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.menu__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 1rem 1rem 1rem;
+
+  &__body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
     cursor: pointer;
+    padding: 0 0 1rem 1rem;
+    padding: 0;
   }
 
-  .menu__item{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    padding: 0 1rem 1rem 1rem;
-
-    &__body{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      cursor: pointer;
-      padding: 0 0 1rem 1rem;
-      padding: 0;
-    }
-
-    &__arrow{
-      width: max-content;
-    }
-
-    &__sub_menu{
-      margin-left: 2rem;
-    }
+  &__arrow {
+    width: max-content;
   }
 
-  .menu__text{
-    font-size: 1rem;
-    margin: 0 0 0 8px;
+  &__sub_menu {
+    margin-left: 2rem;
   }
+}
 
-  .truck-icon {
-    margin-right: 8px;
-  }
-  .title {
-    font-size: 20px;
-    font-weight: bold;
-  }
+.menu__text {
+  font-size: 1rem;
+  margin: 0 0 0 8px;
+}
 
+.truck-icon {
+  margin-right: 8px;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-info-n {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.user-info-n mat-icon {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .user-info-n {
+    display: none;
+  }
+}
