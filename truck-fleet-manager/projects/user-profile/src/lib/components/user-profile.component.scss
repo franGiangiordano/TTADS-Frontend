@@ -2,6 +2,7 @@
   width: fit-content;
   margin: 0 auto;
   margin-top: 5em;
+  margin-bottom: 2em;
   align-items: center;
   display: flex;
   gap: 2em;
@@ -19,7 +20,7 @@
   font-size: 20px;
 }
 
-.user-item {
+.container-p {
   display: flex;
   gap: 0.5em;
   justify-content: space-between;
@@ -31,10 +32,45 @@
 .buttons {
   display: flex;
   gap: 0.2em;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 768px) {
   .buttons {
-    flex-direction: column;
+    flex-direction: row;
+    width: 200px;
+    align-content: space-between;
+    margin-bottom: 20px;
+  }
+  .user-info {
+    font-weight: bold;
+    font-size: 12px;
+    margin: 0;
+  }
+
+  .user-profile-card {
+    width: 80%;
+    align-items: center;
+    .card-title {
+      font-size: 20px;
+    }
+    .user-info {
+      font-size: 15px;
+    }
+    mat-icon {
+      font-size: 15px;
+    }
+    .change-pass {
+      font-size: 12px;
+    }
+    .content-profile-card {
+      width: 90%;
+    }
+  }
+
+  .user-item {
+    display: block;
+    gap: 0.5em;
+    justify-content: space-between;
   }
 }

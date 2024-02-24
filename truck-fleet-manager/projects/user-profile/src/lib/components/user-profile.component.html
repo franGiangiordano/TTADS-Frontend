@@ -1,21 +1,23 @@
 <mat-card class="user-profile-card">
   <mat-card-title class="card-title"> Mi Cuenta</mat-card-title>
 
-  <mat-card-content>
+  <mat-card-content class="content-profile-card">
     <div class="user-item">
-      <p class="user-info">
-        Usuario:
-        <span *ngIf="!isEditingName">{{ user.name }}</span>
-        <mat-form-field *ngIf="isEditingName">
-          <input matInput type="text" [(ngModel)]="editedName" />
-        </mat-form-field>
-      </p>
-      <mat-icon
-        *ngIf="!isEditingName"
-        color="primary"
-        (click)="toggleEdit('name')"
-        >edit</mat-icon
-      >
+      <div class="container-p">
+        <p class="user-info">
+          Usuario:
+          <span *ngIf="!isEditingName">{{ user.name }}</span>
+          <mat-form-field *ngIf="isEditingName">
+            <input matInput type="text" [(ngModel)]="editedName" />
+          </mat-form-field>
+        </p>
+        <mat-icon
+          *ngIf="!isEditingName"
+          color="primary"
+          (click)="toggleEdit('name')"
+          >edit</mat-icon
+        >
+      </div>
       <div class="buttons">
         <button
           *ngIf="isEditingName"
@@ -38,19 +40,21 @@
       </div>
     </div>
     <div class="user-item">
-      <p class="user-info">
-        Email:
-        <span *ngIf="!isEditingEmail">{{ user.email }}</span>
-        <mat-form-field *ngIf="isEditingEmail">
-          <input matInput type="text" [(ngModel)]="editedEmail" />
-        </mat-form-field>
-      </p>
-      <mat-icon
-        *ngIf="!isEditingEmail"
-        color="primary"
-        (click)="toggleEdit('email')"
-        >edit</mat-icon
-      >
+      <div class="container-p">
+        <p class="user-info">
+          Email:
+          <span *ngIf="!isEditingEmail">{{ user.email }}</span>
+          <mat-form-field *ngIf="isEditingEmail">
+            <input matInput type="text" [(ngModel)]="editedEmail" />
+          </mat-form-field>
+        </p>
+        <mat-icon
+          *ngIf="!isEditingEmail"
+          color="primary"
+          (click)="toggleEdit('email')"
+          >edit</mat-icon
+        >
+      </div>
       <div class="buttons">
         <button
           *ngIf="isEditingEmail"
@@ -74,7 +78,9 @@
     </div>
 
     <details>
-      <summary name="change-password">Desea cambiar la contraseña?</summary>
+      <summary name="change-password" class="change-pass">
+        Desea cambiar la contraseña?
+      </summary>
       <fm-form
         [entityName]="'User'"
         [inputLabels]="[
