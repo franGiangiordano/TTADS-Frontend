@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppLoginService } from '../../../../../common/src/services/app-login.service';
+import { User } from 'projects/common/src';
 
 @Component({
   selector: 'fm-nav',
@@ -10,6 +11,7 @@ import { AppLoginService } from '../../../../../common/src/services/app-login.se
 export class NavComponent implements OnInit {
   expandEquipments: boolean = false;
   roles: string[] = [];
+  user!: User;
 
   menuItems!: any[];
 
@@ -91,5 +93,10 @@ export class NavComponent implements OnInit {
 
   onClick(): void {
     this.router.navigate(['']);
+  }
+
+  getUserFullName(): string {
+    this.user = this.loginService.getUserInfo();
+    return this.user.name;
   }
 }
