@@ -14,9 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 import { TableComponent } from './table/table.component';
 import { FormComponent } from './form/form.component';
@@ -24,7 +23,12 @@ import { NavComponent } from './nav/component/nav.component';
 import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [FormComponent, TableComponent, NavComponent, FooterComponent],
+  declarations: [
+    FormComponent,
+    TableComponent,
+    NavComponent,
+    FooterComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -43,9 +47,13 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     RouterModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MatTooltipModule,
+    MatNativeDateModule
   ],
-  exports: [FormComponent, TableComponent, NavComponent, FooterComponent],
+  exports: [
+    FormComponent,
+    TableComponent,
+    NavComponent,
+    FooterComponent
+  ]
 })
-export class CommonUiModule {}
+export class CommonUiModule { }

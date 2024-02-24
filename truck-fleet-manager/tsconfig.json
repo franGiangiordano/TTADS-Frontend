@@ -33,9 +33,6 @@
       ],
       "crud-user": [
         "dist/crud-user"
-      ],
-      "user-profile": [
-        "dist/user-profile"
       ]
     },
     "outDir": "./dist/out-tsc",

@@ -19,17 +19,16 @@ mat-form-field input {
 mat-card {
   margin-left: 3em;
   margin-right: 3em;
-  margin-bottom: 3em;
 }
 
-mat-select {
+mat-select{
   margin-bottom: 2em;
 }
 .button-container,
 .cancel-button-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 10px; 
 }
 
 .mat-mdc-select-trigger {
@@ -42,12 +41,4 @@ mat-select {
   border: 1px solid #ced4da;
   background-color: var(--mdc-filled-text-field-container-color);
   padding: 13px;
-}
-
-@media (max-width: 768px) {
-  mat-card {
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-bottom: 3em;
-  }
 }
