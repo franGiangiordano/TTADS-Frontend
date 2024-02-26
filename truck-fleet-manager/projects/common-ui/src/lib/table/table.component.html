@@ -54,7 +54,10 @@
       </div>
     </div>
     <div class="mat-elevation-z8 desktop-content">
-      <div *ngIf="columns.length > 6" class="show-more-button">
+      <div
+        *ngIf="columns.length > 6 && roles.includes('manager')"
+        class="show-more-button"
+      >
         <button
           mat-icon-button
           color="primary"

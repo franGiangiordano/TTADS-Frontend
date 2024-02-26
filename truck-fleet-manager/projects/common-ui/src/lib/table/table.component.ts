@@ -27,6 +27,7 @@ import Swal from 'sweetalert2';
 export class TableComponent implements OnInit {
   searchText: string = '';
   displayedColumns: string[] = [];
+  columsR: string[] = [];
 
   loading = false;
   count!: number;
@@ -60,10 +61,12 @@ export class TableComponent implements OnInit {
 
       if (this.columns.length > 6 && !this.showAllColumns) {
         this.showAllColumns = true;
-        this.displayedColumns = [...this.columns, 'actions'];
+        this.displayedColumns = this.roles.includes('manager')
+          ? [...this.columns, 'actions']
+          : [...this.columns];
       } else {
         this.showAllColumns = false;
-        this.displayedColumns = [...this.columns.slice(0, 6), 'actions'];
+        this.showColumns();
       }
     });
     this.toggleColumnVisibility();
@@ -114,5 +117,11 @@ export class TableComponent implements OnInit {
     this.displayedColumns = this.showAllColumns
       ? [...this.columns, 'actions']
       : [...this.columns.slice(0, 6), 'actions'];
+  }
+
+  showColumns() {
+    this.displayedColumns = this.roles.includes('manager')
+      ? [...this.columns.slice(0, 6), 'actions']
+      : [...this.columns];
   }
 }
