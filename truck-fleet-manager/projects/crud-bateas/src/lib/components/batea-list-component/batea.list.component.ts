@@ -27,27 +27,34 @@ export class BateaListComponent implements OnInit {
 
   bateaForm!: FormGroup;
 
-  constructor(public bateaService: BateaService, private notificationService: NotificationService,  public router : Router) { }
+  constructor(
+    public bateaService: BateaService,
+    private notificationService: NotificationService,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
     this.doSearch();
   }
 
-  doSearch(search?:string): void {
-    this.bateaService.getBateas(this.pageIndex, this.pageSize,search)
-      .subscribe(response => this.bateasList$.next(response));
+  doSearch(search?: string): void {
+    this.bateaService
+      .getBateas(this.pageIndex, this.pageSize, search)
+      .subscribe((response) => this.bateasList$.next(response));
   }
 
   deleteBatea(event: Batea): void {
-    this.bateaService.deleteBateas(event)
-      .subscribe(() => {
-        this.notificationService.showSnackbar('Elemento eliminado exitosamente', 'success');
-        this.doSearch();
-      });
+    this.bateaService.deleteBateas(event).subscribe(() => {
+      this.notificationService.showSnackbar(
+        'Elemento eliminado exitosamente',
+        'success'
+      );
+      this.doSearch();
+    });
   }
 
   editBatea(event: Batea): void {
-    this.router.navigate(['/bateas/edit/'+ event._id]);    
+    this.router.navigate(['/bateas/edit/' + event._id]);
   }
 
   onPageChange(event: PageEvent): void {
