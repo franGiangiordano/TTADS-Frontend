@@ -1,5 +1,10 @@
 <h1>Gestión de Reparaciones</h1>
 
+<!-- 
+<button (click)="createPdf()" *ngIf="roles.includes('manager')">
+  Generar Reporte
+</button>
+-->
 <fm-table
   [data]="repairsList$"
   [columns]="[
@@ -21,4 +26,5 @@
   (delete)="deleteRepair($event)"
   (search)="doSearch($event)"
   (pageChange)="onPageChange($event)"
+  (generatePdfClick)="createPdf()"
 ></fm-table>

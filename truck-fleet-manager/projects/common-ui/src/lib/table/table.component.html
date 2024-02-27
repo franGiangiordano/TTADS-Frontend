@@ -13,6 +13,15 @@
       >
         Añadir
       </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="generatePdf()"
+        *ngIf="roles.includes('manager') && showPdfButton"
+        class="btn-a"
+      >
+        Generar Reporte
+      </button>
       <div class="mat-form-wrapper">
         <mat-form-field>
           <input

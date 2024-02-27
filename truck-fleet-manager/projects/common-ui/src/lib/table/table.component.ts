@@ -29,6 +29,7 @@ export class TableComponent implements OnInit {
   displayedColumns: string[] = [];
   columsR: string[] = [];
 
+  showPdfButton = false;
   loading = false;
   count!: number;
   results!: any[];
@@ -42,6 +43,11 @@ export class TableComponent implements OnInit {
   @Output() delete = new EventEmitter<any>();
   @Output() search = new EventEmitter<string>();
   @Output() pageChange = new EventEmitter<PageEvent>();
+  @Output() generatePdfClick = new EventEmitter<void>();
+
+  generatePdf() {
+    this.generatePdfClick.emit();
+  }
 
   constructor(private loginService: AppLoginService, private router: Router) {}
   roles: string[] = [];
@@ -70,6 +76,8 @@ export class TableComponent implements OnInit {
       }
     });
     this.toggleColumnVisibility();
+    const currentRoute = this.router.url;
+    this.showPdfButton = currentRoute.includes('/equipments/repairs');
   }
 
   editItem(item: any) {
