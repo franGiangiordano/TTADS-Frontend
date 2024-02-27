@@ -1,21 +1,21 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { LoginHomeComponent } from './login-home.component';
+import { LoginHomeComponent } from './login-home.component';
 
-// describe('LoginHomeComponent', () => {
-//   let component: LoginHomeComponent;
-//   let fixture: ComponentFixture<LoginHomeComponent>;
+describe('LoginHomeComponent', () => {
+    let component: LoginHomeComponent;
+    let fixture: ComponentFixture<LoginHomeComponent>;
 
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [LoginHomeComponent]
-//     });
-//     fixture = TestBed.createComponent(LoginHomeComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [LoginHomeComponent]
+        });
+        fixture = TestBed.createComponent(LoginHomeComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});

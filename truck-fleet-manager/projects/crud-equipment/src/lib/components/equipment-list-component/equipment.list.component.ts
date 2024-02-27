@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-
-import { EntityListResponse, NotificationService } from 'projects/common/src';
-import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
+import { Subject } from 'rxjs';
+
+import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
 import { EquipmentService } from '../../services/equipment.service';
 import { Equipment } from '../../models';
 
@@ -14,7 +14,7 @@ import { Equipment } from '../../models';
   styleUrls: ['./equipment.list.component.css'],
   providers: [EquipmentService, NotificationService],
 })
-export class EquipmentListComponent implements OnInit{
+export class EquipmentListComponent implements OnInit {
   editMode = false;
 
   pageSize: number = 10;
@@ -23,18 +23,18 @@ export class EquipmentListComponent implements OnInit{
 
   equipmentList$ = new Subject<EntityListResponse<Equipment>>();
 
-  constructor(private equipmentService: EquipmentService, private notificationService: NotificationService,  private router : Router) { }
+  constructor(private equipmentService: EquipmentService, private notificationService: NotificationService, private router: Router) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.doSearch();
   }
 
-  doSearch(search?:string): void {
-    this.equipmentService.getEquipments(this.pageIndex, this.pageSize,search)
+  doSearch(search?: string): void {
+    this.equipmentService.getEquipments(this.pageIndex, this.pageSize, search)
       .subscribe(response => this.equipmentList$.next(response));
   }
 
-  formatResponse(array: any[]): any[]{
+  formatResponse(array: any[]): any[] {
     return array.map(obj => {
       return {
         _id: obj._id,
@@ -47,7 +47,7 @@ export class EquipmentListComponent implements OnInit{
         type: obj.trailer.type
       };
     });
-  }  
+  }
 
   deleteEquipment(event: Equipment): void {
     this.equipmentService.deleteEquipments(event)
@@ -58,7 +58,7 @@ export class EquipmentListComponent implements OnInit{
   }
 
   editEquipment(event: Equipment): void {
-    this.router.navigate(['/equipments/edit/'+ event._id]);    
+    this.router.navigate(['/equipments/edit/' + event._id]);
   }
 
   onPageChange(event: PageEvent): void {

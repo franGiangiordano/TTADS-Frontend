@@ -4,9 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import * as CryptoJS from 'crypto-js';
-import { AppLoginService, FormsValidationMessages, UserRoles } from 'projects/common/src';
-import { NavService } from 'projects/common-ui/src/lib/nav/service/nav.service';
 
+import { AppLoginService, FormsValidationMessages, UserRoles } from '../../../../../projects/common/src';
 
 @Component({
   selector: 'fm-login-form',

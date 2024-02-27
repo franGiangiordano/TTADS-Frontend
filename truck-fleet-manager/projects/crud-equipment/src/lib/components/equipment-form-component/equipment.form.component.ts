@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { forkJoin } from 'rxjs';
-
 import { FormGroup } from '@angular/forms';
-import { EquipmentService } from '../../services/equipment.service';
-import { NotificationService } from 'projects/common/src';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { BateaService } from 'projects/crud-bateas/src/lib/services/batea.service';
-import { DriverService } from 'projects/crud-drivers/src/lib/services/driver.service';
-import { TrailerService } from 'projects/crud-trailers/src/lib/services/trailer.service';
+
+import { forkJoin } from 'rxjs';
+
+import { EquipmentService } from '../../services/equipment.service';
+import { NotificationService } from '../../../../../../projects/common/src';
+import { BateaService } from '../../../../../../projects/crud-bateas/src/lib/services/batea.service';
+import { DriverService } from '../../../../../../projects/crud-drivers/src/lib/services/driver.service';
+import { TrailerService } from '../../../../../../projects/crud-trailers/src/lib/services/trailer.service';
 import { Equipment } from '../../models';
-import { Batea } from 'projects/crud-bateas/src/lib/models';
-import { Driver } from 'projects/crud-drivers/src/lib/models';
-import { Trailer } from 'projects/crud-trailers/src/lib/models';
+import { Batea } from '../../../../../../projects/crud-bateas/src/lib/models';
+import { Driver } from '../../../../../../projects/crud-drivers/src/lib/models';
+import { Trailer } from '../../../../../../projects/crud-trailers/src/lib/models';
 
 @Component({
   selector: 'lib-equipment.form',
@@ -43,7 +44,7 @@ export class EquipmentFormComponent {
     private bateaService: BateaService,
     private driverService: DriverService,
     private trailerService: TrailerService
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -79,7 +80,7 @@ export class EquipmentFormComponent {
   autocompleteForm() {
     this.equipmentService.getEquipment(this.id).subscribe(equipment => {
       this.equipmentForm.get('descripcion')?.setValue(equipment.description);
-      
+
       this.equipmentForm.controls['batea'].setValue(equipment.batea.patent)
       this.equipmentForm.controls['driver'].setValue(equipment.driver.legajo)
       this.equipmentForm.controls['trailer'].setValue(equipment.trailer.patent)
@@ -91,7 +92,7 @@ export class EquipmentFormComponent {
       batea: this.bateaService.getBateas(1, 10, form.value['batea']),
       driver: this.driverService.getDrivers(1, 10, form.value['driver']),
       trailer: this.trailerService.getTrailers(1, 10, form.value['trailer'])
-    }).subscribe(({batea, driver, trailer}) => {
+    }).subscribe(({ batea, driver, trailer }) => {
       this.bateaSelectected = batea.results[0];
       this.driverSelected = driver.results[0];
       this.trailerSelected = trailer.results[0];
@@ -117,7 +118,7 @@ export class EquipmentFormComponent {
       batea: this.bateaService.getBateas(1, 10, form.value['batea']),
       driver: this.driverService.getDrivers(1, 10, form.value['driver']),
       trailer: this.trailerService.getTrailers(1, 10, form.value['trailer'])
-    }).subscribe(({batea, driver, trailer}) => {
+    }).subscribe(({ batea, driver, trailer }) => {
       this.bateaSelectected = batea.results[0];
       this.driverSelected = driver.results[0];
       this.trailerSelected = trailer.results[0];

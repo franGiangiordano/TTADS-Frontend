@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+
+import { Subject } from 'rxjs';
 
 import { EntityListResponse } from '../../../../../common/src/models/entity.list.response';
 import { NotificationService } from '../../../../../common/src/services/notification.service';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
-
 import { BateaService } from '../../services/batea.service';
 import { Batea } from '../../models/batea.model';
 
@@ -32,7 +32,7 @@ export class BateaListComponent implements OnInit {
     public bateaService: BateaService,
     private notificationService: NotificationService,
     public router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.doSearch();

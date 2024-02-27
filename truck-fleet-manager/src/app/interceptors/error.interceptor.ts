@@ -10,7 +10,8 @@ import {
 import { Router } from '@angular/router';
 
 import { Observable, catchError, of } from 'rxjs';
-import { NotificationService } from 'projects/common/src';
+
+import { NotificationService } from '../../../projects/common/src';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -23,7 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         catchError(
           exception => {
             switch (exception.status) {
-              default:                
+              default:
                 this.notificationService.showSnackbar(exception.error.message, 'error');
                 break;
             }

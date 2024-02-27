@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-
-import { EntityListResponse, NotificationService } from 'projects/common/src';
-import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
+import { Subject } from 'rxjs';
+
+import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
 import { TrailerService } from '../../services/trailer.service';
 import { Trailer } from '../../models/trailer.model';
 
@@ -27,14 +27,14 @@ export class TrailerListComponent implements OnInit {
 
   traielrForm!: FormGroup;
 
-  constructor(public trailerService: TrailerService, private notificationService: NotificationService,  public router : Router) { }
+  constructor(public trailerService: TrailerService, private notificationService: NotificationService, public router: Router) { }
 
   ngOnInit(): void {
     this.doSearch();
   }
 
-  doSearch(search?:string): void {
-    this.trailerService.getTrailers(this.pageIndex, this.pageSize,search)
+  doSearch(search?: string): void {
+    this.trailerService.getTrailers(this.pageIndex, this.pageSize, search)
       .subscribe(response => this.trailersList$.next(response));
   }
 
@@ -47,7 +47,7 @@ export class TrailerListComponent implements OnInit {
   }
 
   editTrailer(event: Trailer): void {
-    this.router.navigate(['/trailers/edit/'+ event._id]);    
+    this.router.navigate(['/trailers/edit/' + event._id]);
   }
 
   onPageChange(event: PageEvent): void {

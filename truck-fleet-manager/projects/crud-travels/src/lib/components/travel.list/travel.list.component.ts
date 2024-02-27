@@ -3,10 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
 
-import { EntityListResponse, NotificationService } from 'projects/common/src';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
+import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
 import { TravelService } from '../../services/travel.service';
 import { Travel } from '../../models';
 
@@ -16,7 +16,7 @@ import { Travel } from '../../models';
   styleUrls: ['./travel.list.component.css'],
   providers: [TravelService, NotificationService],
 })
-export class TravelListComponent implements OnInit{
+export class TravelListComponent implements OnInit {
   editMode = false;
   formTitle = 'Añadir Viaje';
   rutaVariable: string = 'equipments/travels';
@@ -28,14 +28,14 @@ export class TravelListComponent implements OnInit{
 
   travelsForm!: FormGroup;
 
-  constructor(private travelService: TravelService, private notificationService: NotificationService,  private router : Router) { }
+  constructor(private travelService: TravelService, private notificationService: NotificationService, private router: Router) { }
 
   ngOnInit(): void {
     this.doSearch();
   }
 
-  doSearch(search?:string): void {
-    this.travelService.getTravels(this.pageIndex, this.pageSize,search)
+  doSearch(search?: string): void {
+    this.travelService.getTravels(this.pageIndex, this.pageSize, search)
       .subscribe(response => this.travelsList$.next(response));
   }
 
@@ -47,14 +47,14 @@ export class TravelListComponent implements OnInit{
       });
   }
 
-  formatResponse(array: any[]): any[]{
+  formatResponse(array: any[]): any[] {
     return array.map(obj => {
       return {
         _id: obj._id,
         descEquipo: obj.equipment.description,
         legajo: obj.equipment.driver.legajo,
         name: obj.equipment.driver.name,
-        surname: obj.equipment.driver.surname,       
+        surname: obj.equipment.driver.surname,
         batea: obj.equipment.batea.patent,
         trailer: obj.equipment.trailer.patent,
         localIni: obj.starting_location,
@@ -63,10 +63,10 @@ export class TravelListComponent implements OnInit{
         fechaFin: moment.utc(obj.arrival_date).format('DD/MM/YYYY'),
       };
     });
-  }  
+  }
 
   editTravel(event: Travel): void {
-    this.router.navigate(['/equipments/travels/edit/'+ event._id]);    
+    this.router.navigate(['/equipments/travels/edit/' + event._id]);
   }
 
   onPageChange(event: PageEvent): void {

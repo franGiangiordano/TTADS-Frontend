@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormGroup } from '@angular/forms';
-import { RepairService } from '../../services/repair.service';
-import { NotificationService } from 'projects/common/src';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { EquipmentService } from 'projects/crud-equipment/src/lib/services/equipment.service';
+
+import { RepairService } from '../../services/repair.service';
+import { NotificationService } from '../../../../../../projects/common/src';
+import { EquipmentService } from '../../../../../../projects/crud-equipment/src/lib/services/equipment.service';
 import { Repair } from '../../models';
-import { Equipment } from 'projects/crud-equipment/src/lib/models';
+import { Equipment } from '../../../../../../projects/crud-equipment/src/lib/models';
 
 @Component({
   selector: 'lib-repair.form',
@@ -23,16 +23,16 @@ export class RepairFormComponent implements OnInit {
 
   repairForm!: FormGroup;
   EquipmentList: string[] = [];
- 
+
   equipmentSelectected!: Equipment;
-  
+
   constructor(
     private equipmentService: EquipmentService,
     private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
     private repairService: RepairService
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -68,37 +68,37 @@ export class RepairFormComponent implements OnInit {
     this.equipmentService.getEquipments(1, 10, form.value['equipo']).subscribe(response => {
       this.equipmentSelectected = response.results[0];
 
-    const nuevaRepair: Repair = {
-      _id: '',
-      description: form.value.descripcion,
-      cost: parseInt(form.value.costo, 10),
-      equipment: this.equipmentSelectected 
-    }; 
-    this.repairService.postRepairs(nuevaRepair)
-      .subscribe(() => {
-        this.notificationService.showSnackbar('Se añadió la Reparación!', 'success');
-        this.router.navigate(['/equipments/repairs']);
-      });
-    });  
+      const nuevaRepair: Repair = {
+        _id: '',
+        description: form.value.descripcion,
+        cost: parseInt(form.value.costo, 10),
+        equipment: this.equipmentSelectected
+      };
+      this.repairService.postRepairs(nuevaRepair)
+        .subscribe(() => {
+          this.notificationService.showSnackbar('Se añadió la Reparación!', 'success');
+          this.router.navigate(['/equipments/repairs']);
+        });
+    });
   }
 
   putRepair(form: FormGroup): void {
     this.equipmentService.getEquipments(1, 10, form.value['equipo']).subscribe(response => {
       this.equipmentSelectected = response.results[0];
-    
-    const nuevaRepair: Repair = {
-      _id: this.id,
-      description: form.value.descripcion,
-      cost: parseInt(form.value.costo, 10),
-      equipment: this.equipmentSelectected
-    };
 
-    this.repairService.putRepairs(nuevaRepair)
-      .subscribe(() => {
-        this.router.navigate(['/equipments/repairs']);
-        this.notificationService.showSnackbar('Se actualizo la Reparación', 'success');
-      });
-    });   
+      const nuevaRepair: Repair = {
+        _id: this.id,
+        description: form.value.descripcion,
+        cost: parseInt(form.value.costo, 10),
+        equipment: this.equipmentSelectected
+      };
+
+      this.repairService.putRepairs(nuevaRepair)
+        .subscribe(() => {
+          this.router.navigate(['/equipments/repairs']);
+          this.notificationService.showSnackbar('Se actualizo la Reparación', 'success');
+        });
+    });
   }
 
   setrepairForm(form: FormGroup): void {

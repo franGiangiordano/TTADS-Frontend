@@ -1,28 +1,32 @@
-// /* tslint:disable:no-unused-variable */
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-// import { By } from '@angular/platform-browser';
-// import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
 
-// import { RepairlistComponent} from './repair.list.component';
+import { RepairlistComponent } from './repair.list.component';
+import { NotificationService } from '../../../../../../projects/common/src';
+import { RepairService } from '../../services/repair.service';
 
-// describe('RepairlistComponent', () => {
-//   let component: RepairlistComponent;
-//   let fixture: ComponentFixture<RepairlistComponent>;
+describe('RepairlistComponent', () => {
+    let component: RepairlistComponent;
+    let fixture: ComponentFixture<RepairlistComponent>;
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ RepairlistComponent ]
-//     })
-//     .compileComponents();
-//   }));
+    beforeEach((() => {
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule, RouterTestingModule],
+            providers: [NotificationService, MatSnackBar, RepairService],
+            declarations: [RepairlistComponent]
+        })
+            .compileComponents();
+    }));
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(RepairlistComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(RepairlistComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});

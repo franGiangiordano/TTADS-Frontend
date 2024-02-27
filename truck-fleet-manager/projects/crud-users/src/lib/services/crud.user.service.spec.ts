@@ -1,16 +1,20 @@
-// import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
-// import { CrudUserService } from './crud.user.service';
+import { UserService } from './crud.user.service';
 
-// describe('CrudUserService', () => {
-//   let service: CrudUserService;
+describe('CrudUserService', () => {
+    let service: UserService;
 
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({});
-//     service = TestBed.inject(CrudUserService);
-//   });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule, RouterTestingModule],
+        });
+        service = TestBed.inject(UserService);
+    });
 
-//   it('should be created', () => {
-//     expect(service).toBeTruthy();
-//   });
-// });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
+});
