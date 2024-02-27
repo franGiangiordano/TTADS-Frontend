@@ -18,4 +18,5 @@ export enum ColumnDescription {
   fechaReparacion = 'Fecha <br> Reparación',
   descEquipo = 'Equipo',
   destination_description = 'Destino',
+  km = "Km's Recorridos",
 }

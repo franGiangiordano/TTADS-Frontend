@@ -2,7 +2,19 @@
 
 <fm-table
   [data]="repairsList$"
-  [columns]="['descEquipo','legajo', 'name','surname','descripción', 'batea', 'trailer', 'reparacion', 'costo', 'fechaReparacion']"
+  [columns]="[
+    'descEquipo',
+    'legajo',
+    'name',
+    'surname',
+    'descripción',
+    'batea',
+    'trailer',
+    'reparacion',
+    'costo',
+    'fechaReparacion',
+    'km'
+  ]"
   [formatFunction]="formatResponse"
   [rutaVariable]="rutaVariable"
   (edit)="editRepair($event)"

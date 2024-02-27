@@ -75,6 +75,7 @@ export class RepairFormComponent implements OnInit {
           description: form.value.descripcion,
           cost: parseInt(form.value.costo, 10),
           equipment: this.equipmentSelectected,
+          km: parseInt(form.value.km, 10),
         };
         this.repairService.postRepairs(nuevaRepair).subscribe(() => {
           this.notificationService.showSnackbar(
@@ -97,6 +98,7 @@ export class RepairFormComponent implements OnInit {
           description: form.value.descripcion,
           cost: parseInt(form.value.costo, 10),
           equipment: this.equipmentSelectected,
+          km: parseInt(form.value.km, 10),
         };
 
         this.repairService.putRepairs(nuevaRepair).subscribe(() => {
