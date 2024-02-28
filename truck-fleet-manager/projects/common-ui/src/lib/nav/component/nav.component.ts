@@ -22,38 +22,55 @@ export class NavComponent implements OnInit {
       {
         routerLink: '/dashboard',
         iconType: 'dashboard',
-        innerText: 'Dashboard'
-      }, {
+        innerText: 'Dashboard',
+        canDisplay: this.roles.includes('admin'),
+      },
+      {
         routerLink: '/bateas',
         iconType: 'local_shipping',
-        innerText: 'Bateas'
-      }, {
+        innerText: 'Bateas',
+        canDisplay: true,
+      },
+      {
         routerLink: '/drivers',
         iconType: 'directions_car',
-        innerText: 'Choferes'
-      }, {
+        innerText: 'Choferes',
+        canDisplay: true,
+      },
+      {
         routerLink: '/trailers',
         iconType: 'local_shipping',
-        innerText: 'Acoplados'
-      }, {
+        innerText: 'Acoplados',
+        canDisplay: true,
+      },
+      {
         iconType: 'engineering',
         isOpen: () => this.expandEquipments,
         innerText: 'Equipos',
+        canDisplay: true,
         onClick: () => this.toggleEquipments(),
-        innerItems: [{
-          routerLink: '/equipments',
-          iconType: 'list',
-          innerText: 'Listado'
-        }, {
-          routerLink: '/equipments/travels',
-          iconType: 'card_travel',
-          innerText: 'Viajes'
-        }, {
-          routerLink: '/equipments/repairs',
-          iconType: 'build',
-          innerText: 'Reparaciones'
-        }]
-      }, {
+        innerItems: [
+          {
+            routerLink: '/equipments',
+            iconType: 'list',
+            innerText: 'Listado',
+            canDisplay: true,
+          },
+          {
+            routerLink: '/equipments/travels',
+            iconType: 'card_travel',
+            innerText: 'Viajes',
+            canDisplay: true,
+          },
+          {
+            routerLink: '/equipments/repairs',
+            iconType: 'build',
+            innerText: 'Reparaciones',
+            canDisplay: true,
+          },
+        ],
+      },
+      {
         routerLink: '/users',
         iconType: 'people',
         innerText: 'Usuarios',
@@ -62,12 +79,15 @@ export class NavComponent implements OnInit {
         routerLink: '/my-account',
         iconType: 'account_circle',
         innerText: 'Mi cuenta',
-      }, {
+        canDisplay: true,
+      },
+      {
         iconType: 'exit_to_app',
         innerText: 'Salir',
-        onClick: () => this.logout()
-      }
-    ]
+        onClick: () => this.logout(),
+        canDisplay: true,
+      },
+    ];
   }
 
   toggleEquipments(): void {

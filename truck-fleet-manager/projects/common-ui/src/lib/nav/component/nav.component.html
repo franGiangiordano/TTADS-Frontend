@@ -6,6 +6,7 @@
     <mat-nav-list>
       <div *ngFor="let menuItem of menuItems" mat-list-item>
         <div
+          *ngIf="menuItem.canDisplay"
           class="menu__item"
           [id]="'menu__item_' + menuItem.innerText"
           (click)="menuItem.onClick != null ? menuItem.onClick() : null"

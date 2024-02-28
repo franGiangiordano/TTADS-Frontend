@@ -4,13 +4,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import * as CryptoJS from 'crypto-js';
-
-import { AppLoginService, FormsValidationMessages, UserRoles } from '../../../../../projects/common/src';
+import {
+  AppLoginService,
+  FormsValidationMessages,
+  UserRoles,
+} from 'projects/common/src';
+import { NavService } from 'projects/common-ui/src/lib/nav/service/nav.service';
 
 @Component({
   selector: 'fm-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
   constructor(private router: Router, private loginService: AppLoginService,
@@ -32,15 +36,18 @@ export class LoginFormComponent {
   private initializeForm() {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    })
+      password: ['', Validators.required],
+    });
   }
 
   handleLogin(): void {
     this.loading = true;
-    const encryptedPassword = CryptoJS.SHA256(this.form.controls['password'].value).toString();
+    const encryptedPassword = CryptoJS.SHA256(
+      this.form.controls['password'].value
+    ).toString();
 
-    this.loginService.authenticateUser(this.form.controls['email'].value, encryptedPassword)
+    this.loginService
+      .authenticateUser(this.form.controls['email'].value, encryptedPassword)
       .subscribe((res: any) => {
         const decodedToken = this.helper.decodeToken(res.token);
 
@@ -55,8 +62,12 @@ export class LoginFormComponent {
   private validateRol(): void {
     let roles: UserRoles[] = this.loginService.getUserRole();
 
-    if (roles.some(role => this.validUserRoles.includes(role))) {
-      this.router.navigate(['dashboard']);
+    if (roles.some((role) => this.validUserRoles.includes(role))) {
+      if (roles.includes(UserRoles.Admin)) {
+        this.router.navigate(['dashboard']);
+      } else {
+        this.router.navigate(['profile']);
+      }
     } else {
       this.loginService.logout();
     }
@@ -67,7 +78,9 @@ export class LoginFormComponent {
       return FormsValidationMessages.Required;
     }
 
-    return this.form.controls['email'].hasError('email') ? FormsValidationMessages.InvlaidEmail : '';
+    return this.form.controls['email'].hasError('email')
+      ? FormsValidationMessages.InvlaidEmail
+      : '';
   }
 
   getPasswordErrorMessage() {
