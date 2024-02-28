@@ -14,7 +14,6 @@ import { Batea } from '../../models/batea.model';
   selector: 'batea-list-component',
   templateUrl: './batea.list.component.html',
   styleUrls: ['./batea.list.component.scss'],
-  providers: [BateaService, NotificationService],
 })
 export class BateaListComponent implements OnInit {
   editMode = false;
@@ -29,9 +28,9 @@ export class BateaListComponent implements OnInit {
   bateaForm!: FormGroup;
 
   constructor(
-    public bateaService: BateaService,
+    private bateaService: BateaService,
     private notificationService: NotificationService,
-    public router: Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {

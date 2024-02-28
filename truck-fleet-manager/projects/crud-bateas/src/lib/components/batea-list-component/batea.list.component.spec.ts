@@ -3,36 +3,39 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 import { of } from 'rxjs';
 
 import { NotificationService } from '../../../../../common/src/services/notification.service';
-import { BateaService } from '../../services/batea.service';
+import { BateaService, BateaServiceInterface } from '../../services/batea.service';
 import { BateaListComponent } from '../batea-list-component/batea.list.component';
 import { Batea } from '../../models';
 import { EntityListResponse } from '../../../../../../projects/common/src';
+import { BateaServiceMock } from '../../mocks/batea.service.mock';
+import { NotificationServiceMock } from '../../mocks/notification.service';
 
 describe('BateaListComponent', () => {
   let component: BateaListComponent;
-  let bateaService: BateaService;
+  let bateaService: BateaServiceInterface;
   let router: Router;
   let notificationService: NotificationService;
   let fixture: ComponentFixture<BateaListComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [BateaListComponent],
+      providers: [
+        { provide: BateaService, useValue: BateaServiceMock },
+        { provide: NotificationService, useValue: NotificationServiceMock },
+        MatSnackBar,
+      ],
       imports: [RouterTestingModule,
         HttpClientTestingModule,
         CommonModule,
         ReactiveFormsModule
-      ],
-      declarations: [BateaListComponent],
-      providers: [
-        BateaService,
-        NotificationService,
-        MatSnackBar,
       ],
     });
   });
@@ -73,15 +76,14 @@ describe('BateaListComponent', () => {
 
     const pageSize = 10;
     component.pageSize = pageSize;
-
-    //Act
-    component.doSearch(searchQuery);
-
     //Assert
     component.bateasList$.subscribe(() => {
       expect(getBateasSpy).toHaveBeenCalledWith(component.pageIndex, component.pageSize, searchQuery);
       done();
     });
+
+    //Act
+    component.doSearch(searchQuery);
   });
 
   it('should call bateaService getBateas method on doSearch', () => {
@@ -124,10 +126,10 @@ describe('BateaListComponent', () => {
   it('should show snackbar when batea is succesfully eliminated', () => {
     //Arrange
     const showSnackbarSpy = jest.spyOn(notificationService, 'showSnackbar');
-    const editEvent = new Batea('1');
+    const eliminateEvent = new Batea('1');
 
     //Act
-    component.deleteBatea(editEvent);
+    component.deleteBatea(eliminateEvent);
 
     //Assert
     expect(showSnackbarSpy).toHaveBeenCalledWith('Elemento eliminado exitosamente',
@@ -137,12 +139,45 @@ describe('BateaListComponent', () => {
   it('should refresh search after succesfully eliminate a batea', () => {
     //Arrange
     const doSearchSpy = jest.spyOn(component, 'doSearch');
-    const editEvent = new Batea('1');
+    const eliminateEvent = new Batea('1');
 
     //Act
-    component.deleteBatea(editEvent);
+    component.deleteBatea(eliminateEvent);
 
     //Assert
+    expect(doSearchSpy).toHaveBeenCalled();
+  });
+
+  it('should call doSearch with correct parameters when pageSize changes', () => {
+    //Arrange
+    const doSearchSpy = jest.spyOn(component, 'doSearch');
+    component.pageSize = 10;
+    component.pageIndex = 2;
+
+    const event: PageEvent = { pageIndex: 0, pageSize: 20, length: 100 };
+
+    //Act
+    component.onPageChange(event);
+
+    //Assert
+    expect(component.pageSize).toBe(event.pageSize);
+    expect(component.pageIndex).toBe(1);
+    expect(doSearchSpy).toHaveBeenCalled();
+  });
+
+  it('should call doSearch with correct parameters when pageIndex changes', () => {
+    //Arrange
+    const doSearchSpy = jest.spyOn(component, 'doSearch');
+    component.pageSize = 10;
+    component.pageIndex = 2;
+    const event: PageEvent = { pageIndex: 2, pageSize: 10, length: 100 };
+
+    //Act
+    component.onPageChange(event);
+
+    //Assert
+    expect(component.pageSize).toBe(event.pageSize);
+    expect(component.pageIndex).toBe(event.pageIndex + 1);
     expect(doSearchSpy).toHaveBeenCalled();
   });
 });
