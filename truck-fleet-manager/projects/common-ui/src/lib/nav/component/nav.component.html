@@ -7,6 +7,7 @@
       <div *ngFor="let menuItem of menuItems" mat-list-item>
         <div
           class="menu__item"
+          [id]="'menu__item_' + menuItem.innerText"
           (click)="menuItem.onClick != null ? menuItem.onClick() : null"
         >
           <div
@@ -14,6 +15,7 @@
               menuItem.routerLink != null ? [menuItem.routerLink] : null
             "
             class="menu__item__body"
+            [id]="'menu__item__body_' + menuItem.innerText"
           >
             <mat-icon *ngIf="menuItem.iconType">{{
               menuItem.iconType
