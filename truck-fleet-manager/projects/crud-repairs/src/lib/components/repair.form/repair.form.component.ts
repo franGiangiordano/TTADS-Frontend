@@ -72,16 +72,13 @@ export class RepairFormComponent implements OnInit {
         _id: '',
         description: form.value.descripcion,
         cost: parseInt(form.value.costo, 10),
-        equipment: this.equipmentSelectected,
-        km: parseInt(form.value.km, 10),
+        equipment: this.equipmentSelectected
       };
-      this.repairService.postRepairs(nuevaRepair).subscribe(() => {
-        this.notificationService.showSnackbar(
-          'Se añadió la Reparación!',
-          'success'
-        );
-        this.router.navigate(['/equipments/repairs']);
-      });
+      this.repairService.postRepairs(nuevaRepair)
+        .subscribe(() => {
+          this.notificationService.showSnackbar('Se añadió la Reparación!', 'success');
+          this.router.navigate(['/equipments/repairs']);
+        });
     });
   }
 
@@ -93,7 +90,7 @@ export class RepairFormComponent implements OnInit {
         _id: this.id,
         description: form.value.descripcion,
         cost: parseInt(form.value.costo, 10),
-        equipment: this.equipmentSelectected,
+        equipment: this.equipmentSelectected
       };
 
       this.repairService.putRepairs(nuevaRepair)

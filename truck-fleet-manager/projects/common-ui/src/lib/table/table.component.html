@@ -7,19 +7,10 @@
       <button
         mat-raised-button
         color="primary"
-        (click)="redirect()"
+        (click)="redirect()"       
         *ngIf="roles.includes('manager')"
       >
         Añadir
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="generatePdf()"
-        *ngIf="roles.includes('manager') && showPdfButton"
-        class="btn-a"
-      >
-        Generar Reporte
       </button>
       <div class="mat-form-wrapper">
         <mat-form-field>
@@ -38,45 +29,7 @@
     <div *ngIf="count === 0">
       <p style="text-align: center">No hay registros para mostrar</p>
     </div>
-    <div
-      class="mat-elevation-z8 mobile-cards-container mobile-content"
-      *ngIf="count !== 0"
-    >
-      <div *ngFor="let row of results" class="mobile-card">
-        <div class="card-content">
-          <div *ngFor="let column of columns" class="card-row">
-            <div class="card-attribute">
-              <div [innerHTML]="getColumnHeader(column) | titlecase"></div>
-            </div>
-            <div class="card-data">{{ row[column] }}</div>
-          </div>
-        </div>
-        <div *ngIf="roles.includes('manager')" class="actions-container">
-          <button mat-icon-button color="primary" (click)="editItem(row)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deleteItem(row)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="mat-elevation-z8 desktop-content">
-      <div
-        *ngIf="columns.length > 6 && roles.includes('manager')"
-        class="show-more-button"
-      >
-        <button
-          mat-icon-button
-          color="primary"
-          (click)="toggleColumnVisibility()"
-          matTooltip="{{
-            showAllColumns ? 'Ocultar columnas' : 'Mostrar más columnas'
-          }}"
-        >
-          <mat-icon>{{ showAllColumns ? 'remove' : 'add' }}</mat-icon>
-        </button>
-      </div>
+    <div class="mat-elevation-z8">
       <table *ngIf="count != 0" mat-table [dataSource]="results">
         <ng-container *ngFor="let column of columns" [matColumnDef]="column">
           <th mat-header-cell *matHeaderCellDef>
@@ -105,8 +58,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
       <mat-divider></mat-divider>
-      <mat-paginator
-        *ngIf="count !== 0"
+      <mat-paginator *ngIf="count !== 0"
         [ngClass]="{ hidden: loading }"
         [length]="count"
         [pageSize]="10"

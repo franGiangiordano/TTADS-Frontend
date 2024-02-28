@@ -1,30 +1,12 @@
 <h1>Gestión de Reparaciones</h1>
 
-<!-- 
-<button (click)="createPdf()" *ngIf="roles.includes('manager')">
-  Generar Reporte
-</button>
--->
 <fm-table
   [data]="repairsList$"
-  [columns]="[
-    'descEquipo',
-    'legajo',
-    'name',
-    'surname',
-    'descripción',
-    'batea',
-    'trailer',
-    'reparacion',
-    'costo',
-    'fechaReparacion',
-    'km'
-  ]"
+  [columns]="['descEquipo','legajo', 'name','surname','descripción', 'batea', 'trailer', 'reparacion', 'costo', 'fechaReparacion']"
   [formatFunction]="formatResponse"
   [rutaVariable]="rutaVariable"
   (edit)="editRepair($event)"
   (delete)="deleteRepair($event)"
   (search)="doSearch($event)"
   (pageChange)="onPageChange($event)"
-  (generatePdfClick)="createPdf()"
 ></fm-table>

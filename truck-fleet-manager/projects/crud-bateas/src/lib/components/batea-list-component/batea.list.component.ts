@@ -28,9 +28,9 @@ export class BateaListComponent implements OnInit {
   bateaForm!: FormGroup;
 
   constructor(
-    public bateaService: BateaService,
+    private bateaService: BateaService,
     private notificationService: NotificationService,
-    public router: Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {

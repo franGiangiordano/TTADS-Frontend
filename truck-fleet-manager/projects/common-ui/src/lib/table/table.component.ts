@@ -28,9 +28,7 @@ export class TableComponent implements OnInit {
 
   searchText: string = '';
   displayedColumns: string[] = [];
-  columsR: string[] = [];
 
-  showPdfButton = false;
   loading = false;
   count!: number;
   results!: any[];
@@ -45,11 +43,6 @@ export class TableComponent implements OnInit {
   @Output() delete = new EventEmitter<any>();
   @Output() search = new EventEmitter<string>();
   @Output() pageChange = new EventEmitter<PageEvent>();
-  @Output() generatePdfClick = new EventEmitter<void>();
-
-  generatePdf() {
-    this.generatePdfClick.emit();
-  }
 
   constructor(private loginService: AppLoginService, private router: Router) { }
   roles: string[] = [];
@@ -60,24 +53,9 @@ export class TableComponent implements OnInit {
     this.loading = true;
     this.data.subscribe(response => {
       this.count = response.count;
-      this.results = this.formatFunction
-        ? this.formatFunction(response.results)
-        : response.results;
-      this.loading = false;
-
-      if (this.columns.length > 6 && !this.showAllColumns) {
-        this.showAllColumns = true;
-        this.displayedColumns = this.roles.includes('manager')
-          ? [...this.columns, 'actions']
-          : [...this.columns];
-      } else {
-        this.showAllColumns = false;
-        this.showColumns();
-      }
-    });
-    this.toggleColumnVisibility();
-    const currentRoute = this.router.url;
-    this.showPdfButton = currentRoute.includes('/equipments/repairs');
+      this.results = (this.formatFunction) ? this.formatFunction(response.results) : response.results;
+      this.loading = false
+    })
   }
 
   editItem(item: any) {
@@ -116,20 +94,5 @@ export class TableComponent implements OnInit {
 
   redirect() {
     this.router.navigate([this.rutaVariable + '/add']);
-  }
-
-  showAllColumns = false;
-
-  toggleColumnVisibility() {
-    this.showAllColumns = !this.showAllColumns;
-    this.displayedColumns = this.showAllColumns
-      ? [...this.columns, 'actions']
-      : [...this.columns.slice(0, 6), 'actions'];
-  }
-
-  showColumns() {
-    this.displayedColumns = this.roles.includes('manager')
-      ? [...this.columns.slice(0, 6), 'actions']
-      : [...this.columns];
   }
 }

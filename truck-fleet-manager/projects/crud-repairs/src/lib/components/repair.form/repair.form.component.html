@@ -1,7 +1,7 @@
 <h1>Gestión de Reparaciones</h1>
 <fm-form
   [entityName]="'Repair'"
-  [fields]="['descripcion', 'costo', 'km_recorridos']"
+  [fields]="['descripcion','costo']"
   [combos]="['equipo']"
   [combosFields]="[EquipmentList]"
   [editMode]="editMode"
@@ -9,3 +9,4 @@
   (formSubmit)="onSubmit($event)"
   (formEdit)="setrepairForm($event)"
 ></fm-form>
+
