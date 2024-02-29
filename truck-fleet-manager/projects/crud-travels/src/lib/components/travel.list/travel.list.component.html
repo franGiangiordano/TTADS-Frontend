@@ -1,37 +1,44 @@
 <h1>Gestión de Viajes</h1>
-<div class="container-filter">
-  <h3>Filtrar por chofer:</h3>
-  <mat-chip-listbox
-    multiple
-    aria-label="Driver"
-    (change)="updateDriverFilteringOptions($event)"
-  >
-    <mat-chip-option *ngFor="let driver of DriverList">{{
-      driver
-    }}</mat-chip-option>
-  </mat-chip-listbox>
-  <h3>Filtrar por batea:</h3>
-  <mat-chip-listbox
-    multiple
-    aria-label="Batea"
-    (change)="updateBateaFilteringOptions($event)"
-  >
-    <mat-chip-option *ngFor="let batea of BateaList">{{
-      batea
-    }}</mat-chip-option>
-  </mat-chip-listbox>
-  <h3>Filtrar por acoplado:</h3>
-  <mat-chip-listbox
-    multiple
-    aria-label="trailer"
-    (change)="updateTrailerFilteringOptions($event)"
-  >
-    <mat-chip-option *ngFor="let trailer of TrailerList">{{
-      trailer
-    }}</mat-chip-option>
-  </mat-chip-listbox>
+<div class="container__spinner">
+  <mat-spinner *ngIf="table.loading" diameter="80"></mat-spinner>
+</div>
+<div *ngIf="!table.loading">
+  <div class="container-filter">
+    <h3>Filtrar por chofer:</h3>
+    <mat-chip-listbox
+      multiple
+      aria-label="Driver"
+      (change)="updateDriverFilteringOptions($event)"
+    >
+      <mat-chip-option *ngFor="let driver of DriverList">{{
+        driver
+      }}</mat-chip-option>
+    </mat-chip-listbox>
+    <h3>Filtrar por batea:</h3>
+    <mat-chip-listbox
+      multiple
+      aria-label="Batea"
+      (change)="updateBateaFilteringOptions($event)"
+    >
+      <mat-chip-option *ngFor="let batea of BateaList">{{
+        batea
+      }}</mat-chip-option>
+    </mat-chip-listbox>
+    <h3>Filtrar por acoplado:</h3>
+    <mat-chip-listbox
+      multiple
+      aria-label="trailer"
+      (change)="updateTrailerFilteringOptions($event)"
+    >
+      <mat-chip-option *ngFor="let trailer of TrailerList">{{
+        trailer
+      }}</mat-chip-option>
+    </mat-chip-listbox>
+  </div>
 </div>
 <fm-table
+  #table
+  [style.visibility]="table.loading ? 'hidden' : 'visible'"
   [data]="travelsList$"
   [columns]="[
     'descEquipo',
