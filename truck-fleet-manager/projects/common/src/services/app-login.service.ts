@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../models';
 import { environment } from '../../../../src/enviroments/environment';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AppLoginService {
   apiUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   authenticateUser(email: string, password: string) {
     const credentials = { email, password };

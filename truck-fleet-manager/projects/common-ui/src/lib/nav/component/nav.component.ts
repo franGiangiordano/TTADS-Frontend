@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AppLoginService } from '../../../../../common/src/services/app-login.service';
-import { User } from 'projects/common/src';
+import { User } from '../../../../../../projects/common/src';
 
 @Component({
   selector: 'fm-nav',
@@ -15,7 +16,7 @@ export class NavComponent implements OnInit {
 
   menuItems!: any[];
 
-  constructor(private router: Router, private loginService: AppLoginService) {}
+  constructor(private router: Router, private loginService: AppLoginService) { }
 
   ngOnInit(): void {
     this.roles = this.loginService.getUserRole();

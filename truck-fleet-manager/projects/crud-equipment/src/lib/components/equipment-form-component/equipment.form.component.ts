@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
-import { forkJoin } from 'rxjs';
-
 import { FormGroup } from '@angular/forms';
-import { EquipmentService } from '../../services/equipment.service';
-import { NotificationService } from 'projects/common/src';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { BateaService } from 'projects/crud-bateas/src/lib/services/batea.service';
-import { DriverService } from 'projects/crud-drivers/src/lib/services/driver.service';
-import { TrailerService } from 'projects/crud-trailers/src/lib/services/trailer.service';
+
+import { forkJoin } from 'rxjs';
+
+import { EquipmentService } from '../../services/equipment.service';
+import { NotificationService } from '../../../../../../projects/common/src';
+import { BateaService } from '../../../../../../projects/crud-bateas/src/lib/services/batea.service';
+import { DriverService } from '../../../../../../projects/crud-drivers/src/lib/services/driver.service';
+import { TrailerService } from '../../../../../../projects/crud-trailers/src/lib/services/trailer.service';
 import { Equipment } from '../../models';
-import { Batea } from 'projects/crud-bateas/src/lib/models';
-import { Driver } from 'projects/crud-drivers/src/lib/models';
-import { Trailer } from 'projects/crud-trailers/src/lib/models';
-import { comboField } from 'projects/common-ui/src/constants/types';
+import { Batea } from '../../../../../../projects/crud-bateas/src/lib/models';
+import { Driver } from '../../../../../../projects/crud-drivers/src/lib/models';
+import { Trailer } from '../../../../../../projects/crud-trailers/src/lib/models';
+import { comboField } from '../../../../../../projects/common-ui/src/constants/types';
 
 @Component({
   selector: 'lib-equipment.form',
@@ -43,7 +44,7 @@ export class EquipmentFormComponent {
     private bateaService: BateaService,
     private driverService: DriverService,
     private trailerService: TrailerService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadCombos();
@@ -61,27 +62,27 @@ export class EquipmentFormComponent {
   loadCombos() {
     this.bateaService.getBateas().subscribe(
       (response) =>
-        (this.BateaList = response.results.map((result) => {
-          return { value: result.patent, viewValue: result.patent };
-        }))
+      (this.BateaList = response.results.map((result) => {
+        return { value: result.patent, viewValue: result.patent };
+      }))
     );
 
     this.driverService.getDrivers().subscribe(
       (response) =>
-        (this.DriverList = response.results.map((result) => {
-          return {
-            value: result.legajo,
-            viewValue:
-              result.legajo + ' - ' + result.name + ' ' + result.surname,
-          };
-        }))
+      (this.DriverList = response.results.map((result) => {
+        return {
+          value: result.legajo,
+          viewValue:
+            result.legajo + ' - ' + result.name + ' ' + result.surname,
+        };
+      }))
     );
 
     this.trailerService.getTrailers().subscribe(
       (response) =>
-        (this.TrailerList = response.results.map((result) => {
-          return { value: result.patent, viewValue: result.patent };
-        }))
+      (this.TrailerList = response.results.map((result) => {
+        return { value: result.patent, viewValue: result.patent };
+      }))
     );
   }
 

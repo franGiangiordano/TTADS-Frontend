@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-
 import { FormGroup } from '@angular/forms';
-import { NotificationService } from 'projects/common/src';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+
 import * as CryptoJS from 'crypto-js';
 
 import { UserService } from '../../services/crud.user.service';
-import { User } from 'projects/common/src';
-import { comboField } from 'projects/common-ui/src/constants/types';
+import { NotificationService } from '../../../../../../projects/common/src';
+import { User } from '../../../../../../projects/common/src';
+import { comboField } from '../../../../../../projects/common-ui/src/constants/types';
 
 @Component({
   selector: 'lib-user.form',
@@ -33,7 +33,7 @@ export class UserFormComponent {
     private notificationService: NotificationService,
     public router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {

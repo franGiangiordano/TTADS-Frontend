@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import * as moment from 'moment';
-
 import { FormGroup } from '@angular/forms';
-import { TravelService } from '../../services/travel.service';
-import { NotificationService } from 'projects/common/src';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { EquipmentService } from 'projects/crud-equipment/src/lib/services/equipment.service';
+
+import * as moment from 'moment';
+import { TravelService } from '../../services/travel.service';
+import { NotificationService } from '../../../../../../projects/common/src';
+import { EquipmentService } from '../../../../../../projects/crud-equipment/src/lib/services/equipment.service';
 import { Travel } from '../../models';
-import { Equipment } from 'projects/crud-equipment/src/lib/models';
-import { comboField } from 'projects/common-ui/src/constants/types';
+import { Equipment } from '../../../../../../projects/crud-equipment/src/lib/models';
+import { comboField } from '../../../../../../projects/common-ui/src/constants/types';
 
 @Component({
   selector: 'lib-travel.form',
@@ -33,7 +33,7 @@ export class TravelFormComponent {
     private router: Router,
     private route: ActivatedRoute,
     private travelService: TravelService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadCombos();
@@ -51,9 +51,9 @@ export class TravelFormComponent {
   loadCombos() {
     this.equipmentService.getEquipments().subscribe(
       (response) =>
-        (this.EquipmentList = response.results.map((result) => {
-          return { value: result.description, viewValue: result.description };
-        }))
+      (this.EquipmentList = response.results.map((result) => {
+        return { value: result.description, viewValue: result.description };
+      }))
     );
   }
 

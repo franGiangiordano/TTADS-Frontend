@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Batea } from '../../models/batea.model';
 import { FormGroup } from '@angular/forms';
-import { BateaService } from '../../services/batea.service';
-import { NotificationService } from 'projects/common/src/services/notification.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+
+import { Batea } from '../../models/batea.model';
+import { BateaService } from '../../services/batea.service';
+import { NotificationService } from '../../../../../../projects/common/src/services/notification.service';
 
 @Component({
   selector: 'lib-batea-form',
@@ -23,7 +24,7 @@ export class BateaFormComponent {
     private notificationService: NotificationService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
