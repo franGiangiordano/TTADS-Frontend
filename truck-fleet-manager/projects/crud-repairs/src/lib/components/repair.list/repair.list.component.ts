@@ -105,6 +105,7 @@ export class RepairlistComponent implements OnInit {
         const pdfDefinition: any = {
           content: [
             { text: 'Listado Reparaciones', style: 'header' },
+
             {
               table: {
                 body: [

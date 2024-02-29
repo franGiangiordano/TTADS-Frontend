@@ -159,68 +159,94 @@ export class TravelListComponent implements OnInit {
   }
 
   createPdf() {
-    this.travelService
-      .searchTravels(
-        this.pageIndex,
-        this.pageSize,
-        '',
-        this.selectedFilteringOptions
-      )
-      .subscribe((response) => {
-        const travelsData = this.formatResponse(response.results);
+    let bateaFilters = '';
+    this.selectedFilteringOptions.bateaFilterList?.map((batea) => {
+      bateaFilters += batea + ', ';
+    });
 
-        const pdfDefinition: any = {
-          content: [
-            { text: 'Listado Viajes', style: 'header' },
-            {
-              table: {
-                body: [
-                  [
-                    'Equipo',
-                    'Legajo',
-                    'Nombre',
-                    'Apellido',
-                    'Batea',
-                    'Acoplado',
-                    'Localidad Inicio',
-                    'Localidad Fin',
-                    'Fecha Inicio',
-                    'Fecha Fin',
-                    'Destino',
-                  ],
-                  ...travelsData.map((travel) => [
-                    travel.descEquipo[0] || '',
-                    travel.legajo || '',
-                    travel.name || '',
-                    travel.surname || '',
-                    travel.batea || '',
-                    travel.trailer || '',
-                    travel.localIni || '',
-                    travel.localFin || '',
-                    travel.fechaIni || '',
-                    travel.fechaFin || '',
-                    travel.destination_description || '',
-                  ]),
-                ],
+    let driverFilters = '';
+    this.selectedFilteringOptions.driverFilterList?.map((driver) => {
+      driverFilters += driver + ', ';
+    });
+
+    let trailerFilters = '';
+    this.selectedFilteringOptions.trailerFilterList?.map((trailer) => {
+      trailerFilters += trailer + ', ';
+    }),
+      this.travelService
+        .searchTravels(
+          this.pageIndex,
+          this.pageSize,
+          '',
+          this.selectedFilteringOptions
+        )
+        .subscribe((response) => {
+          const travelsData = this.formatResponse(response.results);
+          const pdfDefinition: any = {
+            content: [
+              { text: 'Listado Viajes', style: 'header' },
+              { text: 'Bateas Filtradas: ' + bateaFilters, style: 'subheader' },
+              {
+                text: 'Choferes Filtrados: ' + driverFilters,
+                style: 'subheader',
               },
-              margin: [0, 10, 0, 0],
-              style: 'tableStyle',
+              {
+                text: 'Acoplados Filtrados: ' + trailerFilters,
+                style: 'subheader',
+              },
+              {
+                table: {
+                  body: [
+                    [
+                      'Equipo',
+                      'Legajo',
+                      'Nombre',
+                      'Apellido',
+                      'Batea',
+                      'Acoplado',
+                      'Localidad Inicio',
+                      'Localidad Fin',
+                      'Fecha Inicio',
+                      'Fecha Fin',
+                      'Destino',
+                    ],
+                    ...travelsData.map((travel) => [
+                      travel.descEquipo[0] || '',
+                      travel.legajo || '',
+                      travel.name || '',
+                      travel.surname || '',
+                      travel.batea || '',
+                      travel.trailer || '',
+                      travel.localIni || '',
+                      travel.localFin || '',
+                      travel.fechaIni || '',
+                      travel.fechaFin || '',
+                      travel.destination_description || '',
+                    ]),
+                  ],
+                },
+                margin: [0, 10, 0, 0],
+                style: 'tableStyle',
+              },
+            ],
+            pageMargins: [10, 10, 10, 10],
+            styles: {
+              header: {
+                fontSize: 15,
+                bold: true,
+                margin: [0, 0, 0, 10],
+              },
+              subheader: {
+                fontSize: 11,
+                margin: [0, 0, 0, 10],
+              },
+              tableStyle: {
+                fontSize: 10,
+              },
             },
-          ],
-          pageMargins: [10, 10, 10, 10],
-          styles: {
-            header: {
-              fontSize: 15,
-              bold: true,
-              margin: [0, 0, 0, 10],
-            },
-            tableStyle: {
-              fontSize: 10,
-            },
-          },
-        };
-        const pdf = pdfMake.createPdf(pdfDefinition);
-        pdf.open();
-      });
+          };
+          const pdf = pdfMake.createPdf(pdfDefinition);
+          pdf.open();
+        });
   }
 }
