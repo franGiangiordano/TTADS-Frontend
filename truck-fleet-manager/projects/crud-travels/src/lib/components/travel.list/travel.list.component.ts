@@ -204,6 +204,7 @@ export class TravelListComponent implements OnInit {
                 ],
               },
               margin: [0, 10, 0, 0],
+              style: 'tableStyle',
             },
           ],
           pageMargins: [10, 10, 10, 10],
@@ -212,6 +213,9 @@ export class TravelListComponent implements OnInit {
               fontSize: 15,
               bold: true,
               margin: [0, 0, 0, 10],
+            },
+            tableStyle: {
+              fontSize: 10,
             },
           },
         };
