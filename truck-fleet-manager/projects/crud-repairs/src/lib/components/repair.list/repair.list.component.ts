@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+
 import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import * as moment from 'moment';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
+import { AppLoginService } from '../../../../../common/src/services/app-login.service';
 import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
 import { RepairService } from '../../services/repair.service';
 import { Repair } from '../../models';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'lib-repair.list',
@@ -17,10 +23,11 @@ import { Repair } from '../../models';
   providers: [RepairService, NotificationService],
 })
 export class RepairlistComponent implements OnInit {
-
   editMode = false;
   formTitle = 'Añadir Reparación';
   rutaVariable: string = 'equipments/repairs';
+
+  roles: string[] = [];
 
   pageSize: number = 10;
   pageIndex: number = 1;
@@ -29,9 +36,15 @@ export class RepairlistComponent implements OnInit {
 
   repairsForm!: FormGroup;
 
-  constructor(private repairService: RepairService, private notificationService: NotificationService, private router: Router) { }
+  constructor(
+    private repairService: RepairService,
+    private notificationService: NotificationService,
+    private loginService: AppLoginService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.roles = this.loginService.getUserRole();
     this.doSearch();
   }
 
@@ -41,11 +54,13 @@ export class RepairlistComponent implements OnInit {
   }
 
   deleteRepair(event: Repair): void {
-    this.repairService.deleteRepairs(event)
-      .subscribe(() => {
-        this.notificationService.showSnackbar('Elemento eliminado exitosamente', 'success');
-        this.doSearch();
-      });
+    this.repairService.deleteRepairs(event).subscribe(() => {
+      this.notificationService.showSnackbar(
+        'Elemento eliminado exitosamente',
+        'success'
+      );
+      this.doSearch();
+    });
   }
 
   formatResponse(array: any[]): any[] {
@@ -60,6 +75,7 @@ export class RepairlistComponent implements OnInit {
         trailer: obj.equipment.trailer.patent,
         reparacion: obj.description,
         costo: obj.cost,
+        km: obj.km,
         fechaReparacion: moment.utc(obj.createdAt).format('DD/MM/YYYY'),
       };
     });
@@ -77,5 +93,60 @@ export class RepairlistComponent implements OnInit {
       this.pageIndex = event.pageIndex + 1;
     }
     this.doSearch();
+  }
+
+  createPdf() {
+    this.repairService
+      .getRepairs(this.pageIndex, this.pageSize)
+      .subscribe((response) => {
+        const repairsData = this.formatResponse(response.results);
+
+        const pdfDefinition: any = {
+          content: [
+            { text: 'Listado Reparaciones', style: 'header' },
+            {
+              table: {
+                body: [
+                  [
+                    'Equipo',
+                    'Legajo',
+                    'Nombre',
+                    'Apellido',
+                    'Batea',
+                    'Trailer',
+                    'Reparación',
+                    'Costo',
+                    'KM',
+                    'Fecha Reparación',
+                  ],
+                  ...repairsData.map((repair) => [
+                    repair.descEquipo || '',
+                    repair.legajo || '',
+                    repair.name || '',
+                    repair.surname || '',
+                    repair.batea || '',
+                    repair.trailer || '',
+                    repair.reparacion || '',
+                    repair.costo || '',
+                    repair.km !== undefined ? repair.km : '',
+                    repair.fechaReparacion || '',
+                  ]),
+                ],
+              },
+              margin: [0, 10, 0, 0],
+            },
+          ],
+          pageMargins: [10, 10, 10, 10],
+          styles: {
+            header: {
+              fontSize: 15,
+              bold: true,
+              margin: [0, 0, 0, 10],
+            },
+          },
+        };
+        const pdf = pdfMake.createPdf(pdfDefinition);
+        pdf.open();
+      });
   }
 }
