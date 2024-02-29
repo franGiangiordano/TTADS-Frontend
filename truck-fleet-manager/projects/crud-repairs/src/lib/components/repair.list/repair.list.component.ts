@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-
 import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -49,8 +48,9 @@ export class RepairlistComponent implements OnInit {
   }
 
   doSearch(search?: string): void {
-    this.repairService.getRepairs(this.pageIndex, this.pageSize, search)
-      .subscribe(response => this.repairsList$.next(response));
+    this.repairService
+      .getRepairs(this.pageIndex, this.pageSize, search)
+      .subscribe((response) => this.repairsList$.next(response));
   }
 
   deleteRepair(event: Repair): void {
@@ -64,7 +64,7 @@ export class RepairlistComponent implements OnInit {
   }
 
   formatResponse(array: any[]): any[] {
-    return array.map(obj => {
+    return array.map((obj) => {
       return {
         _id: obj._id,
         descEquipo: obj.equipment.description,

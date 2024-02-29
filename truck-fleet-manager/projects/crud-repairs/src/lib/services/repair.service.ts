@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { EntityListResponse } from '../../../../../projects/common/src/models';
-
 import { Repair } from '../models';
+import { EntityListResponse } from '../../../../../projects/common/src/models';
 import { environment } from '../../../../../src/enviroments/environment';
 
 @Injectable({

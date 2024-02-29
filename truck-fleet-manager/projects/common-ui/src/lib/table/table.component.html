@@ -9,6 +9,7 @@
         color="primary"
         (click)="redirect()"
         *ngIf="roles.includes('manager')"
+        class="btn-a"
       >
         Añadir
       </button>
@@ -70,9 +71,9 @@
           mat-icon-button
           color="primary"
           (click)="toggleColumnVisibility()"
-          (matTooltip)="
-            (showAllColumns ? 'Ocultar columnas' : 'Mostrar más columnas')
-          "
+          matTooltip="{{
+            showAllColumns ? 'Ocultar columnas' : 'Mostrar más columnas'
+          }}"
         >
           <mat-icon>{{ showAllColumns ? 'remove' : 'add' }}</mat-icon>
         </button>
@@ -104,17 +105,19 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+
       <mat-divider></mat-divider>
-      <mat-paginator
-        *ngIf="count !== 0"
-        [ngClass]="{ hidden: loading }"
-        [length]="count"
-        [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        aria-label="Select page"
-        (page)="onPageChange($event)"
-      >
-      </mat-paginator>
     </div>
+    <mat-paginator
+      *ngIf="count !== 0"
+      [ngClass]="{ hidden: loading }"
+      [length]="count"
+      [pageSize]="results.length"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page"
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
   </div>
 </div>

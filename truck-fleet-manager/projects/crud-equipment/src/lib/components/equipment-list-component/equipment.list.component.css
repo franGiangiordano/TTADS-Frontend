@@ -1,6 +1,12 @@
-h1{
-    font-size: 3em;
-    margin: 1em;
-    padding: 1em;
-    text-align: center;
+h1 {
+  font-size: 3em;
+  margin: 1em;
+  padding: 1em;
+  text-align: center;
+}
+
+@media (max-width: 786px) {
+  h1 {
+    font-size: 1.5em;
+  }
 }

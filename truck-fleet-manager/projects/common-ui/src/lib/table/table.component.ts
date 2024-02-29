@@ -8,16 +8,15 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { EntityListResponse } from 'projects/common/src/models';
+import Swal from 'sweetalert2';
 
+import { EntityListResponse } from '../../../../../projects/common/src/models';
 import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
 import { ColumnDescription } from '../../constants';
 import { AppLoginService } from '../../../../common/src/services/app-login.service';
-import { Router } from '@angular/router';
-
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'fm-table',
@@ -25,7 +24,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-
   searchText: string = '';
   displayedColumns: string[] = [];
   columsR: string[] = [];
@@ -34,12 +32,12 @@ export class TableComponent implements OnInit {
   loading = false;
   count!: number;
   results!: any[];
+  pageIndex!: number;
 
   @Input({ required: true }) data!: Observable<EntityListResponse<any>>;
   @Input({ required: true }) columns: string[] = [];
   @Input() rutaVariable: string = '';
   @Input() formatFunction?: (array: any[]) => any[];
-
 
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
@@ -56,9 +54,12 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.roles = this.loginService.getUserRole();
-    this.displayedColumns = this.roles.includes('manager') ? [...this.columns, 'actions'] : [...this.columns];
+    this.displayedColumns = this.roles.includes('manager')
+      ? [...this.columns, 'actions']
+      : [...this.columns];
     this.loading = true;
-    this.data.subscribe(response => {
+    this.data.subscribe((response) => {
+      this.pageIndex = Math.ceil(response.currentPage / 10);
       this.count = response.count;
       this.results = this.formatFunction
         ? this.formatFunction(response.results)
@@ -93,7 +94,7 @@ export class TableComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         this.delete.emit(item);

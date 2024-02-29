@@ -14,13 +14,13 @@ import { Equipment } from '../../models';
 import { Batea } from '../../../../../../projects/crud-bateas/src/lib/models';
 import { Driver } from '../../../../../../projects/crud-drivers/src/lib/models';
 import { Trailer } from '../../../../../../projects/crud-trailers/src/lib/models';
+import { comboField } from '../../../../../../projects/common-ui/src/constants/types';
 
 @Component({
   selector: 'lib-equipment.form',
   templateUrl: './equipment.form.component.html',
   styleUrls: ['./equipment.form.component.css'],
   providers: [BateaService, DriverService, TrailerService],
-
 })
 export class EquipmentFormComponent {
   id = '';
@@ -28,13 +28,13 @@ export class EquipmentFormComponent {
   formTitle = 'Añadir Equipo';
 
   equipmentForm!: FormGroup;
-  BateaList: string[] = [];
-  DriverList: string[] = [];
-  TrailerList: string[] = [];
+  BateaList: comboField[] = [];
+  DriverList: comboField[] = [];
+  TrailerList: comboField[] = [];
 
   bateaSelectected!: Batea;
   trailerSelected!: Trailer;
-  driverSelected!: Driver
+  driverSelected!: Driver;
 
   constructor(
     private equipmentService: EquipmentService,
@@ -47,10 +47,9 @@ export class EquipmentFormComponent {
   ) { }
 
   ngOnInit() {
-
     this.loadCombos();
 
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.id = params['id'];
       if (this.id) {
         this.editMode = true;
@@ -61,29 +60,39 @@ export class EquipmentFormComponent {
   }
 
   loadCombos() {
-    this.bateaService.getBateas()
-      .subscribe(response => this.BateaList = response.results.map(result =>
-        result.patent
-      ));
+    this.bateaService.getBateas().subscribe(
+      (response) =>
+      (this.BateaList = response.results.map((result) => {
+        return { value: result.patent, viewValue: result.patent };
+      }))
+    );
 
-    this.driverService.getDrivers()
-      .subscribe(response => this.DriverList = response.results.map(result =>
-        result.legajo
-      ));
+    this.driverService.getDrivers().subscribe(
+      (response) =>
+      (this.DriverList = response.results.map((result) => {
+        return {
+          value: result.legajo,
+          viewValue:
+            result.legajo + ' - ' + result.name + ' ' + result.surname,
+        };
+      }))
+    );
 
-    this.trailerService.getTrailers()
-      .subscribe(response => this.TrailerList = response.results.map(result =>
-        result.patent
-      ));
+    this.trailerService.getTrailers().subscribe(
+      (response) =>
+      (this.TrailerList = response.results.map((result) => {
+        return { value: result.patent, viewValue: result.patent };
+      }))
+    );
   }
 
   autocompleteForm() {
-    this.equipmentService.getEquipment(this.id).subscribe(equipment => {
+    this.equipmentService.getEquipment(this.id).subscribe((equipment) => {
       this.equipmentForm.get('descripcion')?.setValue(equipment.description);
 
-      this.equipmentForm.controls['batea'].setValue(equipment.batea.patent)
-      this.equipmentForm.controls['driver'].setValue(equipment.driver.legajo)
-      this.equipmentForm.controls['trailer'].setValue(equipment.trailer.patent)
+      this.equipmentForm.controls['batea'].setValue(equipment.batea.patent);
+      this.equipmentForm.controls['driver'].setValue(equipment.driver.legajo);
+      this.equipmentForm.controls['trailer'].setValue(equipment.trailer.patent);
     });
   }
 
@@ -91,7 +100,7 @@ export class EquipmentFormComponent {
     forkJoin({
       batea: this.bateaService.getBateas(1, 10, form.value['batea']),
       driver: this.driverService.getDrivers(1, 10, form.value['driver']),
-      trailer: this.trailerService.getTrailers(1, 10, form.value['trailer'])
+      trailer: this.trailerService.getTrailers(1, 10, form.value['trailer']),
     }).subscribe(({ batea, driver, trailer }) => {
       this.bateaSelectected = batea.results[0];
       this.driverSelected = driver.results[0];
@@ -102,14 +111,16 @@ export class EquipmentFormComponent {
         description: form.value.descripcion,
         batea: this.bateaSelectected,
         driver: this.driverSelected,
-        trailer: this.trailerSelected
-      }
+        trailer: this.trailerSelected,
+      };
 
-      this.equipmentService.postEquipments(nuevoEquipo)
-        .subscribe(() => {
-          this.notificationService.showSnackbar('Se añadió el equipo!', 'success');
-          this.router.navigate(['/equipments']);
-        });
+      this.equipmentService.postEquipments(nuevoEquipo).subscribe(() => {
+        this.notificationService.showSnackbar(
+          'Se añadió el equipo!',
+          'success'
+        );
+        this.router.navigate(['/equipments']);
+      });
     });
   }
 
@@ -117,7 +128,7 @@ export class EquipmentFormComponent {
     forkJoin({
       batea: this.bateaService.getBateas(1, 10, form.value['batea']),
       driver: this.driverService.getDrivers(1, 10, form.value['driver']),
-      trailer: this.trailerService.getTrailers(1, 10, form.value['trailer'])
+      trailer: this.trailerService.getTrailers(1, 10, form.value['trailer']),
     }).subscribe(({ batea, driver, trailer }) => {
       this.bateaSelectected = batea.results[0];
       this.driverSelected = driver.results[0];
@@ -128,14 +139,16 @@ export class EquipmentFormComponent {
         description: form.value.descripcion,
         batea: this.bateaSelectected,
         driver: this.driverSelected,
-        trailer: this.trailerSelected
-      }
+        trailer: this.trailerSelected,
+      };
 
-      this.equipmentService.putEquipments(nuevoEquipo)
-        .subscribe(() => {
-          this.router.navigate(['/equipments']);
-          this.notificationService.showSnackbar('Se actualizo el equipo', 'success');
-        });
+      this.equipmentService.putEquipments(nuevoEquipo).subscribe(() => {
+        this.router.navigate(['/equipments']);
+        this.notificationService.showSnackbar(
+          'Se actualizo el equipo',
+          'success'
+        );
+      });
     });
   }
 

@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
       this.driverService.getDrivers(),
       this.bateaService.getBateas(),
       this.trailerService.getTrailers(),
-      this.travelService.getTravels(),
+      this.travelService.searchTravels(),
       this.repairService.getRepairs(),
       this.equipmentService.getEquipments()
     ]).subscribe((responses: any) => {

@@ -1,8 +1,49 @@
 <h1>Gestión de Viajes</h1>
-
+<div>
+  <mat-chip-listbox
+    multiple
+    aria-label="Driver"
+    (change)="updateDriverFilteringOptions($event)"
+  >
+    <mat-chip-option *ngFor="let driver of DriverList">{{
+      driver
+    }}</mat-chip-option>
+  </mat-chip-listbox>
+  <mat-chip-listbox
+    multiple
+    aria-label="Batea"
+    (change)="updateBateaFilteringOptions($event)"
+  >
+    <mat-chip-option *ngFor="let batea of BateaList">{{
+      batea
+    }}</mat-chip-option>
+  </mat-chip-listbox>
+  <mat-chip-listbox
+    multiple
+    aria-label="trailer"
+    (change)="updateTrailerFilteringOptions($event)"
+  >
+    <mat-chip-option *ngFor="let trailer of TrailerList">{{
+      trailer
+    }}</mat-chip-option>
+  </mat-chip-listbox>
+</div>
 <fm-table
   [data]="travelsList$"
-  [columns]="['descEquipo','legajo', 'name','surname','descripción', 'batea', 'trailer', 'localIni', 'localFin', 'fechaIni', 'fechaFin']"
+  [columns]="[
+    'descEquipo',
+    'legajo',
+    'name',
+    'surname',
+    'descripción',
+    'batea',
+    'trailer',
+    'localIni',
+    'localFin',
+    'fechaIni',
+    'fechaFin',
+    'destination_description'
+  ]"
   [formatFunction]="formatResponse"
   [rutaVariable]="rutaVariable"
   (edit)="editTravel($event)"
@@ -10,4 +51,3 @@
   (search)="doSearch($event)"
   (pageChange)="onPageChange($event)"
 ></fm-table>
-

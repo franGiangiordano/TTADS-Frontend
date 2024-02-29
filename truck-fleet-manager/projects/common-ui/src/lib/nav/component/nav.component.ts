@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppLoginService } from '../../../../../common/src/services/app-login.service';
+import { User } from '../../../../../../projects/common/src';
 
 @Component({
   selector: 'fm-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
   expandEquipments: boolean = false;
   roles: string[] = [];
+  user!: User;
 
   menuItems!: any[];
 
@@ -74,9 +76,10 @@ export class NavComponent implements OnInit {
         routerLink: '/users',
         iconType: 'people',
         innerText: 'Usuarios',
-        canDisplay: this.roles.includes('admin')
-      }, {
-        routerLink: '/my-account',
+        canDisplay: this.roles.includes('admin'),
+      },
+      {
+        routerLink: '/profile',
         iconType: 'account_circle',
         innerText: 'Mi cuenta',
         canDisplay: true,
@@ -101,5 +104,10 @@ export class NavComponent implements OnInit {
 
   onClick(): void {
     this.router.navigate(['']);
+  }
+
+  getUserFullName(): string {
+    this.user = this.loginService.getUserInfo();
+    return this.user.name;
   }
 }
