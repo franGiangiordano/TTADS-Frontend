@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { CommonUiModule } from 'projects/common-ui/src';
 
@@ -27,6 +27,7 @@ import { TravelListComponent } from './components/travel.list/travel.list.compon
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatChipsModule
   ]
 })
 export class CrudTravelsModule { }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { EntityListResponse } from 'projects/common/src/models';
-
+import { EntityListResponse } from '../../../../../projects/common/src/models';
 import { Travel } from '../models';
 import { environment } from '../../../../../src/enviroments/environment';
+import { FilterOptionsTravel } from '../components/travel.list/travel.list.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,12 @@ export class TravelService {
 
   constructor(private http: HttpClient) { }
 
-  getTravels(page: number = 1, limit: number = 10, search:string = '') {
-    return this.http.get<EntityListResponse<Travel>>(this.apiUrl + '/travel/', { params: { search, page, limit } });
+  searchTravels(page: number = 1, limit: number = 10, search: string = '', selectedFilteringOptions: FilterOptionsTravel = {}) {
+    return this.http.post<EntityListResponse<Travel>>(this.apiUrl + '/travel/search', selectedFilteringOptions, { params: { search, page, limit } });
   }
-  
-  getTravel(id:string) {
-    return this.http.get<Travel>(this.apiUrl + '/travel/'+ id);
+
+  getTravel(id: string) {
+    return this.http.get<Travel>(this.apiUrl + '/travel/' + id);
   }
 
   postTravels(travel: Travel) {

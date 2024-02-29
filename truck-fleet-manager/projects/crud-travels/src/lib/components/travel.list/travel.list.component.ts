@@ -1,20 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import * as moment from 'moment';
-
-import { EntityListResponse, NotificationService } from 'projects/common/src';
-import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatChipListboxChange } from '@angular/material/chips';
+
+import * as moment from 'moment';
+import { Subject, forkJoin } from 'rxjs';
 
 import { TravelService } from '../../services/travel.service';
 import { Travel } from '../../models';
+import { DriverService } from '../../../../../../projects/crud-drivers/src/lib/services/driver.service';
+import { TrailerService } from '../../../../../../projects/crud-trailers/src/lib/services/trailer.service';
+import { BateaService } from '../../../../../../projects/crud-bateas/src/lib/services/batea.service';
+import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
+
+export class FilterOptionsTravel {
+  driver?: string[];
+  batea?: string[];
+  trailer?: string[];
+}
 
 @Component({
   selector: 'lib-travel.list',
   templateUrl: './travel.list.component.html',
   styleUrls: ['./travel.list.component.css'],
-  providers: [TravelService, NotificationService],
+  providers: [TravelService, DriverService, TrailerService, BateaService, NotificationService],
 })
 export class TravelListComponent implements OnInit {
   editMode = false;
@@ -28,20 +38,42 @@ export class TravelListComponent implements OnInit {
 
   travelsForm!: FormGroup;
 
-  constructor(
-    private travelService: TravelService,
+  loadingFilterData!: boolean;
+  TrailerList!: string[];
+  BateaList!: string[];
+  DriverList!: string[];
+  selectedFilteringOptions = new FilterOptionsTravel();
+
+  constructor(private travelService: TravelService,
+    private trailerService: TrailerService,
+    private bateaService: BateaService,
+    private driverService: DriverService,
     private notificationService: NotificationService,
-    private router: Router
-  ) {}
+    private router: Router) { }
 
   ngOnInit(): void {
     this.doSearch();
+    this.loadFilterData();
   }
 
   doSearch(search?: string): void {
-    this.travelService
-      .getTravels(this.pageIndex, this.pageSize, search)
-      .subscribe((response) => this.travelsList$.next(response));
+    this.travelService.searchTravels(this.pageIndex, this.pageSize, search, this.selectedFilteringOptions)
+      .subscribe(response => this.travelsList$.next(response));
+  }
+
+  updateDriverFilteringOptions($event: MatChipListboxChange) {
+    this.selectedFilteringOptions.driver = $event.value;
+    this.doSearch();
+  }
+
+  updateTrailerFilteringOptions($event: MatChipListboxChange) {
+    this.selectedFilteringOptions.trailer = $event.value;
+    this.doSearch();
+  }
+
+  updateBateaFilteringOptions($event: MatChipListboxChange) {
+    this.selectedFilteringOptions.batea = $event.value;
+    this.doSearch();
   }
 
   deleteTravel(event: Travel): void {
@@ -52,6 +84,22 @@ export class TravelListComponent implements OnInit {
       );
       this.doSearch();
     });
+  }
+
+  loadFilterData() {
+    this.loadingFilterData = true;
+    forkJoin([this.trailerService.getTrailers(), this.bateaService.getBateas(), this.driverService.getDrivers()])
+      .subscribe(([trailers, bateas, drivers]) => {
+        this.TrailerList = trailers.results.map(trailer =>
+          trailer.patent
+        );
+        this.BateaList = bateas.results.map(batea =>
+          batea.patent
+        );
+        this.DriverList = drivers.results.map(driver =>
+          driver.legajo
+        );
+      }).add(() => this.loadingFilterData = false)
   }
 
   formatResponse(array: any[]): any[] {

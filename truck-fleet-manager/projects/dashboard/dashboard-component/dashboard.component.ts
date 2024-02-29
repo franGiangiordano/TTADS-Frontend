@@ -13,7 +13,7 @@ import { RepairService } from 'projects/crud-repairs/src/lib/services/repair.ser
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {  
+export class DashboardComponent implements OnInit {
   cardInfo!: any[];
 
   driverService = inject(DriverService);
@@ -58,13 +58,13 @@ export class DashboardComponent implements OnInit {
       this.driverService.getDrivers(),
       this.bateaService.getBateas(),
       this.trailerService.getTrailers(),
-      this.travelService.getTravels(),
+      this.travelService.searchTravels(),
       this.repairService.getRepairs(),
       this.equipmentService.getEquipments()
-    ]).subscribe((responses: any) => {     
+    ]).subscribe((responses: any) => {
       for (let i = 0; i < responses.length; i++) {
         this.cardInfo[i].count = responses[i].count;
-      }      
+      }
     });
   }
 }
