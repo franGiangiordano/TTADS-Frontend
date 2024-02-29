@@ -15,9 +15,9 @@ import { BateaService } from '../../../../../../projects/crud-bateas/src/lib/ser
 import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
 
 export class FilterOptionsTravel {
-  driver?: string[];
-  batea?: string[];
-  trailer?: string[];
+  driverFilterList?: string[];
+  bateaFilterList?: string[];
+  trailerFilterList?: string[];
 }
 
 @Component({
@@ -62,17 +62,17 @@ export class TravelListComponent implements OnInit {
   }
 
   updateDriverFilteringOptions($event: MatChipListboxChange) {
-    this.selectedFilteringOptions.driver = $event.value;
+    this.selectedFilteringOptions.driverFilterList = $event.value;
     this.doSearch();
   }
 
   updateTrailerFilteringOptions($event: MatChipListboxChange) {
-    this.selectedFilteringOptions.trailer = $event.value;
+    this.selectedFilteringOptions.trailerFilterList = $event.value;
     this.doSearch();
   }
 
   updateBateaFilteringOptions($event: MatChipListboxChange) {
-    this.selectedFilteringOptions.batea = $event.value;
+    this.selectedFilteringOptions.bateaFilterList = $event.value;
     this.doSearch();
   }
 
