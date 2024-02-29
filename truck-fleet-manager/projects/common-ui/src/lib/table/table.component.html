@@ -113,6 +113,7 @@
       [ngClass]="{ hidden: loading }"
       [length]="count"
       [pageSize]="10"
+      [pageIndex]="pageIndex"
       [pageSizeOptions]="[5, 10, 25, 100]"
       aria-label="Select page"
       (page)="onPageChange($event)"

@@ -33,6 +33,7 @@ export class TableComponent implements OnInit {
   loading = false;
   count!: number;
   results!: any[];
+  pageIndex!: number;
 
   @Input({ required: true }) data!: Observable<EntityListResponse<any>>;
   @Input({ required: true }) columns: string[] = [];
@@ -59,6 +60,7 @@ export class TableComponent implements OnInit {
       : [...this.columns];
     this.loading = true;
     this.data.subscribe((response) => {
+      this.pageIndex = Math.ceil(response.currentPage / 10);
       this.count = response.count;
       this.results = this.formatFunction
         ? this.formatFunction(response.results)
@@ -110,6 +112,7 @@ export class TableComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
+    console.log('onPageChange', event);
     this.pageChange.emit(event);
     this.loading = true;
   }
