@@ -12,7 +12,13 @@ import { Travel } from '../../models';
 import { DriverService } from '../../../../../../projects/crud-drivers/src/lib/services/driver.service';
 import { TrailerService } from '../../../../../../projects/crud-trailers/src/lib/services/trailer.service';
 import { BateaService } from '../../../../../../projects/crud-bateas/src/lib/services/batea.service';
-import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
+import {
+  EntityListResponse,
+  NotificationService,
+} from '../../../../../../projects/common/src';
+
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 export class FilterOptionsTravel {
   driverFilterList?: string[];
@@ -20,11 +26,19 @@ export class FilterOptionsTravel {
   trailerFilterList?: string[];
 }
 
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
 @Component({
   selector: 'lib-travel.list',
   templateUrl: './travel.list.component.html',
   styleUrls: ['./travel.list.component.css'],
-  providers: [TravelService, DriverService, TrailerService, BateaService, NotificationService],
+  providers: [
+    TravelService,
+    DriverService,
+    TrailerService,
+    BateaService,
+    NotificationService,
+  ],
 })
 export class TravelListComponent implements OnInit {
   editMode = false;
@@ -44,12 +58,14 @@ export class TravelListComponent implements OnInit {
   DriverList!: string[];
   selectedFilteringOptions = new FilterOptionsTravel();
 
-  constructor(private travelService: TravelService,
+  constructor(
+    private travelService: TravelService,
     private trailerService: TrailerService,
     private bateaService: BateaService,
     private driverService: DriverService,
     private notificationService: NotificationService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.doSearch();
@@ -57,8 +73,14 @@ export class TravelListComponent implements OnInit {
   }
 
   doSearch(search?: string): void {
-    this.travelService.searchTravels(this.pageIndex, this.pageSize, search, this.selectedFilteringOptions)
-      .subscribe(response => this.travelsList$.next(response));
+    this.travelService
+      .searchTravels(
+        this.pageIndex,
+        this.pageSize,
+        search,
+        this.selectedFilteringOptions
+      )
+      .subscribe((response) => this.travelsList$.next(response));
   }
 
   updateDriverFilteringOptions($event: MatChipListboxChange) {
@@ -88,18 +110,17 @@ export class TravelListComponent implements OnInit {
 
   loadFilterData() {
     this.loadingFilterData = true;
-    forkJoin([this.trailerService.getTrailers(), this.bateaService.getBateas(), this.driverService.getDrivers()])
+    forkJoin([
+      this.trailerService.getTrailers(),
+      this.bateaService.getBateas(),
+      this.driverService.getDrivers(),
+    ])
       .subscribe(([trailers, bateas, drivers]) => {
-        this.TrailerList = trailers.results.map(trailer =>
-          trailer.patent
-        );
-        this.BateaList = bateas.results.map(batea =>
-          batea.patent
-        );
-        this.DriverList = drivers.results.map(driver =>
-          driver.legajo
-        );
-      }).add(() => this.loadingFilterData = false)
+        this.TrailerList = trailers.results.map((trailer) => trailer.patent);
+        this.BateaList = bateas.results.map((batea) => batea.patent);
+        this.DriverList = drivers.results.map((driver) => driver.legajo);
+      })
+      .add(() => (this.loadingFilterData = false));
   }
 
   formatResponse(array: any[]): any[] {
@@ -135,5 +156,71 @@ export class TravelListComponent implements OnInit {
       this.pageIndex = event.pageIndex + 1;
     }
     this.doSearch();
+  }
+
+  createPdf() {
+    this.travelService
+      .searchTravels(
+        this.pageIndex,
+        this.pageSize,
+        '',
+        this.selectedFilteringOptions
+      )
+      .subscribe((response) => {
+        const travelsData = this.formatResponse(response.results);
+
+        const pdfDefinition: any = {
+          content: [
+            { text: 'Listado Viajes', style: 'header' },
+            {
+              table: {
+                body: [
+                  [
+                    'Equipo',
+                    'Legajo',
+                    'Nombre',
+                    'Apellido',
+                    'Batea',
+                    'Acoplado',
+                    'Localidad Inicio',
+                    'Localidad Fin',
+                    'Fecha Inicio',
+                    'Fecha Fin',
+                    'Destino',
+                  ],
+                  ...travelsData.map((travel) => [
+                    travel.descEquipo[0] || '',
+                    travel.legajo || '',
+                    travel.name || '',
+                    travel.surname || '',
+                    travel.batea || '',
+                    travel.trailer || '',
+                    travel.localIni || '',
+                    travel.localFin || '',
+                    travel.fechaIni || '',
+                    travel.fechaFin || '',
+                    travel.destination_description || '',
+                  ]),
+                ],
+              },
+              margin: [0, 10, 0, 0],
+              style: 'tableStyle',
+            },
+          ],
+          pageMargins: [10, 10, 10, 10],
+          styles: {
+            header: {
+              fontSize: 15,
+              bold: true,
+              margin: [0, 0, 0, 10],
+            },
+            tableStyle: {
+              fontSize: 10,
+            },
+          },
+        };
+        const pdf = pdfMake.createPdf(pdfDefinition);
+        pdf.open();
+      });
   }
 }

@@ -10,3 +10,15 @@ h1 {
     font-size: 1.5em;
   }
 }
+
+.container-filter {
+  width: 90%;
+  margin-left: 45px;
+  margin-right: 45px;
+}
+
+.container-filter h3 {
+  margin: 0px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
