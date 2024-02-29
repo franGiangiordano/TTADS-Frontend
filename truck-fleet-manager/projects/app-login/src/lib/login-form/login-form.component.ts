@@ -8,8 +8,8 @@ import {
   AppLoginService,
   FormsValidationMessages,
   UserRoles,
-} from 'projects/common/src';
-import { NavService } from 'projects/common-ui/src/lib/nav/service/nav.service';
+} from '../../../../../projects/common/src';
+import { NavService } from '../../../../../projects/common-ui/src/lib/nav/service/nav.service';
 
 @Component({
   selector: 'fm-login-form',
@@ -21,7 +21,7 @@ export class LoginFormComponent {
     private router: Router,
     private loginService: AppLoginService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   validUserRoles = [UserRoles.Admin, UserRoles.Manager, UserRoles.Operative];
 

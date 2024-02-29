@@ -25,6 +25,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
+
   searchText: string = '';
   displayedColumns: string[] = [];
   columsR: string[] = [];
@@ -39,6 +40,7 @@ export class TableComponent implements OnInit {
   @Input() rutaVariable: string = '';
   @Input() formatFunction?: (array: any[]) => any[];
 
+
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
   @Output() search = new EventEmitter<string>();
@@ -49,16 +51,14 @@ export class TableComponent implements OnInit {
     this.generatePdfClick.emit();
   }
 
-  constructor(private loginService: AppLoginService, private router: Router) {}
+  constructor(private loginService: AppLoginService, private router: Router) { }
   roles: string[] = [];
 
   ngOnInit(): void {
     this.roles = this.loginService.getUserRole();
-    this.displayedColumns = this.roles.includes('manager')
-      ? [...this.columns, 'actions']
-      : [...this.columns];
+    this.displayedColumns = this.roles.includes('manager') ? [...this.columns, 'actions'] : [...this.columns];
     this.loading = true;
-    this.data.subscribe((response) => {
+    this.data.subscribe(response => {
       this.count = response.count;
       this.results = this.formatFunction
         ? this.formatFunction(response.results)
@@ -93,7 +93,7 @@ export class TableComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.delete.emit(item);

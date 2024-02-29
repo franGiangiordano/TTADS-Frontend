@@ -8,6 +8,7 @@
         <div
           *ngIf="menuItem.canDisplay"
           class="menu__item"
+          [id]="'menu__item_' + menuItem.innerText"
           (click)="menuItem.onClick != null ? menuItem.onClick() : null"
         >
           <div
@@ -15,6 +16,7 @@
               menuItem.routerLink != null ? [menuItem.routerLink] : null
             "
             class="menu__item__body"
+            [id]="'menu__item__body_' + menuItem.innerText"
           >
             <mat-icon *ngIf="menuItem.iconType">{{
               menuItem.iconType
@@ -56,10 +58,6 @@
       <div class="container__icon" (click)="onClick()">
         <mat-icon class="truck-icon">local_shipping</mat-icon>
         <span class="title">Truck Fleet Manager</span>
-      </div>
-      <div class="user-info-n">
-        <mat-icon>account_circle</mat-icon>
-        <span class="user-name-n">{{ getUserFullName() }}</span>
       </div>
     </mat-toolbar>
     <router-outlet></router-outlet>

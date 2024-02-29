@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { EntityListResponse } from 'projects/common/src/models';
+import { EntityListResponse } from '../../../../../projects/common/src/models';
 
 import { Repair } from '../models';
 import { environment } from '../../../../../src/enviroments/environment';
@@ -14,12 +14,12 @@ export class RepairService {
 
   constructor(private http: HttpClient) { }
 
-  getRepairs(page: number = 1, limit: number = 10, search:string = '') {
+  getRepairs(page: number = 1, limit: number = 10, search: string = '') {
     return this.http.get<EntityListResponse<Repair>>(this.apiUrl + '/repair/', { params: { search, page, limit } });
   }
-  
-  getRepair(id:string) {
-    return this.http.get<Repair>(this.apiUrl + '/repair/'+ id);
+
+  getRepair(id: string) {
+    return this.http.get<Repair>(this.apiUrl + '/repair/' + id);
   }
 
   postRepairs(repair: Repair) {
