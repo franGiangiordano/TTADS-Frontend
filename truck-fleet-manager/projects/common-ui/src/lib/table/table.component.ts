@@ -79,7 +79,9 @@ export class TableComponent implements OnInit {
     });
     this.toggleColumnVisibility();
     const currentRoute = this.router.url;
-    this.showPdfButton = currentRoute.includes('/equipments/repairs');
+    this.showPdfButton =
+      currentRoute.includes('/equipments/travels') ||
+      currentRoute.includes('/equipments/repairs');
   }
 
   editItem(item: any) {
