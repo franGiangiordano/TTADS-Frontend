@@ -49,7 +49,7 @@ export class TableComponent implements OnInit {
     this.generatePdfClick.emit();
   }
 
-  constructor(private loginService: AppLoginService, private router: Router) { }
+  constructor(private loginService: AppLoginService, private router: Router) {}
   roles: string[] = [];
 
   ngOnInit(): void {
@@ -65,16 +65,6 @@ export class TableComponent implements OnInit {
         ? this.formatFunction(response.results)
         : response.results;
       this.loading = false;
-
-      if (this.columns.length > 6 && !this.showAllColumns) {
-        this.showAllColumns = true;
-        this.displayedColumns = this.roles.includes('manager')
-          ? [...this.columns, 'actions']
-          : [...this.columns];
-      } else {
-        this.showAllColumns = false;
-        this.showColumns();
-      }
     });
     this.toggleColumnVisibility();
     const currentRoute = this.router.url;
