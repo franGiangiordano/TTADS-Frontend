@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-
-import { EntityListResponse, NotificationService } from 'projects/common/src';
-import { AppLoginService } from '../../../../../common/src/services/app-login.service';
-import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { RepairService } from '../../services/repair.service';
-import { Repair } from '../../models';
+import { Subject } from 'rxjs';
 import * as moment from 'moment';
-
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+import { AppLoginService } from '../../../../../common/src/services/app-login.service';
+import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
+import { RepairService } from '../../services/repair.service';
+import { Repair } from '../../models';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -41,7 +40,7 @@ export class RepairlistComponent implements OnInit {
     private notificationService: NotificationService,
     private loginService: AppLoginService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.roles = this.loginService.getUserRole();

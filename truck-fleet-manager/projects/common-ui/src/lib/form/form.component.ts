@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { Location } from '@angular/common';
+
 import { comboField } from '../../constants/types';
 
 @Component({
@@ -37,7 +38,7 @@ export class FormComponent {
     private formBuilder: FormBuilder,
     private dateAdapter: DateAdapter<Date>,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.createForm();

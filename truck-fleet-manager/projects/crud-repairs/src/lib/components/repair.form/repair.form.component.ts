@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormGroup } from '@angular/forms';
-import { RepairService } from '../../services/repair.service';
-import { NotificationService } from 'projects/common/src';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { EquipmentService } from 'projects/crud-equipment/src/lib/services/equipment.service';
+
+import { EquipmentService } from '../../../../../../projects/crud-equipment/src/lib/services/equipment.service';
+import { NotificationService } from '../../../../../../projects/common/src';
+import { Equipment } from '../../../../../../projects/crud-equipment/src/lib/models';
+import { comboField } from '../../../../../../projects/common-ui/src/constants/types';
+import { RepairService } from '../../services/repair.service';
 import { Repair } from '../../models';
-import { Equipment } from 'projects/crud-equipment/src/lib/models';
-import { comboField } from 'projects/common-ui/src/constants/types';
 
 @Component({
   selector: 'lib-repair.form',
@@ -32,7 +32,7 @@ export class RepairFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private repairService: RepairService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadCombos();
@@ -50,9 +50,9 @@ export class RepairFormComponent implements OnInit {
   loadCombos() {
     this.equipmentService.getEquipments().subscribe(
       (response) =>
-        (this.EquipmentList = response.results.map((result) => {
-          return { value: result.description, viewValue: result.description };
-        }))
+      (this.EquipmentList = response.results.map((result) => {
+        return { value: result.description, viewValue: result.description };
+      }))
     );
   }
 

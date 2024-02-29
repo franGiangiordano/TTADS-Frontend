@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-
-import { EntityListResponse, NotificationService } from 'projects/common/src';
-import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
+import { EntityListResponse, User } from 'projects/common/src';
+import { Subject } from 'rxjs';
+
 import { UserService } from '../../services/crud.user.service';
-import { User } from 'projects/common/src';
+import { NotificationService } from '../../../../../../projects/common/src';
 
 @Component({
   selector: 'user-list-component',
@@ -27,26 +27,26 @@ export class UserListComponent {
 
   userForm!: FormGroup;
 
-  constructor(public userService: UserService, private notificationService: NotificationService,  public router : Router) { }
+  constructor(public userService: UserService, private notificationService: NotificationService, public router: Router) { }
 
   ngOnInit(): void {
     this.doSearch();
   }
 
-  doSearch(search?:string): void {
-    this.userService.getUsers(this.pageIndex, this.pageSize,search)
+  doSearch(search?: string): void {
+    this.userService.getUsers(this.pageIndex, this.pageSize, search)
       .subscribe(response => this.usersList$.next(response));
   }
 
-  formatResponse(userList:any[]): any[] {   
+  formatResponse(userList: any[]): any[] {
     return userList.map(obj => {
       return {
-        _id: obj._id,      
+        _id: obj._id,
         name: obj.name,
         email: obj.email,
         rol: obj.roles[0].name
       };
-    });  
+    });
   }
 
   deleteUser(event: User): void {
@@ -58,7 +58,7 @@ export class UserListComponent {
   }
 
   editUser(event: User): void {
-    this.router.navigate(['/users/edit/'+ event._id]);    
+    this.router.navigate(['/users/edit/' + event._id]);
   }
 
   onPageChange(event: PageEvent): void {

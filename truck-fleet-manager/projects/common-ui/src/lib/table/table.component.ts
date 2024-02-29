@@ -8,16 +8,15 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { EntityListResponse } from 'projects/common/src/models';
+import Swal from 'sweetalert2';
 
+import { EntityListResponse } from '../../../../../projects/common/src/models';
 import { DELETE_CONFIRMATION_MESSAGE } from '../messages.constant';
 import { ColumnDescription } from '../../constants';
 import { AppLoginService } from '../../../../common/src/services/app-login.service';
-import { Router } from '@angular/router';
-
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'fm-table',
@@ -50,7 +49,7 @@ export class TableComponent implements OnInit {
     this.generatePdfClick.emit();
   }
 
-  constructor(private loginService: AppLoginService, private router: Router) {}
+  constructor(private loginService: AppLoginService, private router: Router) { }
   roles: string[] = [];
 
   ngOnInit(): void {
@@ -114,7 +113,6 @@ export class TableComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
-    console.log('onPageChange', event);
     this.pageChange.emit(event);
     this.loading = true;
   }
