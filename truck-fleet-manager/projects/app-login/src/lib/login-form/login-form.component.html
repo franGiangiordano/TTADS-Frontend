@@ -1,62 +1,30 @@
 <mat-card class="card">
-  <div class="card__content">
-    <mat-card-header class="title">
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="login-form">
-      <form class="form" [formGroup]="form" (keyup.enter)="(loginButton)">
-        <mat-form-field class="w-100">
-          <input
-            matNativeControl
-            placeholder="Email*"
-            formControlName="email"
-            name="email"
-            id="email"
-            type="email"
-            required
-          />
-          <mat-error *ngIf="!form.controls['email'].valid">{{
-            getEmailErrorMessage()
-          }}</mat-error>
-        </mat-form-field>
-        <mat-form-field class="w-100">
-          <input
-            matNativeControl
-            name="password"
-            id="password"
-            formControlName="password"
-            placeholder="Password*"
-            [type]="passwordVisible ? 'text' : 'password'"
-          />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="passwordVisible = !passwordVisible"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="!passwordVisible"
-          >
-            <mat-icon>{{
-              passwordVisible ? 'visibility' : 'visibility_off'
-            }}</mat-icon>
-          </button>
-          <mat-error *ngIf="!form.controls['password'].valid">{{
-            getPasswordErrorMessage()
-          }}</mat-error>
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <button
-        [disabled]="!form.valid"
-        mat-raised-button
-        (click)="handleLogin()"
-        color="primary"
-        class="button"
-        #loginButton
-      >
-        <div *ngIf="!loading">Ingresar</div>
-        <mat-spinner *ngIf="loading" diameter="30"></mat-spinner>
-      </button>
-    </mat-card-actions>
-  </div>
+    <div class="card__content">
+        <mat-card-header class="title">
+            <mat-card-title>Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="login-form">
+            <form class="form" [formGroup]="form" (keyup.enter)="loginButton">
+                <mat-form-field class="w-100">
+                    <input matNativeControl placeholder="Email*" formControlName="email" name="email" type="email" required>
+                    <mat-error *ngIf="!form.controls['email'].valid">{{getEmailErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <input matNativeControl name="password" formControlName="password" placeholder="Password*"  [type]="passwordVisible ? 'text' : 'password'">
+                    <button mat-icon-button matSuffix (click)="passwordVisible = !passwordVisible" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="!passwordVisible">
+                        <mat-icon>{{passwordVisible ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="!form.controls['password'].valid">{{getPasswordErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button [disabled]="!form.valid" mat-raised-button (click)="handleLogin()" color="primary" class="button" #loginButton>
+                <div *ngIf="!loading">Ingresar</div>
+                <mat-spinner *ngIf="loading" diameter="30"></mat-spinner>
+            </button>
+        </mat-card-actions>
+    </div>
 </mat-card>
+ 

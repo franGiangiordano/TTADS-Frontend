@@ -1,17 +1,16 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+/* tslint:disable:no-unused-variable */
 
+import { TestBed, async, inject } from '@angular/core/testing';
 import { RepairService } from './repair.service';
 
 describe('Service: Repair', () => {
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [RepairService]
-        });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [RepairService]
     });
+  });
 
-    it('should ...', inject([RepairService], (service: RepairService) => {
-        expect(service).toBeTruthy();
-    }));
+  it('should ...', inject([RepairService], (service: RepairService) => {
+    expect(service).toBeTruthy();
+  }));
 });

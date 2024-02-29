@@ -1,53 +1,118 @@
 table {
-    margin: 0 auto;
-    width: 100%;
+  margin: 0 auto;
+  width: 100%;
 }
-  
-.actions{
-display: flex;
+
+.actions {
+  display: flex;
 }
 
 .actions-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container {
+  margin: 3em;
+  &__spinner {
+    height: 100%;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
   }
-  
-.container{
-    margin: 3em;
-    &__spinner {
-            height: 100%;
-            width: 100%;
-            display: flex;
-        }
 }
 
 .hidden {
-    visibility: hidden;
+  visibility: hidden;
 }
 
-.search-container{
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+}
+
+.icon {
+  position: absolute;
+  top: 0.5em;
+  right: 0em;
+}
+
+.mat-form-wrapper {
+  margin-bottom: -1.25em;
+}
+
+.show-more-button {
+  text-align: right;
+  margin-right: 10px;
+}
+
+@media (max-width: 500px) {
+  .icon {
+    color: transparent;
+  }
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 600px) {
+  .mobile-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .card-content {
+    padding: 16px;
+  }
+
+  .card-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-bottom: 8px;
+  }
 
-    @media (max-width:500px){
-        flex-direction: column;
-    }
+  .card-attribute {
+    font-weight: bold;
+  }
+
+  .card-data {
+    flex-grow: 1;
+    text-align: right;
+  }
+
+  .actions-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+  }
 }
 
-.icon{
-    position: absolute;
-    top:0.5em;
-    right: 0em;    
+@media (max-width: 600px) {
+  .desktop-content {
+    display: none;
+  }
+
+  .btn-a {
+    margin-bottom: 15px;
+  }
+
+  .search-container {
+    margin-bottom: 5px;
+  }
 }
 
-.mat-form-wrapper{
-    margin-bottom: -1.25em;
- }
-
-@media (max-width:500px) {
-    .icon{
-        color: transparent;
-    }
-    
+@media (min-width: 601px) {
+  .mobile-content {
+    display: none;
+  }
 }

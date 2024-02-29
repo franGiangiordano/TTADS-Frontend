@@ -1,17 +1,16 @@
-import { TestBed, inject } from '@angular/core/testing';
+/* tslint:disable:no-unused-variable */
+
+import { TestBed, async, inject } from '@angular/core/testing';
 import { DriverService } from './driver.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('Service: Driver', () => {
-    beforeEach(() => {
-
-        TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [DriverService]
-        });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [DriverService]
     });
+  });
 
-    it('should ...', inject([DriverService], (service: DriverService) => {
-        expect(service).toBeTruthy();
-    }));
+  it('should ...', inject([DriverService], (service: DriverService) => {
+    expect(service).toBeTruthy();
+  }));
 });

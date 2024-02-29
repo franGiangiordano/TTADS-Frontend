@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Trailer } from '../../models/trailer.model';
 import { FormGroup } from '@angular/forms';
 import { TrailerService } from '../../services/trailer.service';
-import { NotificationService } from '../../../../../../projects/common/src/services/notification.service';
+import { NotificationService } from 'projects/common/src/services/notification.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,31 +13,31 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./trailer.form.component.css']
 })
 export class TrailerFormComponent {
-  id = '';
+  id='';
   editMode = false;
   formTitle = 'Añadir Acoplado';
 
   trailerForm!: FormGroup;
 
-  constructor(public trailerService: TrailerService, private notificationService: NotificationService, public router: Router, private route: ActivatedRoute) { }
+  constructor(public trailerService: TrailerService, private notificationService: NotificationService, public router : Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      if (this.id) {
-        this.editMode = true;
-        this.formTitle = 'Editar Trailer';
+      if(this.id){
+        this.editMode=true;
+        this.formTitle= 'Editar Trailer';
         this.autocompleteForm();
-      }
+      }      
     });
   }
 
-  autocompleteForm() {
+  autocompleteForm(){
     this.trailerService.getTrailer(this.id).subscribe(trailer => {
       this.trailerForm.get('patente')?.setValue(trailer.patent);
       this.trailerForm.get('type')?.setValue(trailer.type);
     });
-  }
+  } 
 
   postTrailer(form: FormGroup): void {
     const nuevoTrailer: Trailer = { _id: '', patent: form.value.patente, type: form.value.type };
@@ -51,7 +51,7 @@ export class TrailerFormComponent {
   putTrailer(form: FormGroup): void {
     const nuevoTrailer: Trailer = {
       _id: this.id,
-      patent: form.value.patente,
+      patent: form.value.patente, 
       type: form.value.type
     };
 

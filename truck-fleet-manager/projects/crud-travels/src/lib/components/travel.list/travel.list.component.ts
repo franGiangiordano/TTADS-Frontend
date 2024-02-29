@@ -3,10 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
 
+import { EntityListResponse, NotificationService } from 'projects/common/src';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
 import { TravelService } from '../../services/travel.service';
 import { Travel } from '../../models';
 
@@ -28,27 +28,34 @@ export class TravelListComponent implements OnInit {
 
   travelsForm!: FormGroup;
 
-  constructor(private travelService: TravelService, private notificationService: NotificationService, private router: Router) { }
+  constructor(
+    private travelService: TravelService,
+    private notificationService: NotificationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.doSearch();
   }
 
   doSearch(search?: string): void {
-    this.travelService.getTravels(this.pageIndex, this.pageSize, search)
-      .subscribe(response => this.travelsList$.next(response));
+    this.travelService
+      .getTravels(this.pageIndex, this.pageSize, search)
+      .subscribe((response) => this.travelsList$.next(response));
   }
 
   deleteTravel(event: Travel): void {
-    this.travelService.deleteTravels(event)
-      .subscribe(() => {
-        this.notificationService.showSnackbar('Elemento eliminado exitosamente', 'success');
-        this.doSearch();
-      });
+    this.travelService.deleteTravels(event).subscribe(() => {
+      this.notificationService.showSnackbar(
+        'Elemento eliminado exitosamente',
+        'success'
+      );
+      this.doSearch();
+    });
   }
 
   formatResponse(array: any[]): any[] {
-    return array.map(obj => {
+    return array.map((obj) => {
       return {
         _id: obj._id,
         descEquipo: obj.equipment.description,
@@ -61,6 +68,9 @@ export class TravelListComponent implements OnInit {
         localFin: obj.final_location,
         fechaIni: moment.utc(obj.departure_date).format('DD/MM/YYYY'),
         fechaFin: moment.utc(obj.arrival_date).format('DD/MM/YYYY'),
+        destination_description: obj.destination_description
+          ? obj.destination_description
+          : '',
       };
     });
   }
@@ -78,5 +88,4 @@ export class TravelListComponent implements OnInit {
     }
     this.doSearch();
   }
-
 }

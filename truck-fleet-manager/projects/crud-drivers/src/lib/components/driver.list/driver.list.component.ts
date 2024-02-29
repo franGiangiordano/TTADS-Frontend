@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+
+import { EntityListResponse, NotificationService } from 'projects/common/src';
+import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { Subject } from 'rxjs';
-
-import { EntityListResponse, NotificationService } from '../../../../../../projects/common/src';
 import { DriverService } from '../../services/driver.service';
 import { Driver } from '../../models/driver.model';
 
@@ -28,18 +28,17 @@ export class DriverListComponent implements OnInit {
 
   driverForm!: FormGroup;
 
-  constructor(public driverService: DriverService, private notificationService: NotificationService, public router: Router) { }
+  constructor(public driverService:   DriverService, private notificationService: NotificationService,  public router : Router) { }
 
   ngOnInit(): void {
     this.doSearch();
   }
 
-  doSearch(search?: string): void {
-    this.driverService.getDrivers(this.pageIndex, this.pageSize, search)
-      .subscribe(response => {
-        this.driversList$.next(response);
-        this.countDrivers(response);
-      });
+  doSearch(search?:string): void {
+    this.driverService.getDrivers(this.pageIndex, this.pageSize,search)
+      .subscribe(response => {this.driversList$.next(response);
+      this.countDrivers(response);
+    });
   }
 
   countDrivers(response: EntityListResponse<Driver>): void {
@@ -57,7 +56,7 @@ export class DriverListComponent implements OnInit {
   }
 
   editDriver(event: Driver): void {
-    this.router.navigate(['/drivers/edit/' + event._id]);
+    this.router.navigate(['/drivers/edit/'+ event._id]);    
   }
 
   onPageChange(event: PageEvent): void {

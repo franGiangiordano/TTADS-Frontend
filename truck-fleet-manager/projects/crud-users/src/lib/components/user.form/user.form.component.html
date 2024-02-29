@@ -2,11 +2,9 @@
   [entityName]="'Equipment'"
   [fields]="editMode ? ['nombre', 'email'] : ['nombre', 'email', 'password']"
   [combos]="['rol']"
-  [combosFields]="[['admin', 'manager', 'operative']]"
+  [combosFields]="[rolesCombo]"
   [editMode]="editMode"
   [title]="formTitle"
   (formSubmit)="onSubmit($event)"
   (formEdit)="setUserForm($event)"
 ></fm-form>
-
-

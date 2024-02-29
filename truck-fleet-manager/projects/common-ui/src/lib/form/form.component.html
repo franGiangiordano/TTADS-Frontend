@@ -2,7 +2,7 @@
   <mat-card-title>{{ title }}</mat-card-title>
   <mat-card-content>
     <form [formGroup]="entityForm" (ngSubmit)="onSave()">
-      <ng-container *ngFor="let field of fields">
+      <ng-container *ngFor="let field of fields; let i = index">
         <ng-container
           *ngIf="
             !field.includes('fecha') &&
@@ -11,7 +11,9 @@
           "
         >
           <mat-form-field>
-            <mat-label>{{ field | titlecase }}</mat-label>
+            <mat-label>{{
+              inputLabels[i] ? inputLabels[i] : (field | titlecase)
+            }}</mat-label>
             <input
               matInput
               [formControlName]="field"
@@ -21,16 +23,27 @@
         </ng-container>
         <ng-container *ngIf="field.includes('fecha')">
           <mat-form-field>
-            <mat-label>{{ field | titlecase }}</mat-label>
-            <input matInput [matDatepicker]="picker" [formControlName]="field">
+            <mat-label>{{
+              inputLabels[i] ? inputLabels[i] : (field | titlecase)
+            }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [formControlName]="field"
+            />
             <mat-hint>DD/MM/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </ng-container>
         <ng-container *ngIf="field.includes('email')">
           <mat-form-field>
-            <mat-label>{{ field | titlecase }}</mat-label>
+            <mat-label>{{
+              inputLabels[i] ? inputLabels[i] : (field | titlecase)
+            }}</mat-label>
             <input
               type="email"
               matInput
@@ -41,9 +54,11 @@
         </ng-container>
         <ng-container *ngIf="field.includes('password')">
           <mat-form-field>
-            <mat-label>{{ field | titlecase }}</mat-label>
+            <mat-label>{{
+              inputLabels[i] ? inputLabels[i] : (field | titlecase)
+            }}</mat-label>
             <input
-              [type]="passwordVisible ? 'text' : 'password'"
+              [type]="passwordVisible[i] ? 'text' : 'password'"
               matInput
               [formControlName]="field"
               placeholder="Password*"
@@ -51,12 +66,12 @@
             <button
               mat-icon-button
               matSuffix
-              (click)="passwordVisible = !passwordVisible"
+              (click)="passwordVisible[i] = !passwordVisible[i]"
               [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="!passwordVisible"
+              [attr.aria-pressed]="!passwordVisible[i]"
             >
               <mat-icon>{{
-                passwordVisible ? 'visibility' : 'visibility_off'
+                passwordVisible[i] ? 'visibility' : 'visibility_off'
               }}</mat-icon>
             </button>
           </mat-form-field>
@@ -64,9 +79,12 @@
       </ng-container>
       <ng-container *ngFor="let combo of combosFields; let i = index">
         <mat-label>Seleccione {{ combos[i] | titlecase }}</mat-label>
-        <mat-select [formControlName]="combos[i]"  class="mat-mdc-select-trigger">
-          <mat-option *ngFor="let item of combo" [value]="item">
-            {{ item }}
+        <mat-select
+          [formControlName]="combos[i]"
+          class="mat-mdc-select-trigger"
+        >
+          <mat-option *ngFor="let item of combo" [value]="item.value">
+            {{ item.viewValue }}
           </mat-option>
         </mat-select>
       </ng-container>
@@ -78,7 +96,12 @@
       </div>
     </form>
     <div class="cancel-button-container">
-      <button mat-raised-button color="warn" class="cancel-button" (click)="goBack()">
+      <button
+        mat-raised-button
+        color="warn"
+        class="cancel-button"
+        (click)="goBack()"
+      >
         Cancelar
       </button>
     </div>
