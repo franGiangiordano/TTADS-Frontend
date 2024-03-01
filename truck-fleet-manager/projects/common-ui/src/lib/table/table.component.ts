@@ -65,6 +65,7 @@ export class TableComponent implements OnInit {
         ? this.formatFunction(response.results)
         : response.results;
       this.loading = false;
+      this.showColumns();
     });
     this.toggleColumnVisibility();
     const currentRoute = this.router.url;
