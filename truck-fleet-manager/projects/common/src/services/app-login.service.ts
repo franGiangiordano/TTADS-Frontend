@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../models';
-import { environment } from '../../../../src/enviroments/environment';
+import { environment } from '../../../../src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { EntityListResponse } from '../../../../../projects/common/src/models';
 import { Travel } from '../models';
-import { environment } from '../../../../../src/enviroments/environment';
+import { environment } from '../../../../../src/environments/environment';
 import { FilterOptionsTravel } from '../components/travel.list/travel.list.component';
 
 @Injectable({

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { EntityListResponse } from 'projects/common/src/models';
 
 import { Equipment } from '../models';
-import { environment } from '../../../../../src/enviroments/environment';
+import { environment } from '../../../../../src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +14,15 @@ export class EquipmentService {
 
   constructor(private http: HttpClient) { }
 
-  getEquipments(page: number = 1, limit: number = 10, search:string = '') {
+  getEquipments(page: number = 1, limit: number = 10, search: string = '') {
     return this.http.get<EntityListResponse<Equipment>>(this.apiUrl + '/equipment/', { params: { search, page, limit } });
   }
-  
-  getEquipment(id:string) {
-    return this.http.get<Equipment>(this.apiUrl + '/equipment/'+ id);
+
+  getEquipment(id: string) {
+    return this.http.get<Equipment>(this.apiUrl + '/equipment/' + id);
   }
 
-  postEquipments(equipment:Equipment) {
+  postEquipments(equipment: Equipment) {
     return this.http.post<Equipment>(this.apiUrl + '/equipment/', equipment)
   }
 

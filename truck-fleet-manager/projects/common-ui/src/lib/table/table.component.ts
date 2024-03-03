@@ -10,7 +10,7 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject, debounceTime } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { EntityListResponse } from '../../../../../projects/common/src/models';
@@ -24,7 +24,7 @@ import { AppLoginService } from '../../../../common/src/services/app-login.servi
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  searchText: string = '';
+  searchSubject: Subject<string> = new Subject<string>();
   displayedColumns: string[] = [];
   columsR: string[] = [];
 
@@ -49,26 +49,39 @@ export class TableComponent implements OnInit {
     this.generatePdfClick.emit();
   }
 
-  constructor(private loginService: AppLoginService, private router: Router) {}
+  constructor(private loginService: AppLoginService, private router: Router) { }
   roles: string[] = [];
 
   ngOnInit(): void {
     this.roles = this.loginService.getUserRole();
+
+    this.searchSubject.pipe(debounceTime(1000))
+      .subscribe((searchText: string) => {
+        this.search.emit(searchText);
+        this.loading = true;
+      });
+
     this.displayedColumns = this.roles.includes('manager')
       ? [...this.columns, 'actions']
       : [...this.columns];
+
     this.loading = true;
-    this.data.subscribe((response) => {
-      this.pageIndex = Math.ceil(response.currentPage / 10);
-      this.count = response.count;
-      this.results = this.formatFunction
-        ? this.formatFunction(response.results)
-        : response.results;
-      this.loading = false;
-      this.showColumns();
-    });
+
+    this.data
+      .subscribe((response) => {
+        this.pageIndex = Math.ceil(response.currentPage / 10);
+        this.count = response.count;
+        this.results = this.formatFunction
+          ? this.formatFunction(response.results)
+          : response.results;
+        this.loading = false;
+        this.showColumns();
+      });
+
     this.toggleColumnVisibility();
+
     const currentRoute = this.router.url;
+
     this.showPdfButton =
       currentRoute.includes('/equipments/travels') ||
       currentRoute.includes('/equipments/repairs');
@@ -95,8 +108,8 @@ export class TableComponent implements OnInit {
     });
   }
 
-  filterData() {
-    this.search.emit(this.searchText);
+  onKeyUp(event: any): void {
+    this.searchSubject.next(event.target.value);
   }
 
   getColumnHeader(propertyName: string) {

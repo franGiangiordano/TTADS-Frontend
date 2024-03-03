@@ -1,41 +1,40 @@
 <div class="container">
+  <div class="search-container">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="redirect()"
+      *ngIf="roles.includes('manager')"
+      class="btn-a"
+    >
+      Añadir
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="generatePdf()"
+      *ngIf="roles.includes('manager') && showPdfButton"
+      class="btn-a"
+    >
+      Generar Reporte
+    </button>
+    <div class="mat-form-wrapper">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Buscar..."
+          (keyup)="onKeyUp($event)"
+          id="search"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
   <div class="container__spinner">
     <mat-spinner *ngIf="loading" diameter="80"></mat-spinner>
   </div>
   <div *ngIf="!loading">
-    <div class="search-container">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="redirect()"
-        *ngIf="roles.includes('manager')"
-        class="btn-a"
-      >
-        Añadir
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="generatePdf()"
-        *ngIf="roles.includes('manager') && showPdfButton"
-        class="btn-a"
-      >
-        Generar Reporte
-      </button>
-      <div class="mat-form-wrapper">
-        <mat-form-field>
-          <input
-            matInput
-            type="text"
-            placeholder="Buscar..."
-            (keyup)="filterData()"
-            [(ngModel)]="searchText"
-            id="search"
-          />
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </div>
-    </div>
     <div *ngIf="count === 0">
       <p style="text-align: center">No hay registros para mostrar</p>
     </div>
