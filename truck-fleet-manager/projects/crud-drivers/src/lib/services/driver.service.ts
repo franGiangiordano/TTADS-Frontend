@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { EntityListResponse } from 'projects/common/src/models';
 
 import { Driver } from '../models';
-import { environment } from '../../../../../src/enviroments/environment';
+import { environment } from '../../../../../src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,12 @@ export class DriverService {
 
   constructor(private http: HttpClient) { }
 
-  getDrivers(page: number = 1, limit: number = 10, search:string = '') {
+  getDrivers(page: number = 1, limit: number = 10, search: string = '') {
     return this.http.get<EntityListResponse<Driver>>(this.apiUrl + '/driver/', { params: { search, page, limit } });
   }
-  
-  getDriver(id:string) {
-    return this.http.get<Driver>(this.apiUrl + '/driver/'+ id);
+
+  getDriver(id: string) {
+    return this.http.get<Driver>(this.apiUrl + '/driver/' + id);
   }
 
   postDrivers(driver: Driver) {

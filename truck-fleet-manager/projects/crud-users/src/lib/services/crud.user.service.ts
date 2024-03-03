@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { EntityListResponse } from 'projects/common/src/models';
 
 import { User } from 'projects/common/src/models';
-import { environment } from '../../../../../src/enviroments/environment';
+import { environment } from '../../../../../src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import { environment } from '../../../../../src/enviroments/environment';
 export class UserService {
   apiUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUsers(page: number = 1, limit: number = 10, search: string = '') {
     return this.http.get<EntityListResponse<User>>(this.apiUrl + '/user/', {

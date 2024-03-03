@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { EntityListResponse } from '../../../../../projects/common/src/models';
 import { Batea } from '../models';
-import { environment } from '../../../../../src/enviroments/environment';
+import { environment } from '../../../../../src/environments/environment';
 
 export interface BateaServiceInterface {
   getBateas(page: number, limit: number, search: string): Observable<EntityListResponse<Batea>>;
